@@ -41,9 +41,12 @@ nav .navbar-nav > li > a {
 .hotel-header{
 	font-size:34px;
 }
-.hotel-name{
+.hotel-header1{
 	float:left;
 	margin-right:20px;
+}
+.property-header {
+	font-size: 20px;
 }
 
 .rating{

@@ -3,7 +3,7 @@
 /* Controllers */
 
 angular.module('myApp.controllers', []).
-  directive('hotelRating', function () {
+  directive('hotelRating', function () {  //RATING DIRECTIVE
 	return {
 		restrict: 'A',
 		template: '<ul class="rating">' +
@@ -22,7 +22,6 @@ angular.module('myApp.controllers', []).
 					scope.stars.push({filled: i < scope.ratingValue});
 				}
 			};
-			
 			scope.$watch('ratingValue', function(oldVal, newVal) {
 				if(newVal) {
 					updateStars();
@@ -31,11 +30,11 @@ angular.module('myApp.controllers', []).
 		}
 	}
   })
-  .controller('NavBarCtrl', ['$scope', '$location', function($scope, $location) {
+  .controller('NavBarCtrl', ['$scope', '$location', function($scope, $location) { //NAVBAR CONTROLLER
 	$scope.isActive = function (viewLocation) { 
         return viewLocation === $location.path();
     };
   }])
-  .controller('HomeCtrl', ['$scope', function($scope){
+  .controller('HomeCtrl', ['$scope', function($scope){ // HOME CONTROLLER
 	$scope.rating = 4;
   }]);
