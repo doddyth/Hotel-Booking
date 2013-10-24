@@ -1,0 +1,70 @@
+/* app css stylesheet */
+body,html{
+	height:100%;
+}
+
+#page{
+	height:100%;
+	width:100%;
+	background-color:#57534d;
+}
+
+#wrapper{
+	width:92%;
+	margin-left: auto ;
+	margin-right: auto ;
+	box-shadow: 0px 0px 5px #000;
+}
+
+.header{
+	margin-top:50px;
+	height:200px;
+	background-image:url('../img/hotel-header.jpg');
+	
+}
+
+nav.navbar-wrapper{
+	background-color:#304244;
+}
+
+nav .navbar-nav > li > a {
+	color:#fff;
+}
+
+.content{
+	width:100%;
+	background-color:#fff;
+	padding-right:15px;
+	padding-left:15px;
+}
+
+.hotel-header{
+	font-size:34px;
+}
+.hotel-name{
+	float:left;
+	margin-right:20px;
+}
+
+.rating{
+  color: #a9a9a9;
+  margin: 0;
+  padding: 0;
+}
+
+ul.rating {
+  display: inline-block;
+}
+
+.rating li {
+  list-style-type: none;
+  display: inline-block;
+  padding: 1px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.rating .filled {
+  color: #21568b;
+}
+
