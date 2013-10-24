@@ -35,6 +35,8 @@ angular.module('myApp.controllers', []).
         return viewLocation === $location.path();
     };
   }])
-  .controller('HomeCtrl', ['$scope', function($scope){ // HOME CONTROLLER
+  .controller('HomeCtrl', ['$scope', 'Hotel', function($scope, Hotel){ // HOME CONTROLLER
 	$scope.rating = 4;
+	$scope.hotel = Hotel.get({hotelId: 'demo_hotel'}, function(hotel) {
+	});
   }]);

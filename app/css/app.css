@@ -71,3 +71,29 @@ ul.rating {
   color: #21568b;
 }
 
+.hotel-info{
+	color:#666;
+}
+
+.hotel-name{
+	font-weight:bold;
+}
+
+.jcarousel {
+    position: relative;
+    overflow: hidden;
+    /* You need at least a height, adjust this to your needs */
+    height: 100px;
+}
+
+.jcarousel ul {
+    width: 20000em;
+    position: absolute;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.jcarousel li {
+    float: left;
+}

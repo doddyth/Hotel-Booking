@@ -5,6 +5,7 @@
   <title>My AngularJS App</title>
   <link rel="stylesheet" href="css/app.css"/>
   <link rel="stylesheet" href="css/bootstrap.min.css"/>
+  
 </head>
 <body>
 <div id="page">
@@ -45,6 +46,14 @@
   <script src="js/filters.js"></script>
   <script src="js/directives.js"></script>
   <script src="js/jquery.min.js"></script>
+  <script src="js/jcarousel.min.js"></script>
   <script src="lib/angular/angular-resource.js"></script>
+  <script type="text/javascript">
+	$(document).ready(function() {
+		$('.jcarousel').jcarousel({
+			scroll: 1, animation:700, visible:1, auto:5, wrap:"both"
+		});
+	});
+</script>
 </body>
 </html>

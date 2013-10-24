@@ -15,13 +15,21 @@
 	</div>
 	
 	<div class="row">
-		<div class="col-md-3">
-			<span class="hotel-name">{{Hotel.name}}</span>
+		<div class="col-md-3 hotel-info">
+			<span class="hotel-name">{{hotel.name}}</span>
 			<br/>
-			{{Hotel.address}}
+			{{hotel.address}}
 			<br/>
-			{{Hotel.phone}}
+			{{hotel.phone}}
 		</div>
-		<div class="col-md-9">b</div>
+		<div class="col-md-9">
+			<div class="jcarousel">
+				<ul class="jcarousel-list"> 
+					<li ng-repeat="image in hotel.images">
+						<img height="140" ng-src="{{image}}"></img>
+					</li>
+				</ul>
+			</div>
+		{{hotel.desc}}</div>
 	</div>
 </div>

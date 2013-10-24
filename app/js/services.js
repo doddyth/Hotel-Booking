@@ -12,5 +12,5 @@ angular.module('myApp.services', ['ngResource']).
 		return $resource('hotels/:hotelId.json', {}, {
 			query: {method:'GET', params:{hotelId:'hotels'}, isArray:true}
 		});
-	};
+	}
   ]);
