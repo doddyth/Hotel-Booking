@@ -2,8 +2,8 @@
 
 /* Controllers */
 
-angular.module('myApp.controllers', []).
-  directive('hotelRating', function () {  //RATING DIRECTIVE
+angular.module('myApp.controllers', [])
+  .directive('hotelRating', function () {  //RATING DIRECTIVE
 	return {
 		restrict: 'A',
 		template: '<ul class="rating">' +
@@ -35,8 +35,14 @@ angular.module('myApp.controllers', []).
         return viewLocation === $location.path();
     };
   }])
-  .controller('HomeCtrl', ['$scope', 'Hotel', function($scope, Hotel){ // HOME CONTROLLER
+  .controller('HomeCtrl', ['$scope', '$location', 'Hotel', function($scope, $location, Hotel){ // HOME CONTROLLER
 	$scope.rating = 4;
 	$scope.hotel = Hotel.get({hotelId: 'demo_hotel'}, function(hotel) {
 	});
+	
+	$scope.booking = function (roomId) {
+            $location.path('/reservation/' + roomId);
+        };
+
+	
   }]);
