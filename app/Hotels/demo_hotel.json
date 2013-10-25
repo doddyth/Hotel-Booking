@@ -1,0 +1,29 @@
+{
+	"name": "Demo Hotel",
+	"address": "Jalan Darmaga Raya No. 22",
+	"phone": "08989621XXX",
+	"desc": "Nestled invitingly within a spacious 11-hectare estate, the lush resort offers you the serenity of a secluded retreat whilst ensuring you are provided with every possible convenience. The Demo Hotel has never-ending views of the emerald-green Sea and idyllic landscapes of the coastline. The hotel enjoys an accessible location next to the beach and only 15 minutes from the International Airport.The resort offers 67 villas that are magnificently appointed with private plunge pools and tropical gardens, along with an incomparable spa facility, access to a number of outdoor recreation opportunities, and uncompromising service.It is the ultimate holiday location.", 
+	"images": ["img/demo-hotel/1.jpg", "img/demo-hotel/2.jpg", "img/demo-hotel/3.jpg", "img/demo-hotel/4.jpg", "img/demo-hotel/5.jpg", "img/demo-hotel/6.jpg"],
+	"features":["Gym", "DVD Library", "Lounge", "24 hour Room Service", "Pet Friendly", "Business Center", "Cafe", "Day Spa", "WiFi Internet", "Dry Cleaning Service", "Tour Desk", "Indoor Swimming Pool", "Outdoor Swimming Pool", "Non-Smoking Room", "On Site Restaurant", "Sauna", "24 hour Reception", "On-Site Parking"],
+	"rooms":[
+	{
+		"name": "Deluxe Room",
+		"desc": "These rooms emanate sophistication through their warm, muted tones. Cozy and stylish, the Deluxe Rooms have all the necessary amenities for a comfortable stay.",
+		"features": ["Desk","DVD Player","Mini Bar","CD Player","Heating", "Room Service", "Spa", "Coffee Making", "Hairdryer", "Air Conditioned", "Television"],
+		"images": "img/demo-hotel/deluxe-room/1.jpg"
+	},
+	{
+		"name": "Spa Suite",
+		"desc": "Our largest room is the Spa Suite Suite. Enjoy penthouse glamour with a romantic twist. Suites include comfortable lounge rooms and guest powder rooms. Upon arrival you will receive a complimentary cocktail and our signature Best Excuse to Gain Weight platter.",
+		"features": ["Bath","Fridge","Shower","Television","Hairdryer", "Cable TV", "Iron Board", "Coffee Making", "Verandah", "Ceiling Fans", "CD Player", "Spa", "King Bed"],
+		"images": "img/demo-hotel/spa-suite/1.jpg"
+	},
+	{
+		"name": "Standard Room",
+		"desc": "Enjoy our Standard Room, it is comfortable and contemporary and has the most stunning views of the ocean.",
+		"features": ["Fridge","CD Player","Rollaway Beds","Coffee Making","Spa", "Bath", "Double Bed", "Room Service", "King Bed", "Mini Bar", "Cable TV", "Shower - separate", "Television", "Air Conditioned"],
+		"images": "img/demo-hotel/standard-room/1.jpg"
+	}
+	]
+	
+}

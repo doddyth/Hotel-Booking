@@ -78,6 +78,51 @@ ul.rating {
 .hotel-name{
 	font-weight:bold;
 }
+.hotel-features{
+	font-weight:bold;
+}
+
+.feature-list{
+	display:inline-block;
+	margin-left:-40px;
+}
+
+.feature-list li{
+	display:inline-block;
+	width:180px;
+}
+
+.accomodation-list{
+	display:block;
+}
+
+.accomodation-list li{
+	padding: 10px 10px 10px 10px; 
+	display:block;
+	background-color:#eee;
+	margin-left:-40px;
+	margin-bottom:7px;
+}
+
+.room-feature-list{
+	display:inline-block;
+	margin-top:15px;
+}
+
+.room-feature-list li{
+	display:inline-block;
+	width:170px;
+	padding:0px;
+}
+
+.room-name{
+	font-size:24px;
+}
+
+.room-desc{
+margin-top:10px;
+	color:#777;
+}
 
 .jcarousel {
     position: relative;

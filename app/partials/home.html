@@ -8,10 +8,8 @@
 	</div>
 	
 	<!-- Hotel Information -->
-	<div class="page-header">
-		<div class="property-header">
+	<div class="page-header property-header">
 			Hotel information
-		</div>
 	</div>
 	
 	<div class="row">
@@ -30,6 +28,41 @@
 					</li>
 				</ul>
 			</div>
-		{{hotel.desc}}</div>
+			{{hotel.desc}}
+			
+			<div class="page-header hotel-features">
+				Hotel Features
+			</div>
+			<div>
+				<ul class="feature-list">
+					<li ng-repeat="feature in hotel.features">
+						{{feature}}
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="accomodation">
+		<div class="page-header property-header">
+			Accomodation Details
+		</div>
+		<ul class="accomodation-list">
+			<li ng-repeat="acc in hotel.rooms">
+				<div class="row">
+					<div class="col-md-2">
+						<img width="100%" ng-src="{{acc.images}}"/>
+					</div>
+					<div class="col-md-10">
+						<div class="room-name"> {{acc.name}} </div>
+						<div class="room-desc"> {{acc.desc}} </div>
+						<ul class="room-feature-list">
+							<li ng-repeat="feature in acc.features">
+								{{feature}}
+							</li>
+						</ul>
+					</div>
+				</div>
+			</li>
+		</ul>
 	</div>
 </div>
