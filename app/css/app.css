@@ -142,3 +142,8 @@ margin-top:10px;
 .jcarousel li {
     float: left;
 }
+
+.term-desc {
+	color:#777;
+	font-size:12px;
+}
