@@ -49,6 +49,13 @@ nav .navbar-nav > li > a {
 	float:left;
 	margin-right:20px;
 }
+
+.hotel-header2{
+	margin-right:20px;
+	font-size:24px;
+	color:#666;
+	vertical-align:bottom;
+}
 .property-header {
 	font-size: 20px;
 }

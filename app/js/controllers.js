@@ -37,12 +37,14 @@ angular.module('myApp.controllers', [])
   }])
   .controller('HomeCtrl', ['$scope', '$location', 'Hotel', function($scope, $location, Hotel){ // HOME CONTROLLER
 	$scope.rating = 4;
-	$scope.hotel = Hotel.get({hotelId: 'demo_hotel'}, function(hotel) {
-	});
+	Hotel.setHotelToScope($scope, 'hotel', 'Demo-Hotel');
 	
 	$scope.booking = function (roomId) {
             $location.path('/reservation/' + roomId);
         };
-
-	
+  }])
+  .controller('ReservationCtrl', ['$scope', '$location', '$routeParams','Hotel', function($scope, $location, $routeParams ,Hotel){ // HOME CONTROLLER
+	$scope.rating = 4;
+	Hotel.getRoom($scope, 'room', 'Demo-Hotel', $routeParams.roomId);
+	Hotel.setHotelToScope($scope, 'hotel', 'Demo-Hotel');
   }]);

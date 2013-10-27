@@ -2,7 +2,7 @@
 	<!-- Hotel Room List Table-->
 	<div class="page-header hotel-header">
 		<div class="hotel-header1">
-			Demo Hotel
+			{{hotel.name}}
 		</div>
 		<div hotel-rating rating-value="rating" max="5">  </div>
 	</div>
@@ -24,7 +24,7 @@
 			<div class="jcarousel">
 				<ul class="jcarousel-list"> 
 					<li ng-repeat="image in hotel.images">
-						<img height="140" ng-src="{{image}}"></img>
+						<img height="140" ng-src="{{image.uri}}"></img>
 					</li>
 				</ul>
 			</div>
@@ -36,7 +36,7 @@
 			<div>
 				<ul class="feature-list">
 					<li ng-repeat="feature in hotel.features">
-						{{feature}}
+						{{feature.name}}
 					</li>
 				</ul>
 			</div>
@@ -57,7 +57,7 @@
 						<div class="room-desc"> {{acc.desc}} </div>
 						<ul class="room-feature-list">
 							<li ng-repeat="feature in acc.features">
-								{{feature}}
+								{{feature.name}}
 							</li>
 						</ul>
 						<button type="button" class="btn btn-default btn-sm booking-btn" ng-click="booking(acc.id)">
