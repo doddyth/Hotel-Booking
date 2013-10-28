@@ -93,6 +93,10 @@ ul.rating {
 	font-weight:bold;
 }
 
+.hotel-desc{
+	margin-top:10px;
+}
+
 .feature-list{
 	display:inline-block;
 	margin-left:-40px;
@@ -135,25 +139,6 @@ margin-top:10px;
 	color:#777;
 }
 
-.jcarousel {
-    position: relative;
-    overflow: hidden;
-    /* You need at least a height, adjust this to your needs */
-    height: 100px;
-}
-
-.jcarousel ul {
-    width: 20000em;
-    position: absolute;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.jcarousel li {
-    float: left;
-}
-
 .term-desc {
 	color:#777;
 	font-size:12px;
@@ -164,3 +149,8 @@ margin-top:10px;
 	position:relative;
 	float:right;
 }
+
+#foo{
+	display:none;
+}
+

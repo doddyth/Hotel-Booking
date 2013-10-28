@@ -21,15 +21,10 @@
 			{{hotel.phone}}
 		</div>
 		<div class="col-md-9">
-			<div class="jcarousel">
-				<ul class="jcarousel-list"> 
-					<li ng-repeat="image in hotel.images">
-						<img height="140" ng-src="{{image.uri}}"></img>
-					</li>
-				</ul>
-			</div>
-			{{hotel.desc}}
-			
+				<div image-carousel ></div>
+				<div class="hotel-desc">
+					{{hotel.desc}}
+				</div>
 			<div class="page-header hotel-features">
 				Hotel Features
 			</div>
