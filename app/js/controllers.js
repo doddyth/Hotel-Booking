@@ -86,4 +86,16 @@ angular.module('myApp.controllers', [])
 	$scope.rating = 4;
 	Hotel.getRoom($scope, 'room', 'Demo-Hotel', $routeParams.roomId);
 	Hotel.setHotelToScope($scope, 'hotel', 'Demo-Hotel');
+	
+	$scope.arrTimes = [{name: '12.00 PM'},{name: '01.00 PM'}, {name: '02.00 PM'},{name: '03.00 PM'}, {name: '04.00 PM'}, {name: '05.00 PM' }, {name: '06.00 PM' }, {name: '07.00 PM'} ,{name: '08.00 PM'}, {name: '09.00 PM'}, {name: '10.00 PM'}, {name: '11.00 PM'}];
+	$scope.arrTime = $scope.arrTimes[7];
+	
+	$scope.hears = [{name: 'Internet'},{name: 'Magazine'}, {name: 'Newspaper'},{name: 'Radio'}, {name: 'Television'}, {name: 'Facebook' }, {name: 'Google' }];
+	
+	$scope.cards = [{name:'Visa', uri:'img/demo-hotel/card/visa.jpg'}, {name:'Mastercard', uri:'img/demo-hotel/card/mastercard.jpg'}, {name:'JCB', uri:'img/demo-hotel/card/JCB.jpg'}];
+	$scope.cardType = $scope.cards[0];
+	
+	$scope.isError = function(user) {
+		return angular.equals(user, $scope.master);
+	};
   }]);

@@ -1,3 +1,190 @@
 <div class="container">
 	<div class="page-header hotel-header">{{room.name}}</div>
+	<div class="row">
+		<div class="col-md-2">
+			<img width="100%" ng-src="{{room.images}}"/>
+		</div>
+		<div class="col-md-10">
+			<div class="room-desc"> {{room.desc}} </div>
+			<ul class="room-feature-list">
+				<li ng-repeat="feature in room.features">
+					{{feature.name}}
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+	<!-- STEP 1-->
+	<div class="page-header">
+		<div class="step-name"> Step 1</div>
+		<div class="step-desc">	Select the number of rooms and stay dates - use grid below to check availability </div>
+		<div style="clear:both"></div>
+	</div>
+	
+	<div class="step-content">
+	this is content for step 1
+	</div>
+	
+	<!-- STEP 2 -->
+	<div class="page-header">
+		<div class="step-name"> Step 2</div>
+		<div class="step-desc">	Choose room occupants and optional extras </div>
+		<div class="step-info">Prices are in USD and include location taxes</div>
+		<div style="clear:both"></div>
+	</div>
+	
+	
+	
+	<div class="step-content">
+	this is content for step 2
+	</div>
+	
+	<!-- STEP 2 -->
+	<div class="page-header">
+		<div class="step-name"> Step 3</div>
+		<div class="step-desc">	Enter guest and payment details </div>
+		<div class="step-info">Please fill in required information</div>
+		<div style="clear:both"></div>
+	</div>
+	
+	<div class="step-content">
+		<form class="css-form" name="form">
+		<div class="row">
+			<div class="col-md-6 content-style">
+				<div class="col-header">
+					Guest Details
+				</div>
+				
+				  <label name="firstname">First name *</label><br/>
+				  <input class="form-control" type="text" name="firstName" ng-model="firstName" required/>
+				  <div ng-show="form.firstName.$dirty && form.firstName.$invalid" class="invalid-name">Invalid:
+					<span ng-show="form.firstName.$error.required">Tell us your first name.</span>
+				  </div>
+				  
+				  <label name="lastname">Last name *</label><br/>
+				  <input class="form-control" type="text" name="lastName" ng-model="lastName" required/>
+				  <div ng-show="form.lastName.$dirty && form.lastName.$invalid" class="invalid-name">Invalid:
+					<span ng-show="form.lastName.$error.required">Tell us your last name.</span>
+				  </div>
+				  
+				  <label name="email">Email *</label><br/>
+				  <input class="form-control" type="email" name="email" ng-model="email" required/>
+				  <div ng-show="form.email.$dirty && form.email.$invalid" class="invalid-name">Invalid:
+					<span ng-show="form.email.$error.required">Tell us your email.</span>
+					<span ng-show="form.email.$error.email">Your email is invalid.</span>
+				  </div>
+				  
+				  <label name="contact">Contact number (mobile prefered) *</label><br/>
+				  <input class="form-control" type="number" name="contact" ng-model="contactnumber" required/>
+				  <div ng-show="form.contact.$dirty && form.contact.$invalid" class="invalid-name">Invalid:
+					<span ng-show="form.contact.$error.required">This is not a correct format.</span>
+					<span ng-show="form.contact.$error.number">Not valid phone number!</span>
+				  </div>
+
+				  <label name="organization">Organization (if applicable)</label><br/>
+				  <input class="form-control" type="text" name="organization" ng-model="organization"/>
+				  				  
+				  <label name="address1">Address line 1 *</label><br/>
+				  <input class="form-control" type="text" name="address1" ng-model="address1" required/>
+				  <div ng-show="form.address1.$dirty && form.address1.$invalid" class="invalid-name">Invalid:
+					<span ng-show="form.address1.$error.required">Tell us your address.</span>
+				  </div>
+				  
+				  <label name="address2">Address line 2</label><br/>
+				  <input class="form-control" type="text" name="address2" ng-model="address2" required/>
+				  
+				  <label name="city">City *</label><br/>
+				  <input class="form-control" type="text" name="city" ng-model="city" required/>
+				  <div ng-show="form.city.$dirty && form.city.$invalid" class="invalid-name">Invalid:
+					<span ng-show="form.city.$error.required">Tell us your city.</span>
+				  </div>
+				  
+				  <label name="state">State</label><br/>
+				  <input class="form-control" type="text" name="state" ng-model="state"/>
+				  
+				  <label name="country">Country *</label><br/>
+				  <input class="form-control" type="text" name="country" ng-model="country" required/>
+				  <div ng-show="form.country.$dirty && form.country.$invalid" class="invalid-name">Invalid:
+					<span ng-show="form.country.$error.required">Tell us your country.</span>
+				  </div>
+				  
+				  <label name="postcode">Post code *</label><br/>
+				  <input class="form-control" type="number" name="postcode" ng-model="postcode" required/>
+				  <div ng-show="form.postcode.$dirty && form.postcode.$invalid" class="invalid-name">Invalid:
+					<span ng-show="form.postcode.$error.required">Tell us your post code.</span>
+					<span ng-show="form.postcode.$error.number">Not valid post number.</span>
+				  </div>
+			</div>
+			<div class="col-md-6 content-style">
+				<div class="col-header">
+					Extra Details
+				</div>
+				
+				<label name="arrTime">Estimated arrival time</label><br/>
+				<select class="form-control" ng-model="arrTime" name="arrTime" ng-options="a.name for a in arrTimes"></select>
+				
+				<label name="loyaltyID">Customer loyalty ID</label><br/>
+				<input class="form-control" type="text" ng-model="loyaltyID" name="loyaltyID"></input>
+				
+				<label name="comment">Comments</label><br/>
+				<textarea class="form-control" ng-model="comment" name="comment"></textarea>
+				
+				<div class="marginBot10">
+				<input type="checkbox" ng-model="receive"> </input> Would you like to receive the newsletter?  <br/>
+				</div>
+				
+				<label name="arrTime">Where did you hear about us?</label><br/>
+				<select class="form-control" ng-model="hear" name="hear" ng-options="hear.name for hear in hears"></select>
+				
+				<div class="payment-header">
+					Payment Details
+				</div>
+				
+				<div class="marginBot10">
+				<ul>
+					<li ng-repeat="card in cards" style="display:inline-block">
+						<img height="80px" ng-src="{{card.uri}}"></img>
+					</li>
+				</ul>
+				</div>
+				
+				<label name="cardType">Card type *</label><br/>
+				<select class="form-control" ng-model="cardType" name="cardType" ng-options="c.name for c in cards"></select>
+				
+				  <label name="cardNumber">Card number *</label><br/>
+				  <input class="form-control" type="number" name="cardNumber" ng-model="cardNumber" required ng-minlength="20" ng-maxlength="20"/>
+				  <div ng-show="form.cardNumber.$dirty && form.cardNumber.$invalid" class="invalid-name">
+					<span ng-show="form.cardNumber.$error.required">Tell us your card number.</span>
+					<span ng-show="form.cardNumber.$error.number">Not valid card number.</span>
+				  </div>
+				  
+				  <label name="cardCCV">Card CCV *</label><br/>
+				  <input class="form-control" type="number" name="cardCCV" ng-model="cardCCV" required/>
+				  <div ng-show="form.cardCCV.$dirty && form.cardCCV.$invalid" class="invalid-name">Invalid: 
+					<span ng-show="form.cardCCV.$error.required">Tell us your card CCV.</span>
+					<span ng-show="form.cardCCV.$error.number">Not valid card CCV.</span>
+				  </div>
+				  
+				  <label name="cardUser">Name *</label><br/>
+				  <input class="form-control" type="text" name="cardUser" ng-model="cardUser" required/>
+				  <div ng-show="form.cardUser.$dirty && form.cardUser.$invalid" class="invalid-name">Invalid:
+					<span ng-show="form.cardUser.$error.required">Tell us card user name.</span>
+				  </div>
+				  
+				  <!--<datetimepicker data-ng-model="data.date" startView="month"></datetimepicker>-->
+			</div>
+		</div>
+		<div class="row content-style2">
+				<div class="marginBot10">
+					<input type="checkbox" ng-model="agreeCheck" name="agreeCheck"> </input> I have read and accepted the terms and conditions <br/>
+					<div ng-show="form.agreeCheck.$dirty && form.agreeCheck.$invalid" class="invalid-name">Invalid:
+						<span ng-show="form.agreeCheck.$error.required">Please accept terms and conditions.</span>
+					</div>
+				</div>
+		</div>
+			<button type="button" class="btn btn-default btn-m booking-btn" ng-click="booking()" ng-disabled="isError()>
+				<i class="glyphicon glyphicon-arrow-right"></i> Book
+			</button>
+		</form>
+	</div>
 </div>

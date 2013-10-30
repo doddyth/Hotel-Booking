@@ -154,3 +154,75 @@ margin-top:10px;
 	display:none;
 }
 
+.step-name{
+	float:left;
+	background-color:#831c1c;
+	color:#fff;
+	border-radius:10px;
+	font-size:22px;
+	padding:5px;
+	margin-right:15px;
+}
+
+.step-desc{
+	float:left;
+	padding:5px;
+	font-size:22px;
+	color:#000;
+}
+
+.step-info{
+	border-radius:5px;
+	margin-top:5px;
+	position:relative;	
+	float:right;
+	padding:5px;
+	font-size:14px;
+	color:#fff;
+	background-color:#888;
+}
+
+.col-header{
+	font-weight:bold;
+	margin-bottom:15px;
+}
+
+.payment-header{
+	font-weight:bold;
+	margin-bottom:15px;
+	margin-top:15px;
+}
+
+.content-style{
+	background-color:#eee;
+	padding:8px;
+	border:5px solid #fff;
+}
+
+.content-style2{
+	background-color:#eee;
+	padding:20px;
+	border:5px solid #fff;
+}
+
+.form-control{
+	margin-bottom:10px;
+}
+
+.marginBot10{
+	margin-bottom:10px;
+}
+
+.css-form input.ng-invalid.ng-dirty {
+	background-color: #FA787E;
+}
+.css-form input.ng-valid.ng-dirty {
+	background-color: #78FA89;
+}
+
+.invalid-name{
+	margin-bottom:10px;
+	margin-top:-10px;
+	color:#FA787E;
+	padding:5px;
+}
