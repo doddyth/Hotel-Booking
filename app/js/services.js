@@ -8,7 +8,7 @@
 angular.module('myApp.services', ['ngResource', 'firebase']).
   value('version', '0.1').
   factory('Hotel', function myService(angularFire) {
-		var _url = "https://hotelbooking.firebaseio.com/Hotels";
+		var _url = "https://hotelbooking2.firebaseio.com/Hotels";
 		var _ref = new Firebase(_url);
 		
 		return {
