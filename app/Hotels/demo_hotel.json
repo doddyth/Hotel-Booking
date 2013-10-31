@@ -11,21 +11,24 @@
 		"name": "Deluxe Room",
 		"desc": "These rooms emanate sophistication through their warm, muted tones. Cozy and stylish, the Deluxe Rooms have all the necessary amenities for a comfortable stay.",
 		"features": ["Desk","DVD Player","Mini Bar","CD Player","Heating", "Room Service", "Spa", "Coffee Making", "Hairdryer", "Air Conditioned", "Television"],
-		"images": "img/demo-hotel/deluxe-room/1.jpg"
+		"images": "img/demo-hotel/deluxe-room/1.jpg",
+		"category": "Bed and Breakfast"
 	},
 	{
 		"id": "spa-suite",
 		"name": "Spa Suite",
 		"desc": "Our largest room is the Spa Suite Suite. Enjoy penthouse glamour with a romantic twist. Suites include comfortable lounge rooms and guest powder rooms. Upon arrival you will receive a complimentary cocktail and our signature Best Excuse to Gain Weight platter.",
 		"features": ["Bath","Fridge","Shower","Television","Hairdryer", "Cable TV", "Iron Board", "Coffee Making", "Verandah", "Ceiling Fans", "CD Player", "Spa", "King Bed"],
-		"images": "img/demo-hotel/spa-suite/1.jpg"
+		"images": "img/demo-hotel/spa-suite/1.jpg",
+		"category": "Bed and Breakfast"
 	},
 	{
 		"id": "standard-room",
 		"name": "Standard Room",
 		"desc": "Enjoy our Standard Room, it is comfortable and contemporary and has the most stunning views of the ocean.",
 		"features": ["Fridge","CD Player","Rollaway Beds","Coffee Making","Spa", "Bath", "Double Bed", "Room Service", "King Bed", "Mini Bar", "Cable TV", "Shower - separate", "Television", "Air Conditioned"],
-		"images": "img/demo-hotel/standard-room/1.jpg"
+		"images": "img/demo-hotel/standard-room/1.jpg",
+		"category": "Room Only"
 	}
 	],
 	"terms": "40% deposit required at time of booking - this deposit will be taken from the credit card when you submit with the booking. You will need to pay the remaining 60% on arrival. Sorry but The Demo Hotel does not accept cheque payments. Deposits are refundable if bookings are cancelled 2 weeks or more before arrival (minus a $40 administration fee). If cancellations are made within the two week period & we successfully rebook the accommodation we will again refund your deposit minus the administration fee. Deposits may be transferred to another booking provided cancellation is at least 2 days before arrival."

@@ -159,6 +159,7 @@ margin-top:10px;
 	display:none;
 }
 
+<<<<<<< HEAD
 .step-name{
 	float:left;
 	background-color:#831c1c;
@@ -230,4 +231,120 @@ margin-top:10px;
 	margin-top:-10px;
 	color:#FA787E;
 	padding:5px;
+}
+
+.dateTableHead {
+	background: #434a50;
+	color: white;
+	font-size: 12px;
+}
+
+.dateTableHead th {
+	text-align: center;
+}
+
+.price-table td {
+	vertical-align: middle !important;
+	font-size: 12px;
+	position: relative;
+}
+
+.price-table th {
+	vertical-align: middle !important;
+}
+
+.dayTitle {
+	display: block;
+}
+
+.dateTitle {
+	display: block;
+	font-size: 15px;
+	line-height: 1;
+}
+
+.monthTitle {
+	display: block;
+	font-size: 11px;
+	color: #a8a8a8;
+}
+
+.weekendHighlight {
+	background: #2a2f34;
+}
+
+.hot-notification {
+	position: absolute;
+	display: block; 
+	background: orangered;
+	width: 100%;
+	margin-left: -8px;
+	font-weight: bold;
+	color: white;
+	height: 14px;
+	z-index: 100;
+	top: 0;
+	font-size: 8px;
+	padding: 2px;
+}
+
+.price-col {
+	text-align: center;
+	padding-top: 20px !important;
+	padding-bottom: 20px !important;
+	cursor: pointer;
+}
+
+.price-col a {
+	padding: 14px 0px;
+}
+
+.price-col:hover {
+	background: #e4e4e4 !important; 
+}
+
+.price-col:hover a {
+	text-decoration: underline;
+	color: #2a6496;
+}
+
+.hotPrice a {
+	font-weight: bold;
+	color: orangered !important;
+}
+
+.price-col.booked, .price-col.active.booked {
+	background: #DADADA;
+}
+
+#startPopUpBox {
+	display: block;
+	border: cornflowerblue solid thin;
+	position: absolute;
+	padding: 10px;
+	background: white;
+	z-index: 999;
+	top:45px;
+	right: 16px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+}
+
+#endPopUpBox {
+	display: block;
+	border: cornflowerblue solid thin;
+	position: absolute;
+	padding: 10px;
+	background: white;
+	z-index: 999;
+	top:45px;
+	right: 16px;	
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+}
+
+#startPopUpBox.boxHid, #endPopUpBox.boxHid {
+	display: none;
 }

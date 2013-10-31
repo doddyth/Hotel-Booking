@@ -9,10 +9,13 @@ angular.module('myApp', [
   'myApp.directives',
   'myApp.controllers',
   'firebase',
-  'ui.bootstrap.datetimepicker'
+  'ui.bootstrap'
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/home', {templateUrl: 'partials/home.html', controller: 'HomeCtrl'});
-  $routeProvider.when('/reservation/:roomId', {templateUrl: 'partials/reservation.html', controller: 'ReservationCtrl'});
+  $routeProvider.when('/reservation/:roomId', 
+    {templateUrl: 'partials/reservation.html', controller: 'ReservationCtrl'});
+  $routeProvider.when('/reservation/:roomId/:startDate', 
+    {templateUrl: 'partials/reservation.html', controller: 'ReservationCtrl'});
   $routeProvider.otherwise({redirectTo: '/home'});
 }]);

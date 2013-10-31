@@ -20,9 +20,119 @@
 		<div class="step-desc">	Select the number of rooms and stay dates - use grid below to check availability </div>
 		<div style="clear:both"></div>
 	</div>
+
+	<div id="startDatePicker" 
+		 ng-controller="DatePickerCtrl"
+		 class="row"
+		 style="padding:10px 0 20px 0; position:relative;">
+
+		 <div class="col-lg-4 pull-left">
+		    <div class="input-group">
+		    	<span class="input-group-btn" style="padding-right:10px;"> Check In Date </span>
+		      	<input type="text" class="form-control" value="{{startDate| date:'MMMM dd, yyyy'}}" disabled>
+		      	<span class="input-group-btn">
+		        	<button class="btn btn-success" 
+		        		type="button"
+		        		ng-click="startBoxHid = !startBoxHid">	
+		        		<i class="glyphicon glyphicon-check"></i> 
+		        	</button>
+		      	</span>
+		    </div>
+
+		    <div id="startPopUpBox" class="popupBox" ng-model="startDate" ng-class="{boxHid:startBoxHid}">
+				<datepicker 	
+					min="minDate"
+					show-weeks="false">
+				</datepicker>
+			</div>
+		</div>
+			
+		<div class="col-lg-4 pull-right">
+		    <div class="input-group">
+		    	<span class="input-group-btn" style="padding-right:10px;"> Check Out Date </span>
+		      	<input type="text" class="form-control" value="{{endDate| date:'MMMM dd, yyyy'}}" disabled>
+		      	<span class="input-group-btn">
+		        	<button class="btn btn-danger" type="button">	<i class="glyphicon glyphicon-check" ng-click="endBoxHid = !endBoxHid"
+	        		></i> 
+		        	</button>
+		      	</span>
+		    </div>
+
+		    <div id="endPopUpBox" class="popupBox" ng-model="endDate" ng-class="{boxHid:endBoxHid}"
+		    >
+				<datepicker 	
+					min="endDateBound"
+					show-weeks="false">
+				</datepicker>
+			</div>
+		</div>
+		
+	</div>
 	
 	<div class="step-content">
-	this is content for step 1
+		<div class="row">
+			<table class="table price-table" 
+				   ng-controller="PriceTableCtrl">
+				<thead class="dateTableHead">
+					<tr>
+						<th colspan="2" style="text-align: left;">
+							Prices will be charged in Indonesian Rupiah
+						</th>
+						<th>
+							Full Rate
+						</th>
+						<th ng-repeat="dateObj in dateArray" ng-class="{weekendHighlight:dateObj.weekday}">
+							<span class="dayTitle"> {{dateObj.day}} </span>
+							<span class="dateTitle"> {{dateObj.date}} </span>
+							<span class="monthTitle"> {{dateObj.month}} </span>
+						</th>
+					</tr>
+				</thead>
+				<tbody ng-switch on="!roomId">
+					<tr ng-switch-when="true" ng-repeat="roomItem in roomList">
+						<td> {{roomItem.name}} </td>
+						<td> 
+							<button type="button" class="btn btn-primary btn-sm booking-btn" ng-click="booking(roomItem.id)">
+								<i class="glyphicon glyphicon-tag"></i> Book
+							</button> 
+						</td>
+						<td>
+							<b> {{roomItem['full-rate'] | currency:"IDR "}} </b>
+						</td>
+
+						<td ng-controller="BookingFieldCtrl"
+							ng-repeat="dateObj in dateArray" 
+							ng-class="{active:dateObj.weekday}"
+							class="price-col"
+							ng-click="book(dateStrArray[$index], dateObj.day)">
+							<span price-column 
+								room = "{{ roomItem.id }}"
+								day ="{{ dateObj.day | lowercase }}">
+							</span> 
+						</td>
+					</tr>
+					<tr ng-switch-when="false">
+						<td colspan="2"> {{roomItem.name}}
+						<button ng-click="book(1)">AAA</button> </td>
+						<td>
+							<b> {{roomItem['full-rate'] | currency:"IDR "}} </b>
+						</td>
+
+						<td ng-controller="BookingFieldCtrl"
+							ng-repeat="dateObj in dateArray" 
+							ng-class="{active:dateObj.weekday, booked:visualBook[$index]}"
+							ng-click="book(dateStrArray[$index], dateObj.day)"
+							class="price-col"
+							indexnya="$index">
+							<span price-column 
+								room = "{{roomItem.id}}"
+								day ="{{ dateObj.day | lowercase }}">
+							</span> 
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
 	
 	<!-- STEP 2 -->
@@ -182,7 +292,7 @@
 					</div>
 				</div>
 		</div>
-			<button type="button" class="btn btn-default btn-m booking-btn" ng-click="booking()" ng-disabled="isError()>
+			<button type="button" class="btn btn-default btn-m booking-btn" ng-click="booking()" ng-disabled="isError()">
 				<i class="glyphicon glyphicon-arrow-right"></i> Book
 			</button>
 		</form>
