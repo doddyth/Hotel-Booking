@@ -5,7 +5,7 @@
 			<img width="100%" ng-src="{{room.images}}"/>
 		</div>
 		<div class="col-md-10">
-			<div class="room-desc"> {{room.desc}} </div>
+			<div class="room-desc"> {{room.desc}}</div>
 			<ul class="room-feature-list">
 				<li ng-repeat="feature in room.features">
 					{{feature.name}}
@@ -16,7 +16,7 @@
 	
 	<!-- STEP 1-->
 	<div class="page-header">
-		<div class="step-name"> Step 1</div>
+		<div class="step-header"> Step 1</div>
 		<div class="step-desc">	Select the number of rooms and stay dates - use grid below to check availability </div>
 		<div style="clear:both"></div>
 	</div>
@@ -25,9 +25,14 @@
 		 ng-controller="DatePickerCtrl"
 		 class="row"
 		 style="padding:10px 0 20px 0; position:relative;">
-
-		 <div class="col-lg-4 pull-left">
-		    <div class="input-group">
+		<div class="col-lg-4">
+			<div class="input-group">
+				<span class="input-group-btn" style="padding-right:10px;"> Number of rooms </span>
+				<select class="form-control" ng-model="roomAmount" name="roomAmount" ng-options="c.number for c in numbers" ng-change="updateAmount()"></select>
+			</div>
+		</div>
+		 <div class="col-lg-4">
+			<div class="input-group">
 		    	<span class="input-group-btn" style="padding-right:10px;"> Check In Date </span>
 		      	<input type="text" class="form-control" value="{{startDate| date:'MMMM dd, yyyy'}}" disabled>
 		      	<span class="input-group-btn">
@@ -47,7 +52,7 @@
 			</div>
 		</div>
 			
-		<div class="col-lg-4 pull-right">
+		<div class="col-lg-4">
 		    <div class="input-group">
 		    	<span class="input-group-btn" style="padding-right:10px;"> Check Out Date </span>
 		      	<input type="text" class="form-control" value="{{endDate| date:'MMMM dd, yyyy'}}" disabled>
@@ -88,7 +93,7 @@
 						</th>
 					</tr>
 				</thead>
-				<tbody ng-switch on="!roomId">
+				<tbody ng-switch on="!roomId" class="TableBody">
 					<tr ng-switch-when="true" ng-repeat="roomItem in roomList">
 						<td> {{roomItem.name}} </td>
 						<td> 
@@ -112,12 +117,11 @@
 						</td>
 					</tr>
 					<tr ng-switch-when="false">
-						<td colspan="2"> {{roomItem.name}}
-						<button ng-click="book(1)">AAA</button> </td>
+						<td colspan="2"> {{roomItem.name}}</td>
 						<td>
 							<b> {{roomItem['full-rate'] | currency:"IDR "}} </b>
 						</td>
-
+	
 						<td ng-controller="BookingFieldCtrl"
 							ng-repeat="dateObj in dateArray" 
 							ng-class="{active:dateObj.weekday, booked:visualBook[$index]}"
@@ -126,7 +130,8 @@
 							indexnya="$index">
 							<span price-column 
 								room = "{{roomItem.id}}"
-								day ="{{ dateObj.day | lowercase }}">
+								day ="{{ dateObj.day | lowercase }}"
+								prices ="{{roomPrices}}">
 							</span> 
 						</td>
 					</tr>
@@ -135,9 +140,10 @@
 		</div>
 	</div>
 	
+	<form class="css-form" name="form">
 	<!-- STEP 2 -->
 	<div class="page-header">
-		<div class="step-name"> Step 2</div>
+		<div class="step-header"> Step 2</div>
 		<div class="step-desc">	Choose room occupants and optional extras </div>
 		<div class="step-info">Prices are in USD and include location taxes</div>
 		<div style="clear:both"></div>
@@ -146,19 +152,108 @@
 	
 	
 	<div class="step-content">
-	this is content for step 2
+		<div class="row">
+		<table class="table price-table">
+			<thead class="dateTableHead">
+					<tr>
+						<th style="text-align: left;">
+							Occupancy <br/>
+							<span style="font-size:9px; font-weight:500">(Children up to 10 years, Infant up to 2 years)</span>
+						</th>
+						<th>
+							Date
+						</th>
+						<th>
+							Room Rate
+						</th>
+						<th>
+							Extra Adult
+						</th>
+						<th>
+							Extra Child
+						</th>
+						<th>
+							Extra Infant
+						</th>
+						<th>
+							Total
+						</th>
+					</tr>
+				</thead>
+				
+				<tbody class="TableBody TableStep2" ng-repeat="room in amount">
+					<tr>
+							<td style="width:400px">
+								<div class="input-group">
+									<span class="input-group-btn" style="padding-right:10px; font-weight:bold"> Room {{$index + 1}} </span>
+									<div ><input type="text" class="form-control" placeholder="Guest name" name="guestName{{}}"></input></div>
+								</div>
+								
+								<div class="row">
+									
+									<div class="col-sm-4">Adults <select class="form-control" ng-model="room.adult" name="room.adult" ng-options="a.number for a in numbers"></select></div>
+									<div class="col-sm-4">Children <select class="form-control" ng-model="room.children" name="room.children." ng-options="a.number for a in numbers"></select></div>
+									<div class="col-sm-4">Infant <select class="form-control" ng-model="room.infant" name="room.infant" ng-options="a.number for a in numbers"></select></div>
+								</div>
+							</td>
+							<td></td><td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr ng-repeat="date in dateBuyed">
+							<td></td>
+							<td>{{date.dateString.day}} {{date.dateString.date}} {{date.dateString.month}}</td>
+							<td>{{date.prices | currency:"IDR "}}</td><td>0</td><td>0</td><td>0</td><td>{{date.prices | currency:"IDR "}}</td>
+						</tr>
+				</tbody>
+				<tbody class="TableBody TableStep2">
+					<tr> <td colspan="7"><h4>Extras available for this room</h4></td></tr>
+					<tr ng-repeat="extra in roomExtras">
+						<td><input type="checkbox" ng-model="extra.checked" ng-change="selectedExtra()"></input> {{extra.name}}</td>
+						<td colspan="3">{{extra.desc}}</td>
+						<td colspan="2">{{extra.price | currency:"IDR "}} <span ng-repeat="stat in extra.status_pricing">per {{stat.name}} </span></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td colspan="7">Total</td>
+					</tr>
+					<tr>
+						<td colspan="4"></td>
+						<td colspan="2" style="text-alignment:right">Room Charges</td>
+						<td ></td>
+					</tr>
+					<tr>
+						<td colspan="4"></td>
+						<td colspan="2" style="text-alignment:right">Room Taxes</td>
+						<td ></td>
+					</tr>
+					<tr>
+						<td colspan="4"></td>
+						<td colspan="2" style="text-alignment:right">Service Charges</td>
+						<td ></td>
+					</tr>
+					<tr>
+						<td colspan="4"></td>
+						<td colspan="2" style="text-alignment:right">Extras Total</td>
+						<td ></td>
+					</tr>
+					<tr>
+						<td colspan="4"></td>
+						<td colspan="2" style="text-alignment:right; font-size:16px; font-weight:bold;">Grand Total</td>
+						<td ></td>
+					</tr>
+				</tbody>
+		</table>
+		</div>
 	</div>
 	
-	<!-- STEP 2 -->
+	<!-- STEP 3 -->
 	<div class="page-header">
-		<div class="step-name"> Step 3</div>
+		<div class="step-header"> Step 3</div>
 		<div class="step-desc">	Enter guest and payment details </div>
 		<div class="step-info">Please fill in required information</div>
 		<div style="clear:both"></div>
 	</div>
 	
 	<div class="step-content">
-		<form class="css-form" name="form">
 		<div class="row">
 			<div class="col-md-6 content-style">
 				<div class="col-header">
@@ -295,9 +390,9 @@
 			<button type="button" class="btn btn-default btn-m booking-btn" ng-click="booking()" ng-disabled="isError()">
 				<i class="glyphicon glyphicon-arrow-right"></i> Book
 			</button>
-		</form>
 	</div>
 	
+	</form>
 	<div class="terms">
 		<div class="page-header property-header">
 			Terms & Conditions

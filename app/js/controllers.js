@@ -183,7 +183,6 @@ angular.module('myApp.controllers', [])
 			$scope.dateStrArray.push(myDateStr);
 			$scope.dateArray.push(myDateObj);
 			if (dateParam) {
-				console.log($scope.dateBooked[i]['status']);
 				$scope.visualBook.push($scope.dateBooked[i]['status']);
 			}
   		};
@@ -253,7 +252,18 @@ angular.module('myApp.controllers', [])
 
 	  $scope.startBoxHid = true;
 	  $scope.endBoxHid = true;
-
+	  
+	  
+		$scope.updateAmount = function(){
+			for(var i = $scope.amount.length - 1; i >= 0; i--) {
+				$scope.amount.splice(i,1);
+			}
+			for(var i = 0; i<$scope.roomAmount.number;i++)
+			{
+				$scope.amount.push({index: i, adult:$scope.numbers[0] , children: $scope.numbers[0], infant: $scope.numbers[0]});
+			}
+		}
+		$scope.updateAmount();
   }])
   .controller('BookingFieldCtrl', ['$scope', 'Hotel', 'Sample',
   	function($scope, Hotel, Sample){
@@ -289,12 +299,53 @@ angular.module('myApp.controllers', [])
 
     };
   }])
-  .controller('ReservationCtrl', ['$scope', '$location', '$routeParams','Hotel', function($scope, $location, $routeParams ,Hotel){ // RESERVATION PAGE CONTROLLER
+  
+  .controller('ReservationCtrl', ['$scope', '$location', '$routeParams','Hotel', 'Sample', function($scope, $location, $routeParams ,Hotel, Sample){ // RESERVATION PAGE CONTROLLER
 	$scope.rating = 4;
 	$scope.dateCol = [];
   	$scope.dateBooked = [];
+	$scope.dateBuyed=[];
 	$scope.startDateStr = $routeParams.startDate;
+	$scope.amount = [];
+	$scope.dateToYMD = function (date, format) {
+		var weekday = new Array(7);
+		weekday[0] = "Sunday";
+		weekday[1] = "Monday";
+		weekday[2] = "Tuesday";
+		weekday[3] = "Wednesday";
+		weekday[4] = "Thursday";
+		weekday[5] = "Friday";
+		weekday[6] = "Saturday";
 
+		var monthName = new Array(12);
+		monthName[0] = "January";
+		monthName[1] = "February";
+		monthName[2] = "March";
+		monthName[3] = "April";
+		monthName[4] = "May";
+		monthName[5] = "June";
+		monthName[6] = "July";
+		monthName[7] = "August";
+		monthName[8] = "September";
+		monthName[9] = "October";
+		monthName[10] = "November";
+		monthName[11] = "Desember";
+
+	    var d = date.getDate();
+	    var m = date.getMonth() + 1;
+	    var y = date.getFullYear();
+	    var day = date.getDay();
+	    if (format == "String")
+	    	return '' + y + '-' + (m<=9 ? '0' + m : m) + '-' + (d <= 9 ? '0' + d : d);	
+	    else if (format == "Object")
+	    	return { 
+	    		date: (d <= 9 ? '0' + d : d), 
+	    		month: (monthName[m-1]).substring(0,3), 
+	    		year: y, 
+	    		day: (weekday[day]).substring(0,3), 
+	    		weekday: (day == 0 || day == 6 ? true : false) }
+  	}
+	$scope.occupancyAmount = [];
 	if ($scope.startDateStr) {
 		// kalo ada startDate
 		$scope.startDate = new Date($routeParams.startDate);
@@ -307,6 +358,7 @@ angular.module('myApp.controllers', [])
 	$scope.roomId = $routeParams.roomId;
 
 	Hotel.getRoom($scope, 'room', 'Demo-Hotel', $routeParams.roomId);
+	
 	Hotel.setHotelToScope($scope, 'hotel', 'Demo-Hotel');
 
 	$scope.arrTimes = [{name: '12.00 PM'},{name: '01.00 PM'}, {name: '02.00 PM'},{name: '03.00 PM'}, {name: '04.00 PM'}, {name: '05.00 PM' }, {name: '06.00 PM' }, {name: '07.00 PM'} ,{name: '08.00 PM'}, {name: '09.00 PM'}, {name: '10.00 PM'}, {name: '11.00 PM'}];
@@ -317,6 +369,9 @@ angular.module('myApp.controllers', [])
 	$scope.cards = [{name:'Visa', uri:'img/demo-hotel/card/visa.jpg'}, {name:'Mastercard', uri:'img/demo-hotel/card/mastercard.jpg'}, {name:'JCB', uri:'img/demo-hotel/card/JCB.jpg'}];
 	$scope.cardType = $scope.cards[0];
 
+	$scope.numbers = [{number: 1},{number: 2},{number: 3},{number: 4},{number: 5},{number: 6},{number: 7},{number: 8},{number: 9},{number: 10}];
+	$scope.roomAmount = $scope.numbers[0];
+	
 	$scope.$on('updateStartDate', function(e, date) {
 		$scope.startDate = date;
 		// console.log($scope.startDate);
@@ -333,23 +388,50 @@ angular.module('myApp.controllers', [])
 
 	$scope.updateBookedDate = function() {
 		$scope.dateBooked = [];
-
+		$scope.dateBuyed = [];
+		$scope.occupancyAmount = [];
 		for (var i = 0; i < 14; i++) {
   			if($scope.startDate)
 				var myDate = new Date($scope.startDate);
   			myDate.setDate(myDate.getDate()+i);
+			var myDateStr = $scope.dateToYMD(myDate, "Object");
+			var item = Sample[$scope.roomId][myDateStr.day.toLowerCase()]
 			
-			if (myDate >= $scope.startDate && myDate < $scope.endDate)
+			if (typeof item === 'object') {
+				var price = item.price;
+		  	}
+			else{
+				var price = item;
+			}
+			if (myDate >= $scope.startDate && myDate < $scope.endDate){
 				$scope.dateBooked.push({date: myDate, status:true});
+				$scope.dateBuyed.push({dateString: myDateStr, date: myDate, prices: price});
+			}
 			else
 				$scope.dateBooked.push({date: myDate, status:false});
   		};
-
+		
   		// UPDATE PAYMENT LIST
+		
 	}
-
+		
+		
+	for(var i = 0; i<$scope.maximum; i++) {
+		$scope.occupancyAmount.push({number: i});
+	}
+	
+	Hotel.getRoomExtras($scope, 'roomExtras', 'Demo-Hotel',$routeParams.roomId);
+	
+	$scope.selectedExtra = function(){
+		for(var i = 0; i< $scope.roomExtras.length; i++) {
+			if($scope.roomExtras[i].checked)
+			{
+				console.log("yeah");
+			}
+		}
+	}	
 	$scope.updateBookedDate();
-
+	
 	$scope.isError = function(user) {
 		return angular.equals(user, $scope.master);
 	};

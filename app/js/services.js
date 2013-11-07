@@ -24,6 +24,10 @@ angular.module('myApp.services', ['ngResource', 'firebase']).
 				getRoomList: function(scope, localScopeVarName, hotelId) {
 					var roomListRef = new Firebase(_url + '/' + hotelId + '/rooms');
 					angularFire(roomListRef, scope, localScopeVarName);
+				},
+				getRoomExtras: function(scope, localScopeVarName, hotelId, roomId) {
+					var roomRef = new Firebase(_url + '/' + hotelId + '/rooms/' + roomId + '/extras');
+					angularFire(roomRef, scope, localScopeVarName);
 				}
 			}
 		}
@@ -43,6 +47,8 @@ angular.module('myApp.services', ['ngResource', 'firebase']).
 		}
 	})
 	.factory('Sample', function() {
+		var _url = "https://hotelbooking2.firebaseio.com/Hotels";
+		var _ref = new Firebase(_url);
 		return {
 	    	"fabulous": {
 	      		"mon" : 100000,

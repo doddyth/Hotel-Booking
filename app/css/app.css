@@ -159,8 +159,16 @@ margin-top:10px;
 	display:none;
 }
 
-<<<<<<< HEAD
-.step-name{
+
+
+.step-desc{
+	float:left;
+	padding:5px;
+	font-size:22px;
+	color:#000;
+}
+
+.step-header{
 	float:left;
 	background-color:#831c1c;
 	color:#fff;
@@ -168,13 +176,6 @@ margin-top:10px;
 	font-size:22px;
 	padding:5px;
 	margin-right:15px;
-}
-
-.step-desc{
-	float:left;
-	padding:5px;
-	font-size:22px;
-	color:#000;
 }
 
 .step-info{
@@ -243,6 +244,9 @@ margin-top:10px;
 	text-align: center;
 }
 
+.TableBody{
+	background-color:rgb(226, 241, 246);
+}
 .price-table td {
 	vertical-align: middle !important;
 	font-size: 12px;
