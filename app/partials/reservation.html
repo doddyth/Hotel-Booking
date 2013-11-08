@@ -81,7 +81,7 @@
 				<thead class="dateTableHead">
 					<tr>
 						<th colspan="2" style="text-align: left;">
-							Prices will be charged in Indonesian Rupiah
+							Room Selection
 						</th>
 						<th>
 							Full Rate
@@ -145,66 +145,67 @@
 	<div class="page-header">
 		<div class="step-header"> Step 2</div>
 		<div class="step-desc">	Choose room occupants and optional extras </div>
-		<div class="step-info">Prices are in USD and include location taxes</div>
+		<div class="step-info">Prices are in IDR and include location taxes</div>
 		<div style="clear:both"></div>
 	</div>
 	
-	
-	
 	<div class="step-content">
-		<div class="row">
-		<table class="table price-table">
+		<div class="row" room-charge val="amount" buyed="dateBuyed" maximum="room.maxOccupancy" included="room.includedOccupancy">
+		<div class="step2error" hidden="true">yeah</div>
+		<table class="table price-table roomChargeTable">
 			<thead class="dateTableHead">
-					<tr>
-						<th style="text-align: left;">
-							Occupancy <br/>
-							<span style="font-size:9px; font-weight:500">(Children up to 10 years, Infant up to 2 years)</span>
-						</th>
-						<th>
-							Date
-						</th>
-						<th>
-							Room Rate
-						</th>
-						<th>
-							Extra Adult
-						</th>
-						<th>
-							Extra Child
-						</th>
-						<th>
-							Extra Infant
-						</th>
-						<th>
-							Total
-						</th>
-					</tr>
-				</thead>
+				<tr>
+					<th style="text-align: left;">
+						Occupancy <br/>
+						<span style="font-size:9px; font-weight:500">(Children up to 10 years, Infant up to 2 years)</span>
+					</th>
+					<th style="text-align: left;">
+						Date
+					</th>
+					<th style="text-align: right;">
+						Room Rate
+					</th>
+					<th style="text-align: right;">
+						Extra Adult
+					</th>
+					<th style="text-align: right;">
+						Extra Child
+					</th>
+					<th style="text-align: right;">
+						Extra Infant
+					</th>
+					<th style="text-align: right;">
+						Total
+					</th>
+				</tr>
+			</thead>
 				
-				<tbody class="TableBody TableStep2" ng-repeat="room in amount">
-					<tr>
-							<td style="width:400px">
-								<div class="input-group">
-									<span class="input-group-btn" style="padding-right:10px; font-weight:bold"> Room {{$index + 1}} </span>
-									<div ><input type="text" class="form-control" placeholder="Guest name" name="guestName{{}}"></input></div>
-								</div>
-								
-								<div class="row">
-									
-									<div class="col-sm-4">Adults <select class="form-control" ng-model="room.adult" name="room.adult" ng-options="a.number for a in numbers"></select></div>
-									<div class="col-sm-4">Children <select class="form-control" ng-model="room.children" name="room.children." ng-options="a.number for a in numbers"></select></div>
-									<div class="col-sm-4">Infant <select class="form-control" ng-model="room.infant" name="room.infant" ng-options="a.number for a in numbers"></select></div>
-								</div>
-							</td>
-							<td></td><td></td><td></td><td></td><td></td><td></td>
-						</tr>
-						<tr ng-repeat="date in dateBuyed">
-							<td></td>
-							<td>{{date.dateString.day}} {{date.dateString.date}} {{date.dateString.month}}</td>
-							<td>{{date.prices | currency:"IDR "}}</td><td>0</td><td>0</td><td>0</td><td>{{date.prices | currency:"IDR "}}</td>
-						</tr>
-				</tbody>
+			<tbody class="TableBody TableStep2" ng-repeat="room in val">
+				<tr>
+					<td style="width:400px">
+						<div class="input-group">
+							<span class="input-group-btn" style="padding-right:10px; font-weight:bold"> Room {{$index + 1}} </span>
+							<div ><input type="text" class="form-control" placeholder="Guest name" name="guestName{{}}"></input></div>
+						</div>
+						
+						<div class="row">
+							
+							<div class="col-sm-4">Adults <select class="form-control" ng-model="room.adult" name="room.adult" ng-options="a.number for a in occupancyAmount" required></select></div>
+							<div class="col-sm-4">Children <select class="form-control" ng-model="room.children" name="room.children." ng-options="a.number for a in occupancyAmount" required></select></div>
+							<div class="col-sm-4">Infant <select class="form-control" ng-model="room.infant" name="room.infant" ng-options="a.number for a in occupancyAmount" required></select></div>
+						</div>
+					</td>
+					<td></td><td></td><td></td><td></td><td></td><td></td>
+				</tr>
+				<tr ng-repeat="date in buyed">
+					<td></td>
+					<td style="text-align: left;">{{date.dateString.day}} {{date.dateString.date}} {{date.dateString.month}}</td>
+					<td style="text-align: right;">{{date.prices | currency:"IDR "}}</td><td style="text-align: right;">IDR 0</td><td style="text-align: right;">IDR 0</td><td style="text-align: right;">IDR 0</td><td style="text-align:right">IDR <span class="roomCharge" >{{date.prices}}</span></td>
+				</tr>
+			</tbody>
+				
 				<tbody class="TableBody TableStep2">
+				<!--
 					<tr> <td colspan="7"><h4>Extras available for this room</h4></td></tr>
 					<tr ng-repeat="extra in roomExtras">
 						<td><input type="checkbox" ng-model="extra.checked" ng-change="selectedExtra()"></input> {{extra.name}}</td>
@@ -212,33 +213,34 @@
 						<td colspan="2">{{extra.price | currency:"IDR "}} <span ng-repeat="stat in extra.status_pricing">per {{stat.name}} </span></td>
 						<td></td>
 					</tr>
+					-->
 					<tr>
 						<td colspan="7">Total</td>
 					</tr>
 					<tr>
 						<td colspan="4"></td>
-						<td colspan="2" style="text-alignment:right">Room Charges</td>
-						<td ></td>
+						<td colspan="2" style="text-align:right">Room Charges</td>
+						<td style="text-align:right">IDR {{roomCharge}}</td>
 					</tr>
 					<tr>
 						<td colspan="4"></td>
-						<td colspan="2" style="text-alignment:right">Room Taxes</td>
-						<td ></td>
+						<td colspan="2" style="text-align:right">Room Taxes</td>
+						<td style="text-align:right">IDR {{roomTaxes}}</td>
 					</tr>
 					<tr>
 						<td colspan="4"></td>
-						<td colspan="2" style="text-alignment:right">Service Charges</td>
-						<td ></td>
+						<td colspan="2" style="text-align:right">Service Charges</td>
+						<td style="text-align:right">IDR {{serviceCharge}}</td>
 					</tr>
-					<tr>
+					<!--<tr>
 						<td colspan="4"></td>
 						<td colspan="2" style="text-alignment:right">Extras Total</td>
-						<td ></td>
-					</tr>
+						<td style="text-align:right"></td>
+					</tr>-->
 					<tr>
 						<td colspan="4"></td>
-						<td colspan="2" style="text-alignment:right; font-size:16px; font-weight:bold;">Grand Total</td>
-						<td ></td>
+						<td colspan="2" style="text-align:right; font-size:16px; font-weight:bold;">Grand Total</td>
+						<td style="text-align:right; font-size:16px; font-weight:bold;">IDR {{grandTotal}}</td>
 					</tr>
 				</tbody>
 		</table>

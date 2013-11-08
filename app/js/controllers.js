@@ -3,6 +3,83 @@
 /* Controllers */
 
 angular.module('myApp.controllers', [])
+  .directive('roomCharge', ['$timeout', function ($timeout) {
+	return {
+		scope: {
+			val: '=',
+			buyed: '=',
+			maximum: '=',
+			included: '='
+		},	
+		link: function(scope, elm, attrs){
+			scope.occupancyAmount = [];
+			scope.$watch("maximum", function(a) {
+				console.log(scope.maximum);
+				for(var i = 0; i<=scope.maximum; i++) {
+					scope.occupancyAmount.push({number: i});
+				}
+			})
+			
+			scope.$watch('val', function(value) {
+				var jumlah = 0;
+				$timeout(function() {
+					var child = elm.children();
+					for(var i = 0; i< child.length; i++){
+						var thisElementChild = $(child[i]).children();
+						for(var j = 0; j < thisElementChild.length; j++){
+							var roomChargeChild = $(thisElementChild[j]).children();
+							for(var k = 0; k < roomChargeChild.length; k++) {
+								var deepChild = $(roomChargeChild[k]).children();
+								for(var l = 0; l < deepChild.length; l++) {
+									var deepestChild = $(deepChild[l]).children();
+									for(var m = 0; m < deepestChild.length; m++) {
+										if($(deepestChild[m]).hasClass('roomCharge'))
+										{
+											jumlah = jumlah + parseInt($(deepestChild[m]).html());
+										}
+									}
+								}
+							}
+						}	
+					}
+					scope.roomCharge = jumlah;
+					scope.roomTaxes = parseInt(scope.val.length*2000);
+					scope.serviceCharge = parseInt(0.1 * jumlah);
+					scope.grandTotal = scope.roomCharge+scope.roomTaxes+scope.serviceCharge;
+				});
+			}, true);
+			scope.$watch('buyed', function(value) {
+				var jumlah = 0;
+				$timeout(function() {
+					var child = elm.children();
+					for(var i = 0; i< child.length; i++){
+						var thisElementChild = $(child[i]).children();
+						for(var j = 0; j < thisElementChild.length; j++){
+							var roomChargeChild = $(thisElementChild[j]).children();
+							for(var k = 0; k < roomChargeChild.length; k++) {
+								var deepChild = $(roomChargeChild[k]).children();
+								for(var l = 0; l < deepChild.length; l++) {
+									var deepestChild = $(deepChild[l]).children();
+									for(var m = 0; m < deepestChild.length; m++) {
+										if($(deepestChild[m]).hasClass('roomCharge'))
+										{
+											jumlah = jumlah + parseInt($(deepestChild[m]).html());
+											console.log(jumlah);
+										}
+									}
+								}
+							}
+						}	
+					}
+					scope.roomCharge = jumlah;
+					scope.roomTaxes = parseInt(scope.val.length*2000);
+					scope.serviceCharge = parseInt(0.1 * jumlah);
+					scope.grandTotal = scope.roomCharge+scope.roomTaxes+scope.serviceCharge;
+				});
+			}, true);
+		}
+	}
+  }])
   .directive('hotelRating', function () {  //RATING DIRECTIVE
 	return {
 		restrict: 'A',
@@ -345,7 +422,6 @@ angular.module('myApp.controllers', [])
 	    		day: (weekday[day]).substring(0,3), 
 	    		weekday: (day == 0 || day == 6 ? true : false) }
   	}
-	$scope.occupancyAmount = [];
 	if ($scope.startDateStr) {
 		// kalo ada startDate
 		$scope.startDate = new Date($routeParams.startDate);
@@ -385,7 +461,7 @@ angular.module('myApp.controllers', [])
 		$scope.updateBookedDate();
 		$scope.$broadcast('updateEndingTable', $scope.endDate );
 	});
-
+	
 	$scope.updateBookedDate = function() {
 		$scope.dateBooked = [];
 		$scope.dateBuyed = [];
@@ -412,24 +488,16 @@ angular.module('myApp.controllers', [])
   		};
 		
   		// UPDATE PAYMENT LIST
-		
-	}
-		
-		
-	for(var i = 0; i<$scope.maximum; i++) {
-		$scope.occupancyAmount.push({number: i});
 	}
 	
 	Hotel.getRoomExtras($scope, 'roomExtras', 'Demo-Hotel',$routeParams.roomId);
 	
-	$scope.selectedExtra = function(){
-		for(var i = 0; i< $scope.roomExtras.length; i++) {
-			if($scope.roomExtras[i].checked)
-			{
-				console.log("yeah");
-			}
-		}
-	}	
+	/*var roomChargeChild = $('.roomChargeTBody');
+	var thisElementChild = $(roomChargeChild[1]).children();
+	console.log(roomChargeChild.html());
+	for(var i = 0; i< roomChargeChild.length; i++){
+		var thisElementChild = $(roomChargeChild[i]).children();
+	}*/
 	$scope.updateBookedDate();
 	
 	$scope.isError = function(user) {
