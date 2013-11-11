@@ -27,7 +27,7 @@ angular.module('myApp.controllers', [])
 				for(var i = 0; i<scope.val.length; i++) {
 					
 					scope.roomData.push({roomNumber: i+1, adultCount: scope.adult[i].number, childrenCount: scope.children[i].number, infantCount: scope.infant[i].number, guestName: scope.guestName[i]});
-					console.log(scope.guestName[i]);
+					console.log(scope.roomData[i].adultCount + " " + scope.roomData[i].childrenCount);
 					var jumlahOrang = scope.adult[i].number + scope.children[i].number;
 					if(jumlahOrang > scope.maximum){
 						scope.errorMessage = "This room allows a maximum of " + scope.maximum + " people per room.";
@@ -46,7 +46,7 @@ angular.module('myApp.controllers', [])
 					scope.occupancyAmount.push({number: i});
 				}
 				for(var i = 0; i<scope.val.length; i++){
-					scope.adult.push({number: scope.included});
+					scope.adult.push({number: 0});
 					scope.children.push({number: 0});
 					scope.infant.push({number: 0});
 					scope.guestName.push("");
