@@ -40,18 +40,26 @@
 							<b> {{roomItem['full-rate'] | currency:"IDR "}} </b>
 						</td>
 
-						<td ng-repeat="dateObj in dateArray" 
-							ng-class="{active:dateObj.weekday}"
-							class="price-col"
-							ng-click="booking(roomItem.id, dateStrArray[$index], dateObj.day)">
+<<<<<<< HEAD
+						
+=======
+					<td ng-repeat="dateObj in dateArray" 
+						ng-class="{active:dateObj.weekday}"
+						class="price-col"
+						ng-click="booking(roomItem.id, dateStrArray[$index], dateObj.day)"
+						>
+						<div class="hover-div" title="<div class='info-hover'> {{roomItem.includedOccupancy}} <br> {{roomItem.maxOccupancy}} </div>">
 							<span price-column 
 								room = "{{ roomItem.id }}"
 								day ="{{ dateObj.day | lowercase }}">
-							</span> 
-						</td>
-					</tr>
-				</tbody>
-			</table>
+							</span>
+						</div> 
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	
+>>>>>>> Hover action beta
 		</div>
 		
 		<!-- Hotel Information -->

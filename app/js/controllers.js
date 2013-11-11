@@ -3,6 +3,10 @@
 /* Controllers */
 
 angular.module('myApp.controllers', [])
+<<<<<<< HEAD
+=======
+
+>>>>>>> Hover action beta
   .controller('NavBarCtrl', ['$scope', '$location', function($scope, $location) { //NAVBAR WIDGET CONTROLLER
 	$scope.isActive = function (viewLocation) { 
         return viewLocation === $location.path();
@@ -87,6 +91,8 @@ angular.module('myApp.controllers', [])
 				$scope.visualBook.push($scope.dateBooked[i]['status']);
 			}
   		};
+
+
   	}
 
   	init();
