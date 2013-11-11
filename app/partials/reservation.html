@@ -140,7 +140,7 @@
 		</div>
 	</div>
 	
-	<form class="css-form" name="form">
+	<form class="css-form" name="form" ng-submit="bookForm()">
 	<!-- STEP 2 -->
 	<div class="page-header">
 		<div class="step-header"> Step 2</div>
@@ -150,8 +150,8 @@
 	</div>
 	
 	<div class="step-content">
-		<div class="row" room-charge val="amount" buyed="dateBuyed" maximum="room.maxOccupancy" included="room.includedOccupancy">
-		<div class="step2error" hidden="true">yeah</div>
+		<div class="row" room-charge val="amount" buyed="dateBuyed" maximum="room.maxOccupancy" included="room.includedOccupancy" extras="roomExtras">
+		<div class="step2error" ng-hide="errorHide"><img src="/app/img/error.png" width="40px" height="40px"></img> {{errorMessage}}</div>
 		<table class="table price-table roomChargeTable">
 			<thead class="dateTableHead">
 				<tr>
@@ -185,14 +185,12 @@
 					<td style="width:400px">
 						<div class="input-group">
 							<span class="input-group-btn" style="padding-right:10px; font-weight:bold"> Room {{$index + 1}} </span>
-							<div ><input type="text" class="form-control" placeholder="Guest name" name="guestName{{}}"></input></div>
+							<div ><input type="text" ng-model="guestName[room.index]" ng-change="personChange()" class="form-control" placeholder="Guest name" name="guestName" required></input></div>
 						</div>
-						
 						<div class="row">
-							
-							<div class="col-sm-4">Adults <select class="form-control" ng-model="room.adult" name="room.adult" ng-options="a.number for a in occupancyAmount" required></select></div>
-							<div class="col-sm-4">Children <select class="form-control" ng-model="room.children" name="room.children." ng-options="a.number for a in occupancyAmount" required></select></div>
-							<div class="col-sm-4">Infant <select class="form-control" ng-model="room.infant" name="room.infant" ng-options="a.number for a in occupancyAmount" required></select></div>
+							<div class="col-sm-4">Adults <select class="form-control" ng-model="adult[room.index]" name="adult[$index].number" ng-options="a.number for a in occupancyAmount" ng-change="personChange()" required><option value="">--Select-- </option></select></div>
+							<div class="col-sm-4">Children <select class="form-control" ng-model="children[room.index]" name="children[$index].number" ng-options="a.number for a in occupancyAmount" ng-change="personChange()" required><option value="">--Select-- </option></select></div>
+							<div class="col-sm-4">Infant <select class="form-control" ng-model="infant[room.index]" name="infant[$index].number" ng-options="a.number for a in occupancyAmount" ng-change="personChange()" required><option value="">--Select-- </option></select></div>
 						</div>
 					</td>
 					<td></td><td></td><td></td><td></td><td></td><td></td>
@@ -205,15 +203,15 @@
 			</tbody>
 				
 				<tbody class="TableBody TableStep2">
-				<!--
+				
 					<tr> <td colspan="7"><h4>Extras available for this room</h4></td></tr>
-					<tr ng-repeat="extra in roomExtras">
-						<td><input type="checkbox" ng-model="extra.checked" ng-change="selectedExtra()"></input> {{extra.name}}</td>
+					<tr ng-repeat="extra in extras">
+						<td><input type="checkbox" ng-model="extraCheck[$index].value" ng-change="selectedExtra()"></input> {{extra.name}}</td>
 						<td colspan="3">{{extra.desc}}</td>
 						<td colspan="2">{{extra.price | currency:"IDR "}} <span ng-repeat="stat in extra.status_pricing">per {{stat.name}} </span></td>
 						<td></td>
 					</tr>
-					-->
+					
 					<tr>
 						<td colspan="7">Total</td>
 					</tr>
@@ -232,11 +230,11 @@
 						<td colspan="2" style="text-align:right">Service Charges</td>
 						<td style="text-align:right">IDR {{serviceCharge}}</td>
 					</tr>
-					<!--<tr>
+					<tr>
 						<td colspan="4"></td>
-						<td colspan="2" style="text-alignment:right">Extras Total</td>
-						<td style="text-align:right"></td>
-					</tr>-->
+						<td colspan="2" style="text-align:right">Extras Total</td>
+						<td style="text-align:right">IDR 0</td>
+					</tr>
 					<tr>
 						<td colspan="4"></td>
 						<td colspan="2" style="text-align:right; font-size:16px; font-weight:bold;">Grand Total</td>
@@ -281,11 +279,11 @@
 					<span ng-show="form.email.$error.email">Your email is invalid.</span>
 				  </div>
 				  
-				  <label name="contact">Contact number (mobile prefered) *</label><br/>
-				  <input class="form-control" type="number" name="contact" ng-model="contactnumber" required/>
-				  <div ng-show="form.contact.$dirty && form.contact.$invalid" class="invalid-name">Invalid:
-					<span ng-show="form.contact.$error.required">This is not a correct format.</span>
-					<span ng-show="form.contact.$error.number">Not valid phone number!</span>
+				  <label name="contactNumber">Contact number (mobile prefered) *</label><br/>
+				  <input class="form-control" type="number" name="contactNumber" ng-model="contactNumber" required/>
+				  <div ng-show="form.contactNumber.$dirty && form.contact.$invalid" class="invalid-name">Invalid:
+					<span ng-show="form.contactNumber.$error.required">This is not a correct format.</span>
+					<span ng-show="form.contactNumber.$error.number">Not valid phone number!</span>
 				  </div>
 
 				  <label name="organization">Organization (if applicable)</label><br/>
@@ -298,7 +296,7 @@
 				  </div>
 				  
 				  <label name="address2">Address line 2</label><br/>
-				  <input class="form-control" type="text" name="address2" ng-model="address2" required/>
+				  <input class="form-control" type="text" name="address2" ng-model="address2"/>
 				  
 				  <label name="city">City *</label><br/>
 				  <input class="form-control" type="text" name="city" ng-model="city" required/>
@@ -389,7 +387,7 @@
 					</div>
 				</div>
 		</div>
-			<button type="button" class="btn btn-default btn-m booking-btn" ng-click="booking()" ng-disabled="isError()">
+			<button type="submit" class="btn btn-default btn-m booking-btn" ng-disabled="isError()">
 				<i class="glyphicon glyphicon-arrow-right"></i> Book
 			</button>
 	</div>

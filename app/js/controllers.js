@@ -9,17 +9,53 @@ angular.module('myApp.controllers', [])
 			val: '=',
 			buyed: '=',
 			maximum: '=',
-			included: '='
+			included: '=',
+			extras: '='
 		},	
 		link: function(scope, elm, attrs){
+			scope.roomData = [];
+			scope.extraCheck = [];
+			scope.errorHide = true;
+			scope.errorMessage = "";
 			scope.occupancyAmount = [];
+			scope.guestName = [];
+			scope.adult = [];
+			scope.children = [];
+			scope.infant = [];
+			scope.personChange = function() {
+				scope.roomData = [];
+				for(var i = 0; i<scope.val.length; i++) {
+					
+					scope.roomData.push({roomNumber: i+1, adultCount: scope.adult[i].number, childrenCount: scope.children[i].number, infantCount: scope.infant[i].number, guestName: scope.guestName[i]});
+					console.log(scope.guestName[i]);
+					var jumlahOrang = scope.adult[i].number + scope.children[i].number;
+					if(jumlahOrang > scope.maximum){
+						scope.errorMessage = "This room allows a maximum of " + scope.maximum + " people per room.";
+						scope.errorHide = false;
+					}else{
+						scope.errorHide = true;
+						scope.$emit('updateRoomData', scope.roomData);
+					}
+				}
+			};
 			scope.$watch("maximum", function(a) {
-				console.log(scope.maximum);
+				scope.adult = [];
+				scope.children = [];
+				scope.infant = [];
 				for(var i = 0; i<=scope.maximum; i++) {
 					scope.occupancyAmount.push({number: i});
 				}
-			})
-			
+				for(var i = 0; i<scope.val.length; i++){
+					scope.adult.push({number: scope.included});
+					scope.children.push({number: 0});
+					scope.infant.push({number: 0});
+					scope.guestName.push("");
+				}
+				for(var i = 0; i < scope.extras.length; i++) {
+					scope.extraCheck.push({name: scope.extras[i].name, value: "false"});
+					console.log(scope.extraCheck[i].name);
+				}
+			}),
 			scope.$watch('val', function(value) {
 				var jumlah = 0;
 				$timeout(function() {
@@ -46,6 +82,7 @@ angular.module('myApp.controllers', [])
 					scope.roomTaxes = parseInt(scope.val.length*2000);
 					scope.serviceCharge = parseInt(0.1 * jumlah);
 					scope.grandTotal = scope.roomCharge+scope.roomTaxes+scope.serviceCharge;
+					scope.$emit('updateTotalCharge', scope.grandTotal);
 				});
 			}, true);
 			scope.$watch('buyed', function(value) {
@@ -75,8 +112,14 @@ angular.module('myApp.controllers', [])
 					scope.roomTaxes = parseInt(scope.val.length*2000);
 					scope.serviceCharge = parseInt(0.1 * jumlah);
 					scope.grandTotal = scope.roomCharge+scope.roomTaxes+scope.serviceCharge;
+					scope.$emit('updateTotalCharge', scope.grandTotal);
 				});
 			}, true);
+			scope.selectedExtra = function() {
+				for(var i = 0; i < scope.extras.length; i++){
+					console.log(scope.extraCheck[i].value);
+				}
+			}
 		}
 	}
   }])
@@ -266,6 +309,7 @@ angular.module('myApp.controllers', [])
   	}
 
   	init();
+	
 
   	$scope.$on('updateStartingTable', function(e, date) {
   		init(date);
@@ -342,8 +386,7 @@ angular.module('myApp.controllers', [])
 		}
 		$scope.updateAmount();
   }])
-  .controller('BookingFieldCtrl', ['$scope', 'Hotel', 'Sample',
-  	function($scope, Hotel, Sample){
+  .controller('BookingFieldCtrl', ['$scope', 'Hotel', 'Sample', function($scope, Hotel, Sample){
 	  	$scope.isBooked = false;
 	  	Hotel.getRoom($scope, 'roomItem', 'Demo-Hotel', $scope.roomId);
 	  	$scope.book = function(date, day) {
@@ -356,8 +399,7 @@ angular.module('myApp.controllers', [])
 		// });
   	}
   }])
-  .controller('HomeCtrl', ['$scope', '$location', 'Hotel', 'Sample', 
-  	function($scope, $location, Hotel, Sample){ // HOME PAGE CONTROLLER
+  .controller('HomeCtrl', ['$scope', '$location', 'Hotel', 'Sample', function($scope, $location, Hotel, Sample){ // HOME PAGE CONTROLLER
 	$scope.rating = 4;
 	Hotel.setHotelToScope($scope, 'hotel', 'Demo-Hotel');
 	
@@ -376,14 +418,16 @@ angular.module('myApp.controllers', [])
 
     };
   }])
-  
   .controller('ReservationCtrl', ['$scope', '$location', '$routeParams','Hotel', 'Sample', function($scope, $location, $routeParams ,Hotel, Sample){ // RESERVATION PAGE CONTROLLER
+	$scope.reservationData = [];
 	$scope.rating = 4;
 	$scope.dateCol = [];
   	$scope.dateBooked = [];
 	$scope.dateBuyed=[];
 	$scope.startDateStr = $routeParams.startDate;
 	$scope.amount = [];
+	$scope.totalCharge = 0;
+	$scope.roomData = [];
 	$scope.dateToYMD = function (date, format) {
 		var weekday = new Array(7);
 		weekday[0] = "Sunday";
@@ -432,21 +476,16 @@ angular.module('myApp.controllers', [])
 	$scope.endDate = new Date($scope.startDate);
 	$scope.endDate.setDate($scope.endDate.getDate()+1);
 	$scope.roomId = $routeParams.roomId;
-
-	Hotel.getRoom($scope, 'room', 'Demo-Hotel', $routeParams.roomId);
-	
-	Hotel.setHotelToScope($scope, 'hotel', 'Demo-Hotel');
-
 	$scope.arrTimes = [{name: '12.00 PM'},{name: '01.00 PM'}, {name: '02.00 PM'},{name: '03.00 PM'}, {name: '04.00 PM'}, {name: '05.00 PM' }, {name: '06.00 PM' }, {name: '07.00 PM'} ,{name: '08.00 PM'}, {name: '09.00 PM'}, {name: '10.00 PM'}, {name: '11.00 PM'}];
 	$scope.arrTime = $scope.arrTimes[7];
-	
 	$scope.hears = [{name: 'Internet'},{name: 'Magazine'}, {name: 'Newspaper'},{name: 'Radio'}, {name: 'Television'}, {name: 'Facebook' }, {name: 'Google' }];
-	
 	$scope.cards = [{name:'Visa', uri:'img/demo-hotel/card/visa.jpg'}, {name:'Mastercard', uri:'img/demo-hotel/card/mastercard.jpg'}, {name:'JCB', uri:'img/demo-hotel/card/JCB.jpg'}];
 	$scope.cardType = $scope.cards[0];
-
 	$scope.numbers = [{number: 1},{number: 2},{number: 3},{number: 4},{number: 5},{number: 6},{number: 7},{number: 8},{number: 9},{number: 10}];
 	$scope.roomAmount = $scope.numbers[0];
+	Hotel.getRoom($scope, 'room', 'Demo-Hotel', $routeParams.roomId);
+	Hotel.setHotelToScope($scope, 'hotel', 'Demo-Hotel');
+	Hotel.getRoomExtras($scope, 'roomExtras', 'Demo-Hotel',$routeParams.roomId);
 	
 	$scope.$on('updateStartDate', function(e, date) {
 		$scope.startDate = date;
@@ -460,6 +499,16 @@ angular.module('myApp.controllers', [])
 		// console.log($scope.endDate);
 		$scope.updateBookedDate();
 		$scope.$broadcast('updateEndingTable', $scope.endDate );
+	});
+	
+	$scope.$on('updateTotalCharge', function(e, charge) {
+		$scope.totalCharge = charge;
+		console.log($scope.totalCharge + "yeah");
+	});
+	
+	$scope.$on('updateRoomData', function(e, roomData) {
+		$scope.roomData = roomData;
+		console.log($scope.roomData.length);
 	});
 	
 	$scope.updateBookedDate = function() {
@@ -486,21 +535,37 @@ angular.module('myApp.controllers', [])
 			else
 				$scope.dateBooked.push({date: myDate, status:false});
   		};
-		
   		// UPDATE PAYMENT LIST
 	}
 	
-	Hotel.getRoomExtras($scope, 'roomExtras', 'Demo-Hotel',$routeParams.roomId);
-	
-	/*var roomChargeChild = $('.roomChargeTBody');
-	var thisElementChild = $(roomChargeChild[1]).children();
-	console.log(roomChargeChild.html());
-	for(var i = 0; i< roomChargeChild.length; i++){
-		var thisElementChild = $(roomChargeChild[i]).children();
-	}*/
 	$scope.updateBookedDate();
-	
 	$scope.isError = function(user) {
-		return angular.equals(user, $scope.master);
+		console.log($scope.agreeCheck);
+		if($scope.form.$valid == true && $scope.agreeCheck){
+			return false;
+		}else{
+			return true;
+		}
 	};
+	$scope.formBook = function() {
+		$scope.reservationData.push({
+			roomData: $scope.roomData,
+			startDate: $scope.startDate,
+			endDate: $scope.endDate,
+			firstName: $scope.form.firstName,
+			lastName: $scope.form.lastName,
+			email: $scope.form.email,
+			contactNumber: $scope.form.contactNumber,
+			organization: $scope.form.organization,
+			addressLine1: $scope.form.address1,
+			addressLine2: $scope.form.address2,
+			city: $scope.form.city,
+			state: $scope.form.state,
+			country: $scope.form.country,
+			postCode: $scope.form.postcode,
+			arrivalTime: $scope.form.arrTime
+		});
+		console.log($scope.reservationData.roomData.length + " " + $scope.reservationData.firstName);
+	}
+	
   }]);
