@@ -32,9 +32,11 @@ angular.module('myApp.controllers', [])
 					if(jumlahOrang > scope.maximum){
 						scope.errorMessage = "This room allows a maximum of " + scope.maximum + " people per room.";
 						scope.errorHide = false;
+						scope.$emit('updateErrorRoom', scope.errorHide);
 					}else{
 						scope.errorHide = true;
 						scope.$emit('updateRoomData', scope.roomData);
+						scope.$emit('updateErrorRoom', scope.errorHide);
 					}
 				}
 			};
@@ -420,6 +422,7 @@ angular.module('myApp.controllers', [])
   }])
   .controller('ReservationCtrl', ['$scope', '$location', '$routeParams','Hotel', 'Sample', function($scope, $location, $routeParams ,Hotel, Sample){ // RESERVATION PAGE CONTROLLER
 	$scope.reservationData = [];
+	$scope.errorHide = true;
 	$scope.rating = 4;
 	$scope.dateCol = [];
   	$scope.dateBooked = [];
@@ -428,6 +431,26 @@ angular.module('myApp.controllers', [])
 	$scope.amount = [];
 	$scope.totalCharge = 0;
 	$scope.roomData = [];
+	if ($scope.startDateStr) {
+		// kalo ada startDate
+		$scope.startDate = new Date($routeParams.startDate);
+	} else {
+		// kalo ga ada, ambil startDate = todayDate
+		$scope.startDate = new Date();
+	}
+	$scope.endDate = new Date($scope.startDate);
+	$scope.endDate.setDate($scope.endDate.getDate()+1);
+	$scope.roomId = $routeParams.roomId;
+	$scope.arrTimes = [{name: '12.00 PM'},{name: '01.00 PM'}, {name: '02.00 PM'},{name: '03.00 PM'}, {name: '04.00 PM'}, {name: '05.00 PM' }, {name: '06.00 PM' }, {name: '07.00 PM'} ,{name: '08.00 PM'}, {name: '09.00 PM'}, {name: '10.00 PM'}, {name: '11.00 PM'}];
+	$scope.arrTime = $scope.arrTimes[7];
+	$scope.hears = [{name: 'Internet'},{name: 'Magazine'}, {name: 'Newspaper'},{name: 'Radio'}, {name: 'Television'}, {name: 'Facebook' }, {name: 'Google' }];
+	$scope.cards = [{name:'Visa', uri:'img/demo-hotel/card/visa.jpg'}, {name:'Mastercard', uri:'img/demo-hotel/card/mastercard.jpg'}, {name:'JCB', uri:'img/demo-hotel/card/JCB.jpg'}];
+	$scope.cardType = $scope.cards[0];
+	$scope.numbers = [{number: 1},{number: 2},{number: 3},{number: 4},{number: 5},{number: 6},{number: 7},{number: 8},{number: 9},{number: 10}];
+	$scope.roomAmount = $scope.numbers[0];
+	Hotel.getRoom($scope, 'room', 'Demo-Hotel', $routeParams.roomId);
+	Hotel.setHotelToScope($scope, 'hotel', 'Demo-Hotel');
+	Hotel.getRoomExtras($scope, 'roomExtras', 'Demo-Hotel',$routeParams.roomId);
 	$scope.dateToYMD = function (date, format) {
 		var weekday = new Array(7);
 		weekday[0] = "Sunday";
@@ -466,26 +489,6 @@ angular.module('myApp.controllers', [])
 	    		day: (weekday[day]).substring(0,3), 
 	    		weekday: (day == 0 || day == 6 ? true : false) }
   	}
-	if ($scope.startDateStr) {
-		// kalo ada startDate
-		$scope.startDate = new Date($routeParams.startDate);
-	} else {
-		// kalo ga ada, ambil startDate = todayDate
-		$scope.startDate = new Date();
-	}
-	$scope.endDate = new Date($scope.startDate);
-	$scope.endDate.setDate($scope.endDate.getDate()+1);
-	$scope.roomId = $routeParams.roomId;
-	$scope.arrTimes = [{name: '12.00 PM'},{name: '01.00 PM'}, {name: '02.00 PM'},{name: '03.00 PM'}, {name: '04.00 PM'}, {name: '05.00 PM' }, {name: '06.00 PM' }, {name: '07.00 PM'} ,{name: '08.00 PM'}, {name: '09.00 PM'}, {name: '10.00 PM'}, {name: '11.00 PM'}];
-	$scope.arrTime = $scope.arrTimes[7];
-	$scope.hears = [{name: 'Internet'},{name: 'Magazine'}, {name: 'Newspaper'},{name: 'Radio'}, {name: 'Television'}, {name: 'Facebook' }, {name: 'Google' }];
-	$scope.cards = [{name:'Visa', uri:'img/demo-hotel/card/visa.jpg'}, {name:'Mastercard', uri:'img/demo-hotel/card/mastercard.jpg'}, {name:'JCB', uri:'img/demo-hotel/card/JCB.jpg'}];
-	$scope.cardType = $scope.cards[0];
-	$scope.numbers = [{number: 1},{number: 2},{number: 3},{number: 4},{number: 5},{number: 6},{number: 7},{number: 8},{number: 9},{number: 10}];
-	$scope.roomAmount = $scope.numbers[0];
-	Hotel.getRoom($scope, 'room', 'Demo-Hotel', $routeParams.roomId);
-	Hotel.setHotelToScope($scope, 'hotel', 'Demo-Hotel');
-	Hotel.getRoomExtras($scope, 'roomExtras', 'Demo-Hotel',$routeParams.roomId);
 	
 	$scope.$on('updateStartDate', function(e, date) {
 		$scope.startDate = date;
@@ -509,6 +512,10 @@ angular.module('myApp.controllers', [])
 	$scope.$on('updateRoomData', function(e, roomData) {
 		$scope.roomData = roomData;
 		console.log($scope.roomData.length);
+	});
+	
+	$scope.$on('updateErrorRoom', function(e, errorHide) {
+		$scope.errorHide = errorHide;
 	});
 	
 	$scope.updateBookedDate = function() {
@@ -541,7 +548,7 @@ angular.module('myApp.controllers', [])
 	$scope.updateBookedDate();
 	$scope.isError = function(user) {
 		console.log($scope.agreeCheck);
-		if($scope.form.$valid == true && $scope.agreeCheck){
+		if($scope.errorHide == true){
 			return false;
 		}else{
 			return true;

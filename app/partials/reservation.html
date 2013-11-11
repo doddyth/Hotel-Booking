@@ -140,7 +140,7 @@
 		</div>
 	</div>
 	
-	<form class="css-form" name="form" ng-submit="bookForm()">
+	<form class="css-form" name="form" ng-submit="formBook()">
 	<!-- STEP 2 -->
 	<div class="page-header">
 		<div class="step-header"> Step 2</div>
@@ -381,13 +381,13 @@
 		</div>
 		<div class="row content-style2">
 				<div class="marginBot10">
-					<input type="checkbox" ng-model="agreeCheck" name="agreeCheck"> </input> I have read and accepted the terms and conditions <br/>
+					<input type="checkbox" ng-model="agreeCheck" name="agreeCheck" required> </input> I have read and accepted the terms and conditions <br/>
 					<div ng-show="form.agreeCheck.$dirty && form.agreeCheck.$invalid" class="invalid-name">Invalid:
 						<span ng-show="form.agreeCheck.$error.required">Please accept terms and conditions.</span>
 					</div>
 				</div>
 		</div>
-			<button type="button" class="btn btn-default btn-m booking-btn" ng-disabled="isError()" ng-click="formBook()">
+			<button type="submit" class="btn btn-default btn-m booking-btn" ng-disabled="isError()">
 				<i class="glyphicon glyphicon-arrow-right"></i> Book
 			</button>
 	</div>
