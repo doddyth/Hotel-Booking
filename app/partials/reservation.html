@@ -204,13 +204,13 @@
 				
 				<tbody class="TableBody TableStep2">
 				
-					<!--<tr> <td colspan="7"><h4>Extras available for this room</h4></td></tr>
+					<tr> <td colspan="7"><h4>Extras available for this room</h4></td></tr>
 					<tr ng-repeat="extra in extras">
 						<td><input type="checkbox" ng-model="extraCheck[$index].value" ng-change="selectedExtra()"></input> {{extra.name}}</td>
 						<td colspan="3">{{extra.desc}}</td>
 						<td colspan="2">{{extra.price | currency:"IDR "}} <span ng-repeat="stat in extra.status_pricing">per {{stat.name}} </span></td>
-						<td></td>
-					</tr>-->
+						<td style="text-align: right">IDR {{extraCheck[$index].jumlah}}</td>
+					</tr>
 					
 					<tr>
 						<td colspan="7">Total</td>
@@ -230,11 +230,11 @@
 						<td colspan="2" style="text-align:right">Service Charges</td>
 						<td style="text-align:right">IDR {{serviceCharge}}</td>
 					</tr>
-					<!--<tr>
+					<tr>
 						<td colspan="4"></td>
 						<td colspan="2" style="text-align:right">Extras Total</td>
-						<td style="text-align:right">IDR 0</td>
-					</tr>-->
+						<td style="text-align:right">IDR {{extraCharge}}</td>
+					</tr>
 					<tr>
 						<td colspan="4"></td>
 						<td colspan="2" style="text-align:right; font-size:16px; font-weight:bold;">Grand Total</td>

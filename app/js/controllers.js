@@ -25,7 +25,6 @@ angular.module('myApp.controllers', [])
 			scope.personChange = function() {
 				scope.roomData = [];
 				for(var i = 0; i<scope.val.length; i++) {
-					
 					scope.roomData.push({roomNumber: i+1, adultCount: scope.adult[i].number, childrenCount: scope.children[i].number, infantCount: scope.infant[i].number, guestName: scope.guestName[i]});
 					console.log(scope.roomData[i].adultCount + " " + scope.roomData[i].childrenCount);
 					var jumlahOrang = scope.adult[i].number + scope.children[i].number;
@@ -54,41 +53,13 @@ angular.module('myApp.controllers', [])
 					scope.guestName.push("");
 				}
 				for(var i = 0; i < scope.extras.length; i++) {
-					scope.extraCheck.push({name: scope.extras[i].name, value: "false"});
-					console.log(scope.extraCheck[i].name);
+					scope.extraCheck.push({name: scope.extras[i].name, value: "false", jumlah: 0});
+					//console.log(scope.extraCheck[i].);
 				}
 			}),
 			scope.$watch('val', function(value) {
 				var jumlah = 0;
-				$timeout(function() {
-					var child = elm.children();
-					for(var i = 0; i< child.length; i++){
-						var thisElementChild = $(child[i]).children();
-						for(var j = 0; j < thisElementChild.length; j++){
-							var roomChargeChild = $(thisElementChild[j]).children();
-							for(var k = 0; k < roomChargeChild.length; k++) {
-								var deepChild = $(roomChargeChild[k]).children();
-								for(var l = 0; l < deepChild.length; l++) {
-									var deepestChild = $(deepChild[l]).children();
-									for(var m = 0; m < deepestChild.length; m++) {
-										if($(deepestChild[m]).hasClass('roomCharge'))
-										{
-											jumlah = jumlah + parseInt($(deepestChild[m]).html());
-										}
-									}
-								}
-							}
-						}	
-					}
-					scope.roomCharge = jumlah;
-					scope.roomTaxes = parseInt(scope.val.length*2000);
-					scope.serviceCharge = parseInt(0.1 * jumlah);
-					scope.grandTotal = scope.roomCharge+scope.roomTaxes+scope.serviceCharge;
-					scope.$emit('updateTotalCharge', scope.grandTotal);
-				});
-			}, true);
-			scope.$watch('buyed', function(value) {
-				var jumlah = 0;
+				var jumlahExtra = 0;
 				$timeout(function() {
 					var child = elm.children();
 					for(var i = 0; i< child.length; i++){
@@ -110,17 +81,171 @@ angular.module('myApp.controllers', [])
 							}
 						}	
 					}
+					if(scope.extras){
+						for(var i = 0; i < scope.extras.length; i++){
+							var jumlahHarga = 0;
+							var status = "";
+							if(scope.extraCheck[i].value == true) { 
+								for(var j = 0; j < scope.extras[i].status_pricing.length; j++) {
+									if(scope.extras[i].status_pricing[j].name == "room") {
+										status = "room";
+										jumlahHarga = jumlahHarga + (scope.extras[i].price * scope.val.length); 
+									}
+									if(scope.extras[i].status_pricing[j].name == "booking") {
+										status = "booking"
+										jumlahHarga = jumlahHarga + scope.extras[i].price;
+									}
+									if(scope.extras[i].status_pricing[j].name == "night") {
+										if(status == "room"){
+											jumlahHarga = jumlahHarga * scope.buyed.length;
+										}
+										else {
+											jumlahHarga = jumlahHarga + (scope.extras[i].price * scope.buyed.length);
+										}
+										status = "night";
+									}
+								}
+								jumlahExtra = jumlahExtra + jumlahHarga;
+								scope.extraCheck[i].jumlah = jumlahHarga;
+								console.log(scope.extraCheck[i].jumlah);
+							} else {
+								scope.extraCheck[i].jumlah = 0;
+							}
+						}
+					}
 					scope.roomCharge = jumlah;
 					scope.roomTaxes = parseInt(scope.val.length*2000);
 					scope.serviceCharge = parseInt(0.1 * jumlah);
-					scope.grandTotal = scope.roomCharge+scope.roomTaxes+scope.serviceCharge;
+					scope.extraCharge = jumlahExtra;
+					scope.grandTotal = scope.roomCharge+scope.roomTaxes+scope.serviceCharge+scope.extraCharge;
 					scope.$emit('updateTotalCharge', scope.grandTotal);
 				});
 			}, true);
+			scope.$watch('buyed', function(value) {
+				var jumlah = 0;
+				var jumlahExtra = 0;
+				$timeout(function() {
+					var child = elm.children();
+					for(var i = 0; i< child.length; i++){
+						var thisElementChild = $(child[i]).children();
+						for(var j = 0; j < thisElementChild.length; j++){
+							var roomChargeChild = $(thisElementChild[j]).children();
+							for(var k = 0; k < roomChargeChild.length; k++) {
+								var deepChild = $(roomChargeChild[k]).children();
+								for(var l = 0; l < deepChild.length; l++) {
+									var deepestChild = $(deepChild[l]).children();
+									for(var m = 0; m < deepestChild.length; m++) {
+										if($(deepestChild[m]).hasClass('roomCharge'))
+										{
+											jumlah = jumlah + parseInt($(deepestChild[m]).html());
+											console.log(jumlah);
+										}
+									}
+								}
+							}
+						}	
+					}
+					if(scope.extras){
+						for(var i = 0; i < scope.extras.length; i++){
+							var jumlahHarga = 0;
+							var status = "";
+							if(scope.extraCheck[i].value == true) { 
+								for(var j = 0; j < scope.extras[i].status_pricing.length; j++) {
+									if(scope.extras[i].status_pricing[j].name == "room") {
+										status = "room";
+										jumlahHarga = jumlahHarga + (scope.extras[i].price * scope.val.length); 
+									}
+									if(scope.extras[i].status_pricing[j].name == "booking") {
+										status = "booking"
+										jumlahHarga = jumlahHarga + scope.extras[i].price;
+									}
+									if(scope.extras[i].status_pricing[j].name == "night") {
+										if(status == "room"){
+											jumlahHarga = jumlahHarga * scope.buyed.length;
+										}
+										else {
+											jumlahHarga = jumlahHarga + (scope.extras[i].price * scope.buyed.length);
+										}
+										status = "night";
+									}
+								}
+								jumlahExtra = jumlahExtra + jumlahHarga;
+								scope.extraCheck[i].jumlah = jumlahHarga;
+								console.log(scope.extraCheck[i].jumlah);
+							} else {
+								scope.extraCheck[i].jumlah = 0;
+							}
+						}
+					}
+					scope.roomCharge = jumlah;
+					scope.roomTaxes = parseInt(scope.val.length*2000);
+					scope.serviceCharge = parseInt(0.1 * jumlah);
+					scope.extraCharge = jumlahExtra;
+					scope.grandTotal = scope.roomCharge+scope.roomTaxes+scope.serviceCharge+scope.extraCharge;
+					scope.$emit('updateTotalCharge', scope.grandTotal);
+				});
+			},true);
 			scope.selectedExtra = function() {
-				for(var i = 0; i < scope.extras.length; i++){
-					console.log(scope.extraCheck[i].value);
-				}
+				var jumlah = 0;
+				var jumlahExtra = 0;
+				$timeout(function() {
+					var child = elm.children();
+					for(var i = 0; i< child.length; i++){
+						var thisElementChild = $(child[i]).children();
+						for(var j = 0; j < thisElementChild.length; j++){
+							var roomChargeChild = $(thisElementChild[j]).children();
+							for(var k = 0; k < roomChargeChild.length; k++) {
+								var deepChild = $(roomChargeChild[k]).children();
+								for(var l = 0; l < deepChild.length; l++) {
+									var deepestChild = $(deepChild[l]).children();
+									for(var m = 0; m < deepestChild.length; m++) {
+										if($(deepestChild[m]).hasClass('roomCharge'))
+										{
+											jumlah = jumlah + parseInt($(deepestChild[m]).html());
+											console.log(jumlah);
+										}
+									}
+								}
+							}
+						}	
+					}
+					for(var i = 0; i < scope.extras.length; i++){
+						var jumlahHarga = 0;
+						var status = "";
+						if(scope.extraCheck[i].value == true) { 
+							for(var j = 0; j < scope.extras[i].status_pricing.length; j++) {
+								if(scope.extras[i].status_pricing[j].name == "room") {
+									status = "room";
+									jumlahHarga = jumlahHarga + (scope.extras[i].price * scope.val.length); 
+								}
+								if(scope.extras[i].status_pricing[j].name == "booking") {
+									status = "booking"
+									jumlahHarga = jumlahHarga + scope.extras[i].price;
+								}
+								if(scope.extras[i].status_pricing[j].name == "night") {
+									if(status == "room"){
+										jumlahHarga = jumlahHarga * scope.buyed.length;
+									}
+									else {
+										jumlahHarga = jumlahHarga + (scope.extras[i].price * scope.buyed.length);
+									}
+									status = "night";
+								}
+							}
+							jumlahExtra = jumlahExtra + jumlahHarga;
+							scope.extraCheck[i].jumlah = jumlahHarga;
+							console.log(scope.extraCheck[i].jumlah);
+						}else {
+							scope.extraCheck[i].jumlah = 0;
+						}
+					}
+					scope.roomCharge = jumlah;
+					scope.roomTaxes = parseInt(scope.val.length*2000);
+					scope.serviceCharge = parseInt(0.1 * jumlah);
+					scope.extraCharge = jumlahExtra;
+					scope.grandTotal = scope.roomCharge+scope.roomTaxes+scope.serviceCharge+scope.extraCharge;
+					scope.$emit('updateTotalCharge', scope.grandTotal);
+				},100);
 			}
 		}
 	}
