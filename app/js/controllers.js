@@ -548,24 +548,25 @@ angular.module('myApp.controllers', [])
 		}
 	};
 	$scope.formBook = function() {
+		$scope.reservationData = [];
 		$scope.reservationData.push({
 			roomData: $scope.roomData,
 			startDate: $scope.startDate,
 			endDate: $scope.endDate,
-			firstName: $scope.form.firstName,
-			lastName: $scope.form.lastName,
-			email: $scope.form.email,
-			contactNumber: $scope.form.contactNumber,
-			organization: $scope.form.organization,
-			addressLine1: $scope.form.address1,
-			addressLine2: $scope.form.address2,
-			city: $scope.form.city,
-			state: $scope.form.state,
-			country: $scope.form.country,
-			postCode: $scope.form.postcode,
-			arrivalTime: $scope.form.arrTime
+			firstName: $scope.firstName,
+			lastName: $scope.lastName,
+			email: $scope.email,
+			contactNumber: $scope.contactNumber,
+			organization: $scope.organization,
+			addressLine1: $scope.address1,
+			addressLine2: $scope.address2,
+			city: $scope.city,
+			state: $scope.state,
+			country: $scope.country,
+			postCode: $scope.postcode,
+			arrivalTime: $scope.arrTime
 		});
-		console.log($scope.reservationData.roomData.length + " " + $scope.reservationData.firstName);
+		console.log($scope.reservationData[0].roomData.length + " " + $scope.reservationData[0].firstName);
 	}
 	
   }]);
