@@ -9,10 +9,15 @@ angular.module('myApp.controllers', [])
 			val: '=',
 			buyed: '=',
 			maximum: '=',
-			included: '=',
+			includedAdult: '=',
+			includedChildren: '=',
+			adultPrice: '=',
+			childrenPrice: '=',
 			extras: '='
 		},	
 		link: function(scope, elm, attrs){
+			scope.roomCharge = [];
+			scope.roomDataCharge = [];
 			scope.roomData = [];
 			scope.extraCheck = [];
 			scope.errorHide = true;
@@ -22,7 +27,10 @@ angular.module('myApp.controllers', [])
 			scope.adult = [];
 			scope.children = [];
 			scope.infant = [];
+			
 			scope.personChange = function() {
+				var jumlah = 0;
+				scope.roomDateCharge = [];
 				scope.roomData = [];
 				for(var i = 0; i<scope.val.length; i++) {
 					scope.roomData.push({roomNumber: i+1, adultCount: scope.adult[i].number, childrenCount: scope.children[i].number, infantCount: scope.infant[i].number, guestName: scope.guestName[i]});
@@ -37,7 +45,52 @@ angular.module('myApp.controllers', [])
 						scope.$emit('updateRoomData', scope.roomData);
 						scope.$emit('updateErrorRoom', scope.errorHide);
 					}
+					var prices = [];
+					for(var j = 0; j < scope.buyed.length; j++) { 
+						if(scope.adult[i].number > scope.includedAdult || scope.children[i].number > scope.includedChildren) {
+							var selisihAdult = scope.adult[i].number > scope.includedAdult ? scope.adult[i].number - scope.includedAdult : 0;
+							var selisihChildren = scope.children[i].number > scope.includedChildren ? scope.children[i].number - scope.includedChildren : 0;
+							var adultExtraPrice = scope.adultPrice * selisihAdult;
+							var childrenExtraPrice = scope.childrenPrice * selisihChildren;
+							var totalDatePrice = scope.buyed[j].prices + adultExtraPrice + childrenExtraPrice;
+							prices.push({adultExtraPrice: adultExtraPrice, childrenExtraPrice: childrenExtraPrice, totalDatePrice: totalDatePrice});
+							console.log(adultExtraPrice + " " + childrenExtraPrice + " Yeah!");
+						}
+						else { 
+							var totalDatePrice = scope.buyed[j].prices + 0 + 0;
+							prices.push({adultExtraPrice: 0, childrenExtraPrice: 0, totalDatePrice: totalDatePrice});
+						}
+					}
+					scope.roomDateCharge.push({prices: prices});
 				}
+				$timeout(function() {
+					var child = elm.children();
+					for(var i = 0; i< child.length; i++){
+						var thisElementChild = $(child[i]).children();
+						for(var j = 0; j < thisElementChild.length; j++){
+							var roomChargeChild = $(thisElementChild[j]).children();
+							for(var k = 0; k < roomChargeChild.length; k++) {
+								var deepChild = $(roomChargeChild[k]).children();
+								for(var l = 0; l < deepChild.length; l++) {
+									var deepestChild = $(deepChild[l]).children();
+									for(var m = 0; m < deepestChild.length; m++) {
+										if($(deepestChild[m]).hasClass('roomCharge'))
+										{
+											jumlah = jumlah + parseInt($(deepestChild[m]).html());
+											console.log("aergh " + $(deepestChild[m]).html() + jumlah);
+										}
+									}
+								}
+							}
+						}	
+					}
+					scope.roomCharge = jumlah;
+					scope.roomTaxes = parseInt(scope.val.length*2000);
+					scope.serviceCharge = parseInt(0.1 * jumlah);
+					//scope.extraCharge = jumlahExtra;
+					scope.grandTotal = scope.roomCharge+scope.roomTaxes+scope.serviceCharge+scope.extraCharge;
+					scope.$emit('updateTotalCharge', scope.grandTotal);
+				});
 			};
 			scope.$watch("maximum", function(a) {
 				scope.adult = [];
@@ -58,8 +111,48 @@ angular.module('myApp.controllers', [])
 				}
 			}),
 			scope.$watch('val', function(value) {
+				scope.roomDateCharge = [];
 				var jumlah = 0;
 				var jumlahExtra = 0;
+				if(scope.val.length < scope.adult.length)
+				{
+					console.log("kurang (sebelum)" + scope.children.length);
+					for(var i = (scope.adult.length - scope.val.length)-1; i >= 0 ; i--) {
+						scope.adult.pop();
+						scope.children.pop();
+						scope.infant.pop();
+						scope.roomData.pop();
+					}
+				} else {
+					var selisih = scope.val.length - scope.adult.length;
+					for(var i = 0; i < selisih ; i++) {
+						console.log("selisihnya= " + (scope.val.length - scope.adult.length) + "index=" + i);
+						scope.adult.push({number: 0});
+						scope.children.push({number: 0});
+						scope.infant.push({number: 0});
+						scope.guestName.push("");
+					}
+				}
+				
+				for(var i = 0; i<scope.val.length; i++){
+					var prices = [];
+					for(var j = 0; j < scope.buyed.length; j++) { 
+						if(scope.adult[i].number > scope.includedAdult || scope.children[i].number > scope.includedChildren) {
+							var selisihAdult = scope.adult[i].number > scope.includedAdult ? scope.adult[i].number - scope.includedAdult : 0;
+							var selisihChildren = scope.children[i].number > scope.includedChildren ? scope.children[i].number - scope.includedChildren : 0;
+							var adultExtraPrice = scope.adultPrice * selisihAdult;
+							var childrenExtraPrice = scope.childrenPrice * selisihChildren;
+							var totalDatePrice = scope.buyed[j].prices + adultExtraPrice + childrenExtraPrice;
+							prices.push({adultExtraPrice: adultExtraPrice, childrenExtraPrice: childrenExtraPrice, totalDatePrice: totalDatePrice});
+							console.log(adultExtraPrice + " " + childrenExtraPrice + " Yeah!");
+						}
+						else { 
+							var totalDatePrice = scope.buyed[j].prices + 0 + 0;
+							prices.push({adultExtraPrice: 0, childrenExtraPrice: 0, totalDatePrice: totalDatePrice});
+						}
+					}
+					scope.roomDateCharge.push({prices: prices});
+				}
 				$timeout(function() {
 					var child = elm.children();
 					for(var i = 0; i< child.length; i++){
@@ -73,8 +166,8 @@ angular.module('myApp.controllers', [])
 									for(var m = 0; m < deepestChild.length; m++) {
 										if($(deepestChild[m]).hasClass('roomCharge'))
 										{
+											console.log(deepestChild[m]);
 											jumlah = jumlah + parseInt($(deepestChild[m]).html());
-											console.log(jumlah);
 										}
 									}
 								}
@@ -122,8 +215,29 @@ angular.module('myApp.controllers', [])
 				});
 			}, true);
 			scope.$watch('buyed', function(value) {
+				scope.roomDateCharge = [];
 				var jumlah = 0;
 				var jumlahExtra = 0;
+				for(var i = 0; i<scope.val.length; i++){
+				var prices = [];
+				for(var j = 0; j < scope.buyed.length; j++) { 
+					if(scope.adult[i].number > scope.includedAdult || scope.children[i].number > scope.includedChildren) {
+						var selisihAdult = scope.adult[i].number > scope.includedAdult ? scope.adult[i].number - scope.includedAdult : 0;
+						var selisihChildren = scope.children[i].number > scope.includedChildren ? scope.children[i].number - scope.includedChildren : 0;
+						var adultExtraPrice = scope.adultPrice * selisihAdult;
+						var childrenExtraPrice = scope.childrenPrice * selisihChildren;
+						var totalDatePrice = scope.buyed[j].prices + adultExtraPrice + childrenExtraPrice;
+						prices.push({adultExtraPrice: adultExtraPrice, childrenExtraPrice: childrenExtraPrice, totalDatePrice: totalDatePrice});
+						console.log(adultExtraPrice + " " + childrenExtraPrice + " Yeah!");
+					}
+					else { 
+						var totalDatePrice = scope.buyed[j].prices + 0 + 0;
+						prices.push({adultExtraPrice: 0, childrenExtraPrice: 0, totalDatePrice: totalDatePrice});
+					}
+				}
+				scope.roomDateCharge.push({prices: prices});
+				}
+					
 				$timeout(function() {
 					var child = elm.children();
 					for(var i = 0; i< child.length; i++){

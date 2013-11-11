@@ -150,7 +150,7 @@
 	</div>
 	
 	<div class="step-content">
-		<div class="row" room-charge val="amount" buyed="dateBuyed" maximum="room.maxOccupancy" included="room.includedOccupancy" extras="roomExtras">
+		<div class="row" room-charge val="amount" buyed="dateBuyed" maximum="room.maxOccupancy" included-adult="room.includedAdult" included-children="room.includedChildren" adult-price="room.extraAdultPrice" children-price="room.extraChildrenPrice" extras="roomExtras">
 		<div class="step2error" ng-hide="errorHide"><img src="/app/img/error.png" width="40px" height="40px"></img> {{errorMessage}}</div>
 		<table class="table price-table roomChargeTable">
 			<thead class="dateTableHead">
@@ -198,7 +198,7 @@
 				<tr ng-repeat="date in buyed">
 					<td></td>
 					<td style="text-align: left;">{{date.dateString.day}} {{date.dateString.date}} {{date.dateString.month}}</td>
-					<td style="text-align: right;">{{date.prices | currency:"IDR "}}</td><td style="text-align: right;">IDR 0</td><td style="text-align: right;">IDR 0</td><td style="text-align: right;">IDR 0</td><td style="text-align:right">IDR <span class="roomCharge" >{{date.prices}}</span></td>
+					<td style="text-align: right;">{{date.prices | currency:"IDR "}}</td><td style="text-align: right;">IDR {{roomDateCharge[room.index].prices[$index].adultExtraPrice}}</td><td style="text-align: right;">IDR {{roomDateCharge[room.index].prices[$index].childrenExtraPrice}}</td><td style="text-align: right;">IDR 0</td><td style="text-align:right">IDR <span class="roomCharge" >{{roomDateCharge[room.index].prices[$index].totalDatePrice}}</span></td>
 				</tr>
 			</tbody>
 				
