@@ -355,6 +355,9 @@ angular.module('myApp.controllers', [])
 		console.log($scope.reservationData[0].roomData.length + " " + $scope.reservationData[0].firstName);
 	}
   }])
+  .controller('LoginCtrl', ['$scope', '$rootScope', '$http', '$location', function($scope, $rootScope, $http, $location) {
+  
+  }])
   .controller('AdminCtrl', ['$scope', '$location', '$routeParams', 'Hotel', 'Sample', function($scope, $location, $routeParams, Hotel, Sample) {
 	
   }]);

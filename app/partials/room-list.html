@@ -1,0 +1,35 @@
+<div class="header"></div>
+<div class="content">
+	<div class="container"> 
+		<!-- Hotel Room List Table-->
+		<div class="page-header hotel-header">
+			<div class="hotel-header">
+				Room List
+			</div>
+		</div>
+		<div class="accomodation">
+			<ul class="accomodation-list">
+				<li ng-repeat="acc in hotel.rooms">
+					<div class="row">
+						<div class="col-md-2">
+							<img width="100%" ng-src="{{acc.images}}"/>
+						</div>
+						<div class="col-md-10">
+							<div class="room-name"> {{acc.name}} </div>
+							<div class="room-desc"> {{acc.desc}} </div>
+							<ul class="room-feature-list">
+								<li ng-repeat="feature in acc.features">
+									{{feature.name}}
+								</li>
+							</ul>
+							<button type="button" class="btn btn-default btn-sm booking-btn" ng-click="booking(acc.id)">
+								<i class="glyphicon glyphicon-star"></i> Book
+							</button>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		
+	</div>
+</div>

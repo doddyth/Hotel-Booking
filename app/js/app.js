@@ -9,14 +9,17 @@ angular.module('myApp', [
   'myApp.directives',
   'myApp.controllers',
   'firebase',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'ngResource'
 ]).
-config(['$routeProvider', function($routeProvider) {
+config(function($routeProvider, $locationProvider, $httpProvider) {
   $routeProvider.when('/home', {templateUrl: 'partials/home.html', controller: 'HomeCtrl'});
-  $routeProvider.when('/reservation/:roomId', 
-    {templateUrl: 'partials/reservation.html', controller: 'ReservationCtrl'});
-  $routeProvider.when('/reservation/:roomId/:startDate', 
-    {templateUrl: 'partials/reservation.html', controller: 'ReservationCtrl'});
+  $routeProvider.when('/room-list', {templateUrl: 'partials/room-list.html', controller: 'HomeCtrl'});
+  $routeProvider.when('/reservation/:roomId', {templateUrl: 'partials/reservation.html', controller: 'ReservationCtrl'});
+  $routeProvider.when('/reservation/:roomId/:startDate', {templateUrl: 'partials/reservation.html', controller: 'ReservationCtrl'});
   $routeProvider.when('/admin', {templateUrl: 'partials/admin.html', controller: 'AdminCtrl'});
+  $routeProvider.when('/login', {templateUrl: 'partials/login.html', controller: 'LoginCtrl'});
   $routeProvider.otherwise({redirectTo: '/home'});
-  }]);
+  
+}); //End of Config
+

@@ -86,4 +86,28 @@ angular.module('myApp.services', ['ngResource', 'firebase']).
 		      	"sun" : 100101
 	  		}
 		}
-	});
+	})
+	.factory('loginService', ['angularFireAuth', '$location', '$rootScope',
+		function(angularFireAuth, $location, $rootScope) {
+		return {
+			login: function(email, pass, redirect, callback) {
+				var p = angularFireAuth.login('password', {
+					email: email,
+					password: pass,
+					rememberMe: true
+				});
+				p.then(function(user) {
+					if( redirect ) {
+						$location.path(redirect);
+					}
+					callback && callback(null, user);
+				}, callback);
+			},
+			logout: function(redirectPath) {
+				angularFireAuth.logout();
+				if(redirectPath) {
+					$location.path(redirectPath);
+				}
+			},
+		}
+	}])
