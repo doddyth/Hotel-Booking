@@ -1,401 +1,404 @@
-<div class="container">
-	<div class="page-header hotel-header">{{room.name}}</div>
-	<div class="row">
-		<div class="col-md-2">
-			<img width="100%" ng-src="{{room.images}}"/>
-		</div>
-		<div class="col-md-10">
-			<div class="room-desc"> {{room.desc}}</div>
-			<ul class="room-feature-list">
-				<li ng-repeat="feature in room.features">
-					{{feature.name}}
-				</li>
-			</ul>
-		</div>
-	</div>
-	
-	<!-- STEP 1-->
-	<div class="page-header">
-		<div class="step-header"> Step 1</div>
-		<div class="step-desc">	Select the number of rooms and stay dates - use grid below to check availability </div>
-		<div style="clear:both"></div>
-	</div>
-
-	<div id="startDatePicker" 
-		 ng-controller="DatePickerCtrl"
-		 class="row"
-		 style="padding:10px 0 20px 0; position:relative;">
-		<div class="col-lg-4">
-			<div class="input-group">
-				<span class="input-group-btn" style="padding-right:10px;"> Number of rooms </span>
-				<select class="form-control" ng-model="roomAmount" name="roomAmount" ng-options="c.number for c in numbers" ng-change="updateAmount()"></select>
+<div class="header"></div>
+<div class="content">
+	<div class="container">
+		<div class="page-header hotel-header">{{room.name}}</div>
+		<div class="row">
+			<div class="col-md-2">
+				<img width="100%" ng-src="{{room.images}}"/>
 			</div>
-		</div>
-		 <div class="col-lg-4">
-			<div class="input-group">
-		    	<span class="input-group-btn" style="padding-right:10px;"> Check In Date </span>
-		      	<input type="text" class="form-control" value="{{startDate| date:'MMMM dd, yyyy'}}" disabled>
-		      	<span class="input-group-btn">
-		        	<button class="btn btn-success" 
-		        		type="button"
-		        		ng-click="startBoxHid = !startBoxHid">	
-		        		<i class="glyphicon glyphicon-check"></i> 
-		        	</button>
-		      	</span>
-		    </div>
-
-		    <div id="startPopUpBox" class="popupBox" ng-model="startDate" ng-class="{boxHid:startBoxHid}">
-				<datepicker 	
-					min="minDate"
-					show-weeks="false">
-				</datepicker>
-			</div>
-		</div>
-			
-		<div class="col-lg-4">
-		    <div class="input-group">
-		    	<span class="input-group-btn" style="padding-right:10px;"> Check Out Date </span>
-		      	<input type="text" class="form-control" value="{{endDate| date:'MMMM dd, yyyy'}}" disabled>
-		      	<span class="input-group-btn">
-		        	<button class="btn btn-danger" type="button">	<i class="glyphicon glyphicon-check" ng-click="endBoxHid = !endBoxHid"
-	        		></i> 
-		        	</button>
-		      	</span>
-		    </div>
-
-		    <div id="endPopUpBox" class="popupBox" ng-model="endDate" ng-class="{boxHid:endBoxHid}"
-		    >
-				<datepicker 	
-					min="endDateBound"
-					show-weeks="false">
-				</datepicker>
+			<div class="col-md-10">
+				<div class="room-desc"> {{room.desc}}</div>
+				<ul class="room-feature-list">
+					<li ng-repeat="feature in room.features">
+						{{feature.name}}
+					</li>
+				</ul>
 			</div>
 		</div>
 		
-	</div>
-	
-	<div class="step-content">
-		<div class="row">
-			<table class="table price-table" 
-				   ng-controller="PriceTableCtrl">
+		<!-- STEP 1-->
+		<div class="page-header">
+			<div class="step-header"> Step 1</div>
+			<div class="step-desc">	Select the number of rooms and stay dates - use grid below to check availability </div>
+			<div style="clear:both"></div>
+		</div>
+
+		<div id="startDatePicker" 
+			 ng-controller="DatePickerCtrl"
+			 class="row"
+			 style="padding:10px 0 20px 0; position:relative;">
+			<div class="col-lg-4">
+				<div class="input-group">
+					<span class="input-group-btn" style="padding-right:10px;"> Number of rooms </span>
+					<select class="form-control" ng-model="roomAmount" name="roomAmount" ng-options="c.number for c in numbers" ng-change="updateAmount()"></select>
+				</div>
+			</div>
+			 <div class="col-lg-4">
+				<div class="input-group">
+					<span class="input-group-btn" style="padding-right:10px;"> Check In Date </span>
+					<input type="text" class="form-control" value="{{startDate| date:'MMMM dd, yyyy'}}" disabled>
+					<span class="input-group-btn">
+						<button class="btn btn-success" 
+							type="button"
+							ng-click="startBoxHid = !startBoxHid">	
+							<i class="glyphicon glyphicon-check"></i> 
+						</button>
+					</span>
+				</div>
+
+				<div id="startPopUpBox" class="popupBox" ng-model="startDate" ng-class="{boxHid:startBoxHid}">
+					<datepicker 	
+						min="minDate"
+						show-weeks="false">
+					</datepicker>
+				</div>
+			</div>
+				
+			<div class="col-lg-4">
+				<div class="input-group">
+					<span class="input-group-btn" style="padding-right:10px;"> Check Out Date </span>
+					<input type="text" class="form-control" value="{{endDate| date:'MMMM dd, yyyy'}}" disabled>
+					<span class="input-group-btn">
+						<button class="btn btn-danger" type="button">	<i class="glyphicon glyphicon-check" ng-click="endBoxHid = !endBoxHid"
+						></i> 
+						</button>
+					</span>
+				</div>
+
+				<div id="endPopUpBox" class="popupBox" ng-model="endDate" ng-class="{boxHid:endBoxHid}"
+				>
+					<datepicker 	
+						min="endDateBound"
+						show-weeks="false">
+					</datepicker>
+				</div>
+			</div>
+			
+		</div>
+		
+		<div class="step-content">
+			<div class="row">
+				<table class="table price-table" 
+					   ng-controller="PriceTableCtrl">
+					<thead class="dateTableHead">
+						<tr>
+							<th colspan="2" style="text-align: left;">
+								Room Selection
+							</th>
+							<th>
+								Full Rate
+							</th>
+							<th ng-repeat="dateObj in dateArray" ng-class="{weekendHighlight:dateObj.weekday}">
+								<span class="dayTitle"> {{dateObj.day}} </span>
+								<span class="dateTitle"> {{dateObj.date}} </span>
+								<span class="monthTitle"> {{dateObj.month}} </span>
+							</th>
+						</tr>
+					</thead>
+					<tbody ng-switch on="!roomId" class="TableBody">
+						<tr ng-switch-when="true" ng-repeat="roomItem in roomList">
+							<td> {{roomItem.name}} </td>
+							<td> 
+								<button type="button" class="btn btn-primary btn-sm booking-btn" ng-click="booking(roomItem.id)">
+									<i class="glyphicon glyphicon-tag"></i> Book
+								</button> 
+							</td>
+							<td>
+								<b> {{roomItem['full-rate'] | currency:"IDR "}} </b>
+							</td>
+
+							<td ng-controller="BookingFieldCtrl"
+								ng-repeat="dateObj in dateArray" 
+								ng-class="{active:dateObj.weekday}"
+								class="price-col"
+								ng-click="book(dateStrArray[$index], dateObj.day)">
+								<span price-column 
+									room = "{{ roomItem.id }}"
+									day ="{{ dateObj.day | lowercase }}">
+								</span> 
+							</td>
+						</tr>
+						<tr ng-switch-when="false">
+							<td colspan="2"> {{roomItem.name}}</td>
+							<td>
+								<b> {{roomItem['full-rate'] | currency:"IDR "}} </b>
+							</td>
+		
+							<td ng-controller="BookingFieldCtrl"
+								ng-repeat="dateObj in dateArray" 
+								ng-class="{active:dateObj.weekday, booked:visualBook[$index]}"
+								ng-click="book(dateStrArray[$index], dateObj.day)"
+								class="price-col"
+								indexnya="$index">
+								<span price-column 
+									room = "{{roomItem.id}}"
+									day ="{{ dateObj.day | lowercase }}"
+									prices ="{{roomPrices}}">
+								</span> 
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+		<form class="css-form" name="form" ng-submit="formBook()">
+		<!-- STEP 2 -->
+		<div class="page-header">
+			<div class="step-header"> Step 2</div>
+			<div class="step-desc">	Choose room occupants and optional extras </div>
+			<div class="step-info">Prices are in IDR and include location taxes</div>
+			<div style="clear:both"></div>
+		</div>
+		
+		<div class="step-content">
+			<div class="row" room-charge val="amount" buyed="dateBuyed" maximum="room.maxOccupancy" included-adult="room.includedAdult" included-children="room.includedChildren" adult-price="room.extraAdultPrice" children-price="room.extraChildrenPrice" extras="roomExtras">
+			<div class="step2error" ng-hide="errorHide"><img src="/app/img/error.png" width="40px" height="40px"></img> {{errorMessage}}</div>
+			<table class="table price-table roomChargeTable">
 				<thead class="dateTableHead">
 					<tr>
-						<th colspan="2" style="text-align: left;">
-							Room Selection
+						<th style="text-align: left;">
+							Occupancy <br/>
+							<span style="font-size:9px; font-weight:500">(Children up to 10 years, Infant up to 2 years)</span>
 						</th>
-						<th>
-							Full Rate
+						<th style="text-align: left;">
+							Date
 						</th>
-						<th ng-repeat="dateObj in dateArray" ng-class="{weekendHighlight:dateObj.weekday}">
-							<span class="dayTitle"> {{dateObj.day}} </span>
-							<span class="dateTitle"> {{dateObj.date}} </span>
-							<span class="monthTitle"> {{dateObj.month}} </span>
+						<th style="text-align: right;">
+							Room Rate
+						</th>
+						<th style="text-align: right;">
+							Extra Adult
+						</th>
+						<th style="text-align: right;">
+							Extra Child
+						</th>
+						<th style="text-align: right;">
+							Extra Infant
+						</th>
+						<th style="text-align: right;">
+							Total
 						</th>
 					</tr>
 				</thead>
-				<tbody ng-switch on="!roomId" class="TableBody">
-					<tr ng-switch-when="true" ng-repeat="roomItem in roomList">
-						<td> {{roomItem.name}} </td>
-						<td> 
-							<button type="button" class="btn btn-primary btn-sm booking-btn" ng-click="booking(roomItem.id)">
-								<i class="glyphicon glyphicon-tag"></i> Book
-							</button> 
-						</td>
-						<td>
-							<b> {{roomItem['full-rate'] | currency:"IDR "}} </b>
-						</td>
-
-						<td ng-controller="BookingFieldCtrl"
-							ng-repeat="dateObj in dateArray" 
-							ng-class="{active:dateObj.weekday}"
-							class="price-col"
-							ng-click="book(dateStrArray[$index], dateObj.day)">
-							<span price-column 
-								room = "{{ roomItem.id }}"
-								day ="{{ dateObj.day | lowercase }}">
-							</span> 
-						</td>
-					</tr>
-					<tr ng-switch-when="false">
-						<td colspan="2"> {{roomItem.name}}</td>
-						<td>
-							<b> {{roomItem['full-rate'] | currency:"IDR "}} </b>
-						</td>
-	
-						<td ng-controller="BookingFieldCtrl"
-							ng-repeat="dateObj in dateArray" 
-							ng-class="{active:dateObj.weekday, booked:visualBook[$index]}"
-							ng-click="book(dateStrArray[$index], dateObj.day)"
-							class="price-col"
-							indexnya="$index">
-							<span price-column 
-								room = "{{roomItem.id}}"
-								day ="{{ dateObj.day | lowercase }}"
-								prices ="{{roomPrices}}">
-							</span> 
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
-	
-	<form class="css-form" name="form" ng-submit="formBook()">
-	<!-- STEP 2 -->
-	<div class="page-header">
-		<div class="step-header"> Step 2</div>
-		<div class="step-desc">	Choose room occupants and optional extras </div>
-		<div class="step-info">Prices are in IDR and include location taxes</div>
-		<div style="clear:both"></div>
-	</div>
-	
-	<div class="step-content">
-		<div class="row" room-charge val="amount" buyed="dateBuyed" maximum="room.maxOccupancy" included-adult="room.includedAdult" included-children="room.includedChildren" adult-price="room.extraAdultPrice" children-price="room.extraChildrenPrice" extras="roomExtras">
-		<div class="step2error" ng-hide="errorHide"><img src="/app/img/error.png" width="40px" height="40px"></img> {{errorMessage}}</div>
-		<table class="table price-table roomChargeTable">
-			<thead class="dateTableHead">
-				<tr>
-					<th style="text-align: left;">
-						Occupancy <br/>
-						<span style="font-size:9px; font-weight:500">(Children up to 10 years, Infant up to 2 years)</span>
-					</th>
-					<th style="text-align: left;">
-						Date
-					</th>
-					<th style="text-align: right;">
-						Room Rate
-					</th>
-					<th style="text-align: right;">
-						Extra Adult
-					</th>
-					<th style="text-align: right;">
-						Extra Child
-					</th>
-					<th style="text-align: right;">
-						Extra Infant
-					</th>
-					<th style="text-align: right;">
-						Total
-					</th>
-				</tr>
-			</thead>
-				
-			<tbody class="TableBody TableStep2" ng-repeat="room in val">
-				<tr>
-					<td style="width:400px">
-						<div class="input-group">
-							<span class="input-group-btn" style="padding-right:10px; font-weight:bold"> Room {{$index + 1}} </span>
-							<div ><input type="text" ng-model="guestName[room.index]" ng-change="personChange()" class="form-control" placeholder="Guest name" name="guestName" required></input></div>
-						</div>
-						<div class="row">
-							<div class="col-sm-4">Adults <select class="form-control" ng-model="adult[room.index]" name="adult[$index].number" ng-options="a.number for a in occupancyAmount" ng-change="personChange()" required><option value="">--Select-- </option></select></div>
-							<div class="col-sm-4">Children <select class="form-control" ng-model="children[room.index]" name="children[$index].number" ng-options="a.number for a in occupancyAmount" ng-change="personChange()" required><option value="">--Select-- </option></select></div>
-							<div class="col-sm-4">Infant <select class="form-control" ng-model="infant[room.index]" name="infant[$index].number" ng-options="a.number for a in occupancyAmount" ng-change="personChange()" required><option value="">--Select-- </option></select></div>
-						</div>
-					</td>
-					<td></td><td></td><td></td><td></td><td></td><td></td>
-				</tr>
-				<tr ng-repeat="date in buyed">
-					<td></td>
-					<td style="text-align: left;">{{date.dateString.day}} {{date.dateString.date}} {{date.dateString.month}}</td>
-					<td style="text-align: right;">{{date.prices | currency:"IDR "}}</td><td style="text-align: right;">IDR {{roomDateCharge[room.index].prices[$index].adultExtraPrice}}</td><td style="text-align: right;">IDR {{roomDateCharge[room.index].prices[$index].childrenExtraPrice}}</td><td style="text-align: right;">IDR 0</td><td style="text-align:right">IDR <span class="roomCharge" >{{roomDateCharge[room.index].prices[$index].totalDatePrice}}</span></td>
-				</tr>
-			</tbody>
-				
-				<tbody class="TableBody TableStep2">
-				
-					<tr> <td colspan="7"><h4>Extras available for this room</h4></td></tr>
-					<tr ng-repeat="extra in extras">
-						<td><input type="checkbox" ng-model="extraCheck[$index].value" ng-change="selectedExtra()"></input> {{extra.name}}</td>
-						<td colspan="3">{{extra.desc}}</td>
-						<td colspan="2">{{extra.price | currency:"IDR "}} <span ng-repeat="stat in extra.status_pricing">per {{stat.name}} </span></td>
-						<td style="text-align: right">IDR {{extraCheck[$index].jumlah}}</td>
-					</tr>
 					
+				<tbody class="TableBody TableStep2" ng-repeat="room in val">
 					<tr>
-						<td colspan="7">Total</td>
+						<td style="width:400px">
+							<div class="input-group">
+								<span class="input-group-btn" style="padding-right:10px; font-weight:bold"> Room {{$index + 1}} </span>
+								<div ><input type="text" ng-model="guestName[room.index]" ng-change="personChange()" class="form-control" placeholder="Guest name" name="guestName" required></input></div>
+							</div>
+							<div class="row">
+								<div class="col-sm-4">Adults <select class="form-control" ng-model="adult[room.index]" name="adult[$index].number" ng-options="a.number for a in occupancyAmount" ng-change="personChange()" required><option value="">--Select-- </option></select></div>
+								<div class="col-sm-4">Children <select class="form-control" ng-model="children[room.index]" name="children[$index].number" ng-options="a.number for a in occupancyAmount" ng-change="personChange()" required><option value="">--Select-- </option></select></div>
+								<div class="col-sm-4">Infant <select class="form-control" ng-model="infant[room.index]" name="infant[$index].number" ng-options="a.number for a in occupancyAmount" ng-change="personChange()" required><option value="">--Select-- </option></select></div>
+							</div>
+						</td>
+						<td></td><td></td><td></td><td></td><td></td><td></td>
 					</tr>
-					<tr>
-						<td colspan="4"></td>
-						<td colspan="2" style="text-align:right">Room Charges</td>
-						<td style="text-align:right">IDR {{roomCharge}}</td>
-					</tr>
-					<tr>
-						<td colspan="4"></td>
-						<td colspan="2" style="text-align:right">Room Taxes</td>
-						<td style="text-align:right">IDR {{roomTaxes}}</td>
-					</tr>
-					<tr>
-						<td colspan="4"></td>
-						<td colspan="2" style="text-align:right">Service Charges</td>
-						<td style="text-align:right">IDR {{serviceCharge}}</td>
-					</tr>
-					<tr>
-						<td colspan="4"></td>
-						<td colspan="2" style="text-align:right">Extras Total</td>
-						<td style="text-align:right">IDR {{extraCharge}}</td>
-					</tr>
-					<tr>
-						<td colspan="4"></td>
-						<td colspan="2" style="text-align:right; font-size:16px; font-weight:bold;">Grand Total</td>
-						<td style="text-align:right; font-size:16px; font-weight:bold;">IDR {{grandTotal}}</td>
+					<tr ng-repeat="date in buyed">
+						<td></td>
+						<td style="text-align: left;">{{date.dateString.day}} {{date.dateString.date}} {{date.dateString.month}}</td>
+						<td style="text-align: right;">{{date.prices | currency:"IDR "}}</td><td style="text-align: right;">IDR {{roomDateCharge[room.index].prices[$index].adultExtraPrice}}</td><td style="text-align: right;">IDR {{roomDateCharge[room.index].prices[$index].childrenExtraPrice}}</td><td style="text-align: right;">IDR 0</td><td style="text-align:right">IDR <span class="roomCharge" >{{roomDateCharge[room.index].prices[$index].totalDatePrice}}</span></td>
 					</tr>
 				</tbody>
-		</table>
+					
+					<tbody class="TableBody TableStep2">
+					
+						<tr> <td colspan="7"><h4>Extras available for this room</h4></td></tr>
+						<tr ng-repeat="extra in extras">
+							<td><input type="checkbox" ng-model="extraCheck[$index].value" ng-change="selectedExtra()"></input> {{extra.name}}</td>
+							<td colspan="3">{{extra.desc}}</td>
+							<td colspan="2">{{extra.price | currency:"IDR "}} <span ng-repeat="stat in extra.status_pricing">per {{stat.name}} </span></td>
+							<td style="text-align: right">IDR {{extraCheck[$index].jumlah}}</td>
+						</tr>
+						
+						<tr>
+							<td colspan="7">Total</td>
+						</tr>
+						<tr>
+							<td colspan="4"></td>
+							<td colspan="2" style="text-align:right">Room Charges</td>
+							<td style="text-align:right">IDR {{roomCharge}}</td>
+						</tr>
+						<tr>
+							<td colspan="4"></td>
+							<td colspan="2" style="text-align:right">Room Taxes</td>
+							<td style="text-align:right">IDR {{roomTaxes}}</td>
+						</tr>
+						<tr>
+							<td colspan="4"></td>
+							<td colspan="2" style="text-align:right">Service Charges</td>
+							<td style="text-align:right">IDR {{serviceCharge}}</td>
+						</tr>
+						<tr>
+							<td colspan="4"></td>
+							<td colspan="2" style="text-align:right">Extras Total</td>
+							<td style="text-align:right">IDR {{extraCharge}}</td>
+						</tr>
+						<tr>
+							<td colspan="4"></td>
+							<td colspan="2" style="text-align:right; font-size:16px; font-weight:bold;">Grand Total</td>
+							<td style="text-align:right; font-size:16px; font-weight:bold;">{{grandTotal | currency:"IDR "}}</td>
+						</tr>
+					</tbody>
+			</table>
+			</div>
 		</div>
-	</div>
-	
-	<!-- STEP 3 -->
-	<div class="page-header">
-		<div class="step-header"> Step 3</div>
-		<div class="step-desc">	Enter guest and payment details </div>
-		<div class="step-info">Please fill in required information</div>
-		<div style="clear:both"></div>
-	</div>
-	
-	<div class="step-content">
-		<div class="row">
-			<div class="col-md-6 content-style">
-				<div class="col-header">
-					Guest Details
-				</div>
-				
-				  <label name="firstname">First name *</label><br/>
-				  <input class="form-control" type="text" name="firstName" ng-model="firstName" required/>
-				  <div ng-show="form.firstName.$dirty && form.firstName.$invalid" class="invalid-name">Invalid:
-					<span ng-show="form.firstName.$error.required">Tell us your first name.</span>
-				  </div>
-				  
-				  <label name="lastname">Last name *</label><br/>
-				  <input class="form-control" type="text" name="lastName" ng-model="lastName" required/>
-				  <div ng-show="form.lastName.$dirty && form.lastName.$invalid" class="invalid-name">Invalid:
-					<span ng-show="form.lastName.$error.required">Tell us your last name.</span>
-				  </div>
-				  
-				  <label name="email">Email *</label><br/>
-				  <input class="form-control" type="email" name="email" ng-model="email" required/>
-				  <div ng-show="form.email.$dirty && form.email.$invalid" class="invalid-name">Invalid:
-					<span ng-show="form.email.$error.required">Tell us your email.</span>
-					<span ng-show="form.email.$error.email">Your email is invalid.</span>
-				  </div>
-				  
-				  <label name="contactNumber">Contact number (mobile prefered) *</label><br/>
-				  <input class="form-control" type="number" name="contactNumber" ng-model="contactNumber" required/>
-				  <div ng-show="form.contactNumber.$dirty && form.contact.$invalid" class="invalid-name">Invalid:
-					<span ng-show="form.contactNumber.$error.required">This is not a correct format.</span>
-					<span ng-show="form.contactNumber.$error.number">Not valid phone number!</span>
-				  </div>
+		
+		<!-- STEP 3 -->
+		<div class="page-header">
+			<div class="step-header"> Step 3</div>
+			<div class="step-desc">	Enter guest and payment details </div>
+			<div class="step-info">Please fill in required information</div>
+			<div style="clear:both"></div>
+		</div>
+		
+		<div class="step-content">
+			<div class="row">
+				<div class="col-md-6 content-style">
+					<div class="col-header">
+						Guest Details
+					</div>
+					
+					  <label name="firstname">First name *</label><br/>
+					  <input class="form-control" type="text" name="firstName" ng-model="firstName" required/>
+					  <div ng-show="form.firstName.$dirty && form.firstName.$invalid" class="invalid-name">Invalid:
+						<span ng-show="form.firstName.$error.required">Tell us your first name.</span>
+					  </div>
+					  
+					  <label name="lastname">Last name *</label><br/>
+					  <input class="form-control" type="text" name="lastName" ng-model="lastName" required/>
+					  <div ng-show="form.lastName.$dirty && form.lastName.$invalid" class="invalid-name">Invalid:
+						<span ng-show="form.lastName.$error.required">Tell us your last name.</span>
+					  </div>
+					  
+					  <label name="email">Email *</label><br/>
+					  <input class="form-control" type="email" name="email" ng-model="email" required/>
+					  <div ng-show="form.email.$dirty && form.email.$invalid" class="invalid-name">Invalid:
+						<span ng-show="form.email.$error.required">Tell us your email.</span>
+						<span ng-show="form.email.$error.email">Your email is invalid.</span>
+					  </div>
+					  
+					  <label name="contactNumber">Contact number (mobile prefered) *</label><br/>
+					  <input class="form-control" type="number" name="contactNumber" ng-model="contactNumber" required/>
+					  <div ng-show="form.contactNumber.$dirty && form.contact.$invalid" class="invalid-name">Invalid:
+						<span ng-show="form.contactNumber.$error.required">This is not a correct format.</span>
+						<span ng-show="form.contactNumber.$error.number">Not valid phone number!</span>
+					  </div>
 
-				  <label name="organization">Organization (if applicable)</label><br/>
-				  <input class="form-control" type="text" name="organization" ng-model="organization"/>
-				  				  
-				  <label name="address1">Address line 1 *</label><br/>
-				  <input class="form-control" type="text" name="address1" ng-model="address1" required/>
-				  <div ng-show="form.address1.$dirty && form.address1.$invalid" class="invalid-name">Invalid:
-					<span ng-show="form.address1.$error.required">Tell us your address.</span>
-				  </div>
-				  
-				  <label name="address2">Address line 2</label><br/>
-				  <input class="form-control" type="text" name="address2" ng-model="address2"/>
-				  
-				  <label name="city">City *</label><br/>
-				  <input class="form-control" type="text" name="city" ng-model="city" required/>
-				  <div ng-show="form.city.$dirty && form.city.$invalid" class="invalid-name">Invalid:
-					<span ng-show="form.city.$error.required">Tell us your city.</span>
-				  </div>
-				  
-				  <label name="state">State</label><br/>
-				  <input class="form-control" type="text" name="state" ng-model="state"/>
-				  
-				  <label name="country">Country *</label><br/>
-				  <input class="form-control" type="text" name="country" ng-model="country" required/>
-				  <div ng-show="form.country.$dirty && form.country.$invalid" class="invalid-name">Invalid:
-					<span ng-show="form.country.$error.required">Tell us your country.</span>
-				  </div>
-				  
-				  <label name="postcode">Post code *</label><br/>
-				  <input class="form-control" type="number" name="postcode" ng-model="postcode" required/>
-				  <div ng-show="form.postcode.$dirty && form.postcode.$invalid" class="invalid-name">Invalid:
-					<span ng-show="form.postcode.$error.required">Tell us your post code.</span>
-					<span ng-show="form.postcode.$error.number">Not valid post number.</span>
-				  </div>
+					  <label name="organization">Organization (if applicable)</label><br/>
+					  <input class="form-control" type="text" name="organization" ng-model="organization"/>
+									  
+					  <label name="address1">Address line 1 *</label><br/>
+					  <input class="form-control" type="text" name="address1" ng-model="address1" required/>
+					  <div ng-show="form.address1.$dirty && form.address1.$invalid" class="invalid-name">Invalid:
+						<span ng-show="form.address1.$error.required">Tell us your address.</span>
+					  </div>
+					  
+					  <label name="address2">Address line 2</label><br/>
+					  <input class="form-control" type="text" name="address2" ng-model="address2"/>
+					  
+					  <label name="city">City *</label><br/>
+					  <input class="form-control" type="text" name="city" ng-model="city" required/>
+					  <div ng-show="form.city.$dirty && form.city.$invalid" class="invalid-name">Invalid:
+						<span ng-show="form.city.$error.required">Tell us your city.</span>
+					  </div>
+					  
+					  <label name="state">State</label><br/>
+					  <input class="form-control" type="text" name="state" ng-model="state"/>
+					  
+					  <label name="country">Country *</label><br/>
+					  <input class="form-control" type="text" name="country" ng-model="country" required/>
+					  <div ng-show="form.country.$dirty && form.country.$invalid" class="invalid-name">Invalid:
+						<span ng-show="form.country.$error.required">Tell us your country.</span>
+					  </div>
+					  
+					  <label name="postcode">Post code *</label><br/>
+					  <input class="form-control" type="number" name="postcode" ng-model="postcode" required/>
+					  <div ng-show="form.postcode.$dirty && form.postcode.$invalid" class="invalid-name">Invalid:
+						<span ng-show="form.postcode.$error.required">Tell us your post code.</span>
+						<span ng-show="form.postcode.$error.number">Not valid post number.</span>
+					  </div>
+				</div>
+				<div class="col-md-6 content-style">
+					<div class="col-header">
+						Extra Details
+					</div>
+					
+					<label name="arrTime">Estimated arrival time</label><br/>
+					<select class="form-control" ng-model="arrTime" name="arrTime" ng-options="a.name for a in arrTimes"></select>
+					
+					<label name="loyaltyID">Customer loyalty ID</label><br/>
+					<input class="form-control" type="text" ng-model="loyaltyID" name="loyaltyID"></input>
+					
+					<label name="comment">Comments</label><br/>
+					<textarea class="form-control" ng-model="comment" name="comment"></textarea>
+					
+					<div class="marginBot10">
+					<input type="checkbox" ng-model="receive"> </input> Would you like to receive the newsletter?  <br/>
+					</div>
+					
+					<label name="arrTime">Where did you hear about us?</label><br/>
+					<select class="form-control" ng-model="hear" name="hear" ng-options="hear.name for hear in hears"></select>
+					
+					<div class="payment-header">
+						Payment Details
+					</div>
+					
+					<div class="marginBot10">
+					<ul>
+						<li ng-repeat="card in cards" style="display:inline-block">
+							<img height="80px" ng-src="{{card.uri}}"></img>
+						</li>
+					</ul>
+					</div>
+					
+					<label name="cardType">Card type *</label><br/>
+					<select class="form-control" ng-model="cardType" name="cardType" ng-options="c.name for c in cards"></select>
+					
+					  <label name="cardNumber">Card number *</label><br/>
+					  <input class="form-control" type="number" name="cardNumber" ng-model="cardNumber" required ng-minlength="20" ng-maxlength="20"/>
+					  <div ng-show="form.cardNumber.$dirty && form.cardNumber.$invalid" class="invalid-name">
+						<span ng-show="form.cardNumber.$error.required">Tell us your card number.</span>
+						<span ng-show="form.cardNumber.$error.number">Not valid card number.</span>
+					  </div>
+					  
+					  <label name="cardCCV">Card CCV *</label><br/>
+					  <input class="form-control" type="number" name="cardCCV" ng-model="cardCCV" required/>
+					  <div ng-show="form.cardCCV.$dirty && form.cardCCV.$invalid" class="invalid-name">Invalid: 
+						<span ng-show="form.cardCCV.$error.required">Tell us your card CCV.</span>
+						<span ng-show="form.cardCCV.$error.number">Not valid card CCV.</span>
+					  </div>
+					  
+					  <label name="cardUser">Name *</label><br/>
+					  <input class="form-control" type="text" name="cardUser" ng-model="cardUser" required/>
+					  <div ng-show="form.cardUser.$dirty && form.cardUser.$invalid" class="invalid-name">Invalid:
+						<span ng-show="form.cardUser.$error.required">Tell us card user name.</span>
+					  </div>
+					  
+					  <!--<datetimepicker data-ng-model="data.date" startView="month"></datetimepicker>-->
+				</div>
 			</div>
-			<div class="col-md-6 content-style">
-				<div class="col-header">
-					Extra Details
-				</div>
-				
-				<label name="arrTime">Estimated arrival time</label><br/>
-				<select class="form-control" ng-model="arrTime" name="arrTime" ng-options="a.name for a in arrTimes"></select>
-				
-				<label name="loyaltyID">Customer loyalty ID</label><br/>
-				<input class="form-control" type="text" ng-model="loyaltyID" name="loyaltyID"></input>
-				
-				<label name="comment">Comments</label><br/>
-				<textarea class="form-control" ng-model="comment" name="comment"></textarea>
-				
-				<div class="marginBot10">
-				<input type="checkbox" ng-model="receive"> </input> Would you like to receive the newsletter?  <br/>
-				</div>
-				
-				<label name="arrTime">Where did you hear about us?</label><br/>
-				<select class="form-control" ng-model="hear" name="hear" ng-options="hear.name for hear in hears"></select>
-				
-				<div class="payment-header">
-					Payment Details
-				</div>
-				
-				<div class="marginBot10">
-				<ul>
-					<li ng-repeat="card in cards" style="display:inline-block">
-						<img height="80px" ng-src="{{card.uri}}"></img>
-					</li>
-				</ul>
-				</div>
-				
-				<label name="cardType">Card type *</label><br/>
-				<select class="form-control" ng-model="cardType" name="cardType" ng-options="c.name for c in cards"></select>
-				
-				  <label name="cardNumber">Card number *</label><br/>
-				  <input class="form-control" type="number" name="cardNumber" ng-model="cardNumber" required ng-minlength="20" ng-maxlength="20"/>
-				  <div ng-show="form.cardNumber.$dirty && form.cardNumber.$invalid" class="invalid-name">
-					<span ng-show="form.cardNumber.$error.required">Tell us your card number.</span>
-					<span ng-show="form.cardNumber.$error.number">Not valid card number.</span>
-				  </div>
-				  
-				  <label name="cardCCV">Card CCV *</label><br/>
-				  <input class="form-control" type="number" name="cardCCV" ng-model="cardCCV" required/>
-				  <div ng-show="form.cardCCV.$dirty && form.cardCCV.$invalid" class="invalid-name">Invalid: 
-					<span ng-show="form.cardCCV.$error.required">Tell us your card CCV.</span>
-					<span ng-show="form.cardCCV.$error.number">Not valid card CCV.</span>
-				  </div>
-				  
-				  <label name="cardUser">Name *</label><br/>
-				  <input class="form-control" type="text" name="cardUser" ng-model="cardUser" required/>
-				  <div ng-show="form.cardUser.$dirty && form.cardUser.$invalid" class="invalid-name">Invalid:
-					<span ng-show="form.cardUser.$error.required">Tell us card user name.</span>
-				  </div>
-				  
-				  <!--<datetimepicker data-ng-model="data.date" startView="month"></datetimepicker>-->
+			<div class="row content-style2">
+					<div class="marginBot10">
+						<input type="checkbox" ng-model="agreeCheck" name="agreeCheck" required> </input> I have read and accepted the terms and conditions <br/>
+					</div>
 			</div>
+				<button type="submit" class="btn btn-default btn-m booking-btn" ng-disabled="isError()">
+					<i class="glyphicon glyphicon-arrow-right"></i> Book
+				</button>
 		</div>
-		<div class="row content-style2">
-				<div class="marginBot10">
-					<input type="checkbox" ng-model="agreeCheck" name="agreeCheck" required> </input> I have read and accepted the terms and conditions <br/>
-				</div>
-		</div>
-			<button type="submit" class="btn btn-default btn-m booking-btn" ng-disabled="isError()">
-				<i class="glyphicon glyphicon-arrow-right"></i> Book
-			</button>
-	</div>
-	
-	</form>
-	<div class="terms">
-		<div class="page-header property-header">
-			Terms & Conditions
-		</div>
-		<div class="term-desc">
-			{{hotel.terms}}
+		
+		</form>
+		<div class="terms">
+			<div class="page-header property-header">
+				Terms & Conditions
+			</div>
+			<div class="term-desc">
+				{{hotel.terms}}
+			</div>
 		</div>
 	</div>
 </div>

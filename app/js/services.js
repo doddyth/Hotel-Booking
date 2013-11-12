@@ -6,8 +6,7 @@
 // Demonstrate how to register services
 // In this case it is a simple value service.
 angular.module('myApp.services', ['ngResource', 'firebase']).
-
-  	value('version', '0.1').
+	value('version', '0.1').
   	factory('Hotel', function myService(angularFire) {
 		var _url = "https://hotelbooking2.firebaseio.com/Hotels";
 		var _ref = new Firebase(_url);

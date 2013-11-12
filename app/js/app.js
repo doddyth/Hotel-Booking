@@ -17,5 +17,6 @@ config(['$routeProvider', function($routeProvider) {
     {templateUrl: 'partials/reservation.html', controller: 'ReservationCtrl'});
   $routeProvider.when('/reservation/:roomId/:startDate', 
     {templateUrl: 'partials/reservation.html', controller: 'ReservationCtrl'});
+  $routeProvider.when('/admin', {templateUrl: 'partials/admin.html', controller: 'AdminCtrl'});
   $routeProvider.otherwise({redirectTo: '/home'});
-}]);
+  }]);

@@ -1,122 +1,125 @@
-<div class="container"> 
-	<!-- Hotel Room List Table-->
-	<div class="page-header hotel-header">
-		<div class="hotel-header1">
-			{{hotel.name}}
-		</div>
-		<div hotel-rating rating-value="rating" max="5">  </div>
-	</div>
-
-	<div class="row">
-		<table class="table price-table" 
-			   ng-controller="PriceTableCtrl">
-			<thead class="controlHead"></thead>
-			<thead class="dateTableHead">
-				<tr>
-					<th colspan="2" style="text-align: left;">
-						Prices will be charged in Indonesian Rupiah
-					</th>
-					<th>
-						Full Rate
-					</th>
-					<th ng-repeat="dateObj in dateArray" ng-class="{weekendHighlight:dateObj.weekday}">
-						<span class="dayTitle"> {{dateObj.day}} </span>
-						<span class="dateTitle"> {{dateObj.date}} </span>
-						<span class="monthTitle"> {{dateObj.month}} </span>
-					</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="roomItem in roomList">
-					<td> {{roomItem.name}} </td>
-					<td> 
-						<button type="button" class="btn btn-primary btn-sm booking-btn" ng-click="booking(roomItem.id)">
-							<i class="glyphicon glyphicon-tag"></i> Book
-						</button> 
-					</td>
-					<td>
-						<b> {{roomItem['full-rate'] | currency:"IDR "}} </b>
-					</td>
-
-					<td ng-repeat="dateObj in dateArray" 
-						ng-class="{active:dateObj.weekday}"
-						class="price-col"
-						ng-click="booking(roomItem.id, dateStrArray[$index], dateObj.day)">
-						<span price-column 
-							room = "{{ roomItem.id }}"
-							day ="{{ dateObj.day | lowercase }}">
-						</span> 
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-	
-	<!-- Hotel Information -->
-	<div class="page-header property-header">
-			Hotel information
-	</div>
-	
-	<div class="row">
-		<div class="col-md-3 hotel-info">
-			<span class="hotel-name">{{hotel.name}}</span>
-			<br/>
-			{{hotel.address}}
-			<br/>
-			{{hotel.phone}}
-			<br/>
-			{{hotel.email}}
-		</div>
-		<div class="col-md-9">
-				<div image-carousel ></div>
-				<div class="hotel-desc">
-					{{hotel.desc}}
-				</div>
-			<div class="page-header hotel-features">
-				Hotel Features
+<div class="header"></div>
+<div class="content">
+	<div class="container"> 
+		<!-- Hotel Room List Table-->
+		<div class="page-header hotel-header">
+			<div class="hotel-header1">
+				{{hotel.name}}
 			</div>
-			<div>
-				<ul class="feature-list">
-					<li ng-repeat="feature in hotel.features">
-						{{feature.name}}
-					</li>
-				</ul>
+			<div hotel-rating rating-value="rating" max="5">  </div>
+		</div>
+
+		<div class="row">
+			<table class="table price-table" 
+				   ng-controller="PriceTableCtrl">
+				<thead class="controlHead"></thead>
+				<thead class="dateTableHead">
+					<tr>
+						<th colspan="2" style="text-align: left;">
+							Prices will be charged in Indonesian Rupiah
+						</th>
+						<th>
+							Full Rate
+						</th>
+						<th ng-repeat="dateObj in dateArray" ng-class="{weekendHighlight:dateObj.weekday}">
+							<span class="dayTitle"> {{dateObj.day}} </span>
+							<span class="dateTitle"> {{dateObj.date}} </span>
+							<span class="monthTitle"> {{dateObj.month}} </span>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="roomItem in roomList">
+						<td> {{roomItem.name}} </td>
+						<td> 
+							<button type="button" class="btn btn-primary btn-sm booking-btn" ng-click="booking(roomItem.id)">
+								<i class="glyphicon glyphicon-tag"></i> Book
+							</button> 
+						</td>
+						<td>
+							<b> {{roomItem['full-rate'] | currency:"IDR "}} </b>
+						</td>
+
+						<td ng-repeat="dateObj in dateArray" 
+							ng-class="{active:dateObj.weekday}"
+							class="price-col"
+							ng-click="booking(roomItem.id, dateStrArray[$index], dateObj.day)">
+							<span price-column 
+								room = "{{ roomItem.id }}"
+								day ="{{ dateObj.day | lowercase }}">
+							</span> 
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<!-- Hotel Information -->
+		<div class="page-header property-header">
+				Hotel information
+		</div>
+		
+		<div class="row">
+			<div class="col-md-3 hotel-info">
+				<span class="hotel-name">{{hotel.name}}</span>
+				<br/>
+				{{hotel.address}}
+				<br/>
+				{{hotel.phone}}
+				<br/>
+				{{hotel.email}}
+			</div>
+			<div class="col-md-9">
+					<div image-carousel ></div>
+					<div class="hotel-desc">
+						{{hotel.desc}}
+					</div>
+				<div class="page-header hotel-features">
+					Hotel Features
+				</div>
+				<div>
+					<ul class="feature-list">
+						<li ng-repeat="feature in hotel.features">
+							{{feature.name}}
+						</li>
+					</ul>
+				</div>
 			</div>
 		</div>
-	</div>
-	<div class="accomodation">
-		<div class="page-header property-header">
-			Accomodation Details
-		</div>
-		<ul class="accomodation-list">
-			<li ng-repeat="acc in hotel.rooms">
-				<div class="row">
-					<div class="col-md-2">
-						<img width="100%" ng-src="{{acc.images}}"/>
+		<div class="accomodation">
+			<div class="page-header property-header">
+				Accomodation Details
+			</div>
+			<ul class="accomodation-list">
+				<li ng-repeat="acc in hotel.rooms">
+					<div class="row">
+						<div class="col-md-2">
+							<img width="100%" ng-src="{{acc.images}}"/>
+						</div>
+						<div class="col-md-10">
+							<div class="room-name"> {{acc.name}} </div>
+							<div class="room-desc"> {{acc.desc}} </div>
+							<ul class="room-feature-list">
+								<li ng-repeat="feature in acc.features">
+									{{feature.name}}
+								</li>
+							</ul>
+							<button type="button" class="btn btn-default btn-sm booking-btn" ng-click="booking(acc.id)">
+								<i class="glyphicon glyphicon-star"></i> Book
+							</button>
+						</div>
 					</div>
-					<div class="col-md-10">
-						<div class="room-name"> {{acc.name}} </div>
-						<div class="room-desc"> {{acc.desc}} </div>
-						<ul class="room-feature-list">
-							<li ng-repeat="feature in acc.features">
-								{{feature.name}}
-							</li>
-						</ul>
-						<button type="button" class="btn btn-default btn-sm booking-btn" ng-click="booking(acc.id)">
-							<i class="glyphicon glyphicon-star"></i> Book
-						</button>
-					</div>
-				</div>
-			</li>
-		</ul>
-	</div>
-	
-	<div class="terms">
-		<div class="page-header property-header">
-			Terms & Conditions
+				</li>
+			</ul>
 		</div>
-		<div class="term-desc">
-			{{hotel.terms}}
+		
+		<div class="terms">
+			<div class="page-header property-header">
+				Terms & Conditions
+			</div>
+			<div class="term-desc">
+				{{hotel.terms}}
+			</div>
 		</div>
 	</div>
 </div>
