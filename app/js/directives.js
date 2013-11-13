@@ -397,7 +397,7 @@ angular.module('myApp.directives', []).
 		}
 	}
   })
-  .directive('priceColumn', ['Sample', function (Sample) {
+  .directive('priceColumn', ['Sample', '$timeout', function (Sample, $timeout) {
   	return {
   		restrict: 'A',
   		template: 
@@ -422,6 +422,7 @@ angular.module('myApp.directives', []).
 		  			}
 		  			else
 		  				scope.price = item;
+				$($('.enquire-popup').parent().parent().parent()).popover('destroy');
 	  			}
   			});
 
