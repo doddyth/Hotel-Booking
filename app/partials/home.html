@@ -48,7 +48,7 @@
 						class="price-col"
 						ng-click="booking(roomItem.id, dateStrArray[$index], dateObj.day)"
 						>
-						<div class="hover-div" title="<div class='info-hover'> {{roomItem.includedOccupancy}} <br> {{roomItem.maxOccupancy}} </div>">
+						<div class="hover-div" data-content="<div class='info-hover'> Included Occupancy : <b>{{roomItem.includedOccupancy}}</b> people <br> Maximum Occupancy : <b>{{roomItem.maxOccupancy}}</b> people </div>">
 							<span price-column 
 								room = "{{ roomItem.id }}"
 								day ="{{ dateObj.day | lowercase }}">
@@ -131,3 +131,41 @@
 		</div>
 	</div>
 </div>
+
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Make an Enquiry : <b> {{enquireRoom | uppercase}} Room/Packages on {{enquireDate}} </b> </h4>
+      </div>
+      <div class="modal-body">
+        <h4>Thank you for your message</h4>
+        <div class="form-group">
+	    	<label for="nameInput">Name</label>
+	    	<input type="text" class="form-control" id="nameInput" placeholder="Enter your name">
+	  	</div>
+	  	<div class="form-group">
+	    	<label for="phoneInput">Phone</label>
+	    	<input type="text" class="form-control" id="phoneInput" placeholder="Enter your phone number">
+	  	</div>
+	  	<div class="form-group">
+	    	<label for="emailInput">Email address</label>
+	    	<input type="email" class="form-control" id="emailInput" placeholder="Enter your email">
+	  	</div>
+	  	<div class="form-group">
+	    	<label for="messageInput">Messages</label>
+	    	<textarea class="form-control" id="messageInput" rows="3" required></textarea>
+	  	</div>
+	  	<div class="form-group">
+	    	<label for="captchaInput">Please answer following math question : <b> {{enquireRandNum1}} + {{enquireRandNum2}} </b> </label>
+	    	<input type="text" class="form-control" id="captchaInput">
+	  	</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="sendEnquiryForm()">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

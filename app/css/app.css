@@ -323,6 +323,10 @@ margin-top:10px;
 	color: #2a6496;
 }
 
+.price-col .popover.bottom {
+	margin-top: 25px !important;
+}
+
 .hotPrice a {
 	font-weight: bold;
 	color: orangered !important;
@@ -362,4 +366,8 @@ margin-top:10px;
 
 #startPopUpBox.boxHid, #endPopUpBox.boxHid {
 	display: none;
+}
+
+.info-hover {
+	min-width: 180px;
 }

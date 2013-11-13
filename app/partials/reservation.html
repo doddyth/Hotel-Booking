@@ -246,114 +246,13 @@
 			</table>
 			</div>
 		</div>
-	
-	<form class="css-form" name="form" ng-submit="formBook()">
-	<!-- STEP 2 -->
-	<div class="page-header">
-		<div class="step-header"> Step 2</div>
-		<div class="step-desc">	Choose room occupants and optional extras </div>
-		<div class="step-info">Prices are in IDR and include location taxes</div>
-		<div style="clear:both"></div>
-	</div>
-	
-	<div class="step-content">
-		<div class="row" room-charge val="amount" buyed="dateBuyed" maximum="room.maxOccupancy" included-adult="room.includedAdult" included-children="room.includedChildren" adult-price="room.extraAdultPrice" children-price="room.extraChildrenPrice" extras="roomExtras">
-		<div class="step2error" ng-hide="errorHide"><img src="/app/img/error.png" width="40px" height="40px"></img> {{errorMessage}}</div>
-		<table class="table price-table roomChargeTable">
-			<thead class="dateTableHead">
-				<tr>
-					<th style="text-align: left;">
-						Occupancy <br/>
-						<span style="font-size:9px; font-weight:500">(Children up to 10 years, Infant up to 2 years)</span>
-					</th>
-					<th style="text-align: left;">
-						Date
-					</th>
-					<th style="text-align: right;">
-						Room Rate
-					</th>
-					<th style="text-align: right;">
-						Extra Adult
-					</th>
-					<th style="text-align: right;">
-						Extra Child
-					</th>
-					<th style="text-align: right;">
-						Extra Infant
-					</th>
-					<th style="text-align: right;">
-						Total
-					</th>
-				</tr>
-			</thead>
-				
-			<tbody class="TableBody TableStep2" ng-repeat="room in val">
-				<tr>
-					<td style="width:400px">
-						<div class="input-group">
-<<<<<<< HEAD
-							<span class="input-group-btn" style="padding-right:10px; font-weight:bold"> Room {{$index + 1}} </span>
-							<div ><input type="text" ng-model="guestName[room.index]" ng-change="personChange()" class="form-control" placeholder="Guest name" name="guestName" required></input></div>
-						</div>
-=======
-                            
->>>>>>> Hover action updated
-						<div class="row">
-							<div class="col-sm-4">Adults <select class="form-control" ng-model="adult[room.index]" name="adult[$index].number" ng-options="a.number for a in occupancyAmount" ng-change="personChange()" required><option value="">--Select-- </option></select></div>
-							<div class="col-sm-4">Children <select class="form-control" ng-model="children[room.index]" name="children[$index].number" ng-options="a.number for a in occupancyAmount" ng-change="personChange()" required><option value="">--Select-- </option></select></div>
-							<div class="col-sm-4">Infant <select class="form-control" ng-model="infant[room.index]" name="infant[$index].number" ng-options="a.number for a in occupancyAmount" ng-change="personChange()" required><option value="">--Select-- </option></select></div>
-						</div>
-					</td>
-					<td></td><td></td><td></td><td></td><td></td><td></td>
-				</tr>
-				<tr ng-repeat="date in buyed">
-					<td></td>
-					<td style="text-align: left;">{{date.dateString.day}} {{date.dateString.date}} {{date.dateString.month}}</td>
-					<td style="text-align: right;">{{date.prices | currency:"IDR "}}</td><td style="text-align: right;">IDR {{roomDateCharge[room.index].prices[$index].adultExtraPrice}}</td><td style="text-align: right;">IDR {{roomDateCharge[room.index].prices[$index].childrenExtraPrice}}</td><td style="text-align: right;">IDR 0</td><td style="text-align:right">IDR <span class="roomCharge" >{{roomDateCharge[room.index].prices[$index].totalDatePrice}}</span></td>
-				</tr>
-			</tbody>
-				
-				<tbody class="TableBody TableStep2">
-				
-					<tr> <td colspan="7"><h4>Extras available for this room</h4></td></tr>
-					<tr ng-repeat="extra in extras">
-						<td><input type="checkbox" ng-model="extraCheck[$index].value" ng-change="selectedExtra()"></input> {{extra.name}}</td>
-						<td colspan="3">{{extra.desc}}</td>
-						<td colspan="2">{{extra.price | currency:"IDR "}} <span ng-repeat="stat in extra.status_pricing">per {{stat.name}} </span></td>
-						<td style="text-align: right">IDR {{extraCheck[$index].jumlah}}</td>
-					</tr>
-					
-					<tr>
-						<td colspan="7">Total</td>
-					</tr>
-					<tr>
-						<td colspan="4"></td>
-						<td colspan="2" style="text-align:right">Room Charges</td>
-						<td style="text-align:right">IDR {{roomCharge}}</td>
-					</tr>
-					<tr>
-						<td colspan="4"></td>
-						<td colspan="2" style="text-align:right">Room Taxes</td>
-						<td style="text-align:right">IDR {{roomTaxes}}</td>
-					</tr>
-					<tr>
-						<td colspan="4"></td>
-						<td colspan="2" style="text-align:right">Service Charges</td>
-						<td style="text-align:right">IDR {{serviceCharge}}</td>
-					</tr>
-					<tr>
-						<td colspan="4"></td>
-						<td colspan="2" style="text-align:right">Extras Total</td>
-						<td style="text-align:right">IDR {{extraCharge}}</td>
-					</tr>
-					<tr>
-						<td colspan="4"></td>
-						<td colspan="2" style="text-align:right; font-size:16px; font-weight:bold;">Grand Total</td>
-						<td style="text-align:right; font-size:16px; font-weight:bold;">IDR {{grandTotal}}</td>
-					</tr>
-				</tbody>
-		</table>
->>>>>>> Hover action updated
+		
+		<!-- STEP 3 -->
+		<div class="page-header">
+			<div class="step-header"> Step 3</div>
+			<div class="step-desc">	Enter guest and payment details </div>
+			<div class="step-info">Please fill in required information</div>
+			<div style="clear:both"></div>
 		</div>
 		
 		<div class="step-content">

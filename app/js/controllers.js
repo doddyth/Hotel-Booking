@@ -3,10 +3,6 @@
 /* Controllers */
 
 angular.module('myApp.controllers', [])
-<<<<<<< HEAD
-=======
-
->>>>>>> Hover action beta
   .controller('NavBarCtrl', ['$scope', '$location', function($scope, $location) { //NAVBAR WIDGET CONTROLLER
 	$scope.isActive = function (viewLocation) { 
         return viewLocation === $location.path();
@@ -173,14 +169,28 @@ angular.module('myApp.controllers', [])
 		}
 		$scope.updateAmount();
   }])
-  .controller('BookingFieldCtrl', ['$scope', 'Hotel', 'Sample', function($scope, Hotel, Sample){
+  .controller('BookingFieldCtrl', ['$scope', '$timeout', 'Hotel', 'Sample', function($scope, $timeout, Hotel, Sample){
 	  	$scope.isBooked = false;
 	  	Hotel.getRoom($scope, 'roomItem', 'Demo-Hotel', $scope.roomId);
 	  	$scope.book = function(date, day) {
+	  		// console.log(date);
 	  		var item = Sample[$scope.roomId][day.toLowerCase()];
-			if (item == "enquire") 
-				console.log("ENQUIRE");
+			if (item == "enquire") {
+				// console.log("ENQUIRE");
 
+				$scope.enquireDate = date;
+				$scope.enquireRandNum1 = Math.floor((Math.random()*10)+1);
+				$scope.enquireRandNum2 = Math.floor((Math.random()*10)+1);
+				
+				var enqInfo = {
+					enquireDate : date,
+					enquireRandNum1 : $scope.enquireRandNum1,
+					enquireRandNum2 : $scope.enquireRandNum2
+				}
+				
+				$scope.$emit('updateEnquireInfo', enqInfo);
+				$('#myModal').modal({ keyboard:true });
+			}
 		// $scope.$on('updateStartingTable', function(e, date) {
 		// 	init(date);
 		// });
@@ -196,6 +206,11 @@ angular.module('myApp.controllers', [])
 		if (item == "enquire") {
 			// ENQUIRING ROOM {roomId} INFO ON {startDate}
 			console.log("ENQUIRE");
+			$scope.enquireRoom = roomId;
+			$scope.enquireDate = startDate;
+			$scope.enquireRandNum1 = Math.floor((Math.random()*10)+1);
+			$scope.enquireRandNum2 = Math.floor((Math.random()*10)+1);
+			$('#myModal').modal({ keyboard:true });
 		} else {
 			if (startDate)
 				$location.path('/reservation/' + roomId + '/' + startDate);
@@ -204,6 +219,29 @@ angular.module('myApp.controllers', [])
 		}
 
     };
+
+    $scope.sendEnquiryForm = function () {
+		var enquiryForm = $('#myModal');
+		var enquirySenderName = $('#nameInput', enquiryForm).val();
+		var enquirySenderPhone = $('#phoneInput', enquiryForm).val();
+		var enquirySenderEmail = $('#emailInput', enquiryForm).val();
+		var enquirySenderMessage = $('#messageInput', enquiryForm).val();
+		var enquirySenderCaptcha = $('#captchaInput', enquiryForm).val();
+
+		var enquiryItem = {
+			name 		: enquirySenderName,
+			phone 		: enquirySenderPhone,
+			email  		: enquirySenderEmail,
+			message 	: enquirySenderMessage,
+			dateToAsk 	: $scope.enquireDate,
+			roomId 		: $scope.enquireRoom
+		};
+
+		// if (enquirySenderCaptcha == ($scope.enquireRandNum1 + $scope.enquireRandNum2))
+			// console.log(enquiryItem);
+			// console.log(enquirySenderCaptcha);
+		enquiryForm.modal('toggle');
+	}
   }])
   .controller('ReservationCtrl', ['$scope', '$location', '$routeParams','Hotel', 'Sample', 'BookingService', function($scope, $location, $routeParams ,Hotel, Sample, BookingService){ // RESERVATION PAGE CONTROLLER
 	$scope.reservationData = [];
@@ -218,7 +256,12 @@ angular.module('myApp.controllers', [])
 	$scope.roomData = [];
 	if ($scope.startDateStr) {
 		// kalo ada startDate
-		$scope.startDate = new Date($routeParams.startDate);
+		var tempCurrDate = new Date();
+		var paramDate = new Date($routeParams.startDate);
+		if (paramDate < tempCurrDate)
+			$scope.startDate = new Date();
+		else
+			$scope.startDate = new Date($routeParams.startDate);
 	} else {
 		// kalo ga ada, ambil startDate = todayDate
 		$scope.startDate = new Date();
@@ -302,6 +345,12 @@ angular.module('myApp.controllers', [])
 	$scope.$on('updateErrorRoom', function(e, errorHide) {
 		$scope.errorHide = errorHide;
 	});
+
+	$scope.$on('updateEnquireInfo', function(e, enqInfo) {
+		$scope.enquireDate = enqInfo.enquireDate;
+		$scope.enquireRandNum1 = enqInfo.enquireRandNum1;
+		$scope.enquireRandNum2 = enqInfo.enquireRandNum2;
+	});
 	
 	$scope.updateBookedDate = function() {
 		$scope.dateBooked = [];
@@ -379,6 +428,7 @@ angular.module('myApp.controllers', [])
 		console.log($scope.reservationData);
 	}
 	
+<<<<<<< HEAD
 	$scope.updateBookedDate();
   }])
   .controller('LoginCtrl', ['$scope', '$rootScope', '$http', '$location', function($scope, $rootScope, $http, $location) {
@@ -386,4 +436,28 @@ angular.module('myApp.controllers', [])
   }])
   .controller('AdminCtrl', ['$scope', '$location', '$routeParams', 'Hotel', 'Sample', function($scope, $location, $routeParams, Hotel, Sample) {
 	
+=======
+	$scope.sendEnquiryForm = function () {
+		var enquiryForm = $('#myModal');
+		var enquirySenderName = $('#nameInput', enquiryForm).val();
+		var enquirySenderPhone = $('#phoneInput', enquiryForm).val();
+		var enquirySenderEmail = $('#emailInput', enquiryForm).val();
+		var enquirySenderMessage = $('#messageInput', enquiryForm).val();
+		var enquirySenderCaptcha = $('#captchaInput', enquiryForm).val();
+
+		var enquiryItem = {
+			name 		: enquirySenderName,
+			phone 		: enquirySenderPhone,
+			email  		: enquirySenderEmail,
+			message 	: enquirySenderMessage,
+			dateToAsk 	: $scope.enquireDate,
+			roomId 		: $scope.roomId
+		};
+
+		// if (enquirySenderCaptcha == ($scope.enquireRandNum1 + $scope.enquireRandNum2))
+			// console.log(enquiryItem);
+			// console.log(enquirySenderCaptcha);
+		enquiryForm.modal('toggle');
+	}
+>>>>>>> Added hover action and enquiry modal
   }]);

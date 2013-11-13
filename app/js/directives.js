@@ -425,7 +425,17 @@ angular.module('myApp.directives', []).
 	  			}
   			});
 
-
+			var init = function(){
+  				$('.hover-div').popover({
+		          placement: 'bottom',
+		          html: true,
+		          title: "<b> Room Information </b>",
+		          trigger: 'hover'
+		        });
+		        // console.log("directive priceColumn " + scope.price);
+				$($('.enquire-popup').parent().parent().parent()).popover('destroy');
+  			};
+			$timeout(init, 0);// console.log(attrs.$attr);
   			// console.log(attrs.$attr);
   		}
   	}
