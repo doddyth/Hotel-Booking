@@ -427,16 +427,7 @@ angular.module('myApp.controllers', [])
 		//$scope.reservationData.add($scope.newBooking);
 		console.log($scope.reservationData);
 	}
-	
-<<<<<<< HEAD
-	$scope.updateBookedDate();
-  }])
-  .controller('LoginCtrl', ['$scope', '$rootScope', '$http', '$location', function($scope, $rootScope, $http, $location) {
-	
-  }])
-  .controller('AdminCtrl', ['$scope', '$location', '$routeParams', 'Hotel', 'Sample', function($scope, $location, $routeParams, Hotel, Sample) {
-	
-=======
+
 	$scope.sendEnquiryForm = function () {
 		var enquiryForm = $('#myModal');
 		var enquirySenderName = $('#nameInput', enquiryForm).val();
@@ -459,5 +450,12 @@ angular.module('myApp.controllers', [])
 			// console.log(enquirySenderCaptcha);
 		enquiryForm.modal('toggle');
 	}
->>>>>>> Added hover action and enquiry modal
+	
+	$scope.updateBookedDate();
+  }])
+  .controller('LoginCtrl', ['$scope', '$rootScope', '$http', '$location', function($scope, $rootScope, $http, $location) {
+	
+  }])
+  .controller('AdminCtrl', ['$scope', '$location', '$routeParams', 'Hotel', 'Sample', function($scope, $location, $routeParams, Hotel, Sample) {
+	
   }]);
