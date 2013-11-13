@@ -400,7 +400,6 @@ angular.module('myApp.controllers', [])
 
 	
 	$scope.isError = function(user) {
-		console.log($scope.agreeCheck);
 		if($scope.errorHide == true){
 			return false;
 		}else{

@@ -197,9 +197,9 @@
 								<div ><input type="text" ng-model="guestName[room.index]" ng-change="personChange()" class="form-control" placeholder="Guest name" name="guestName" required></input></div>
 							</div>
 							<div class="row">
-								<div class="col-sm-4">Adults <select class="form-control" ng-model="adult[room.index]" name="adult[$index].number" ng-options="a.number for a in occupancyAmount" ng-change="personChange()" required><option value="">--Select-- </option></select></div>
-								<div class="col-sm-4">Children <select class="form-control" ng-model="children[room.index]" name="children[$index].number" ng-options="a.number for a in occupancyAmount" ng-change="personChange()" required><option value="">--Select-- </option></select></div>
-								<div class="col-sm-4">Infant <select class="form-control" ng-model="infant[room.index]" name="infant[$index].number" ng-options="a.number for a in occupancyAmount" ng-change="personChange()" required><option value="">--Select-- </option></select></div>
+								<div class="col-sm-4">Adults <select class="form-control" ng-model="adult[room.index]" name="adult[$index].number" ng-options="a.number for a in occupancyAmount" ng-change="personChange()" required></select></div>
+								<div class="col-sm-4">Children <select class="form-control" ng-model="children[room.index]" name="children[$index].number" ng-options="a.number for a in occupancyAmount" ng-change="personChange()" required></select></div>
+								<div class="col-sm-4">Infant <select class="form-control" ng-model="infant[room.index]" name="infant[$index].number" ng-options="a.number for a in occupancyAmount" ng-change="personChange()" required></select></div>
 							</div>
 						</td>
 						<td></td><td></td><td></td><td></td><td></td><td></td>

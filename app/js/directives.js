@@ -102,19 +102,102 @@ angular.module('myApp.directives', []).
 				scope.adult = [];
 				scope.children = [];
 				scope.infant = [];
+				scope.roomDateCharge = [];
+				var jumlah = 0;
+				var jumlahExtra = 0;
 				for(var i = 0; i<=scope.maximum; i++) {
 					scope.occupancyAmount.push({number: i});
 				}
 				for(var i = 0; i<scope.val.length; i++){
-					scope.adult.push({number: 0});
-					scope.children.push({number: 0});
-					scope.infant.push({number: 0});
+					scope.adult.push(scope.occupancyAmount[1]);
+					scope.children.push(scope.occupancyAmount[0]);
+					scope.infant.push(scope.occupancyAmount[0]);
 					scope.guestName.push("");
 				}
 				for(var i = 0; i < scope.extras.length; i++) {
 					scope.extraCheck.push({name: scope.extras[i].name, value: "false", jumlah: 0});
 					//console.log(scope.extraCheck[i].);
 				}
+				
+				for(var i = 0; i<scope.val.length; i++){
+					var prices = [];
+					for(var j = 0; j < scope.buyed.length; j++) { 
+						if(scope.adult[i].number > scope.includedAdult || scope.children[i].number > scope.includedChildren) {
+							var selisihAdult = scope.adult[i].number > scope.includedAdult ? scope.adult[i].number - scope.includedAdult : 0;
+							var selisihChildren = scope.children[i].number > scope.includedChildren ? scope.children[i].number - scope.includedChildren : 0;
+							var adultExtraPrice = scope.adultPrice * selisihAdult;
+							var childrenExtraPrice = scope.childrenPrice * selisihChildren;
+							var totalDatePrice = scope.buyed[j].prices + adultExtraPrice + childrenExtraPrice;
+							prices.push({adultExtraPrice: adultExtraPrice, childrenExtraPrice: childrenExtraPrice, totalDatePrice: totalDatePrice});
+							console.log(adultExtraPrice + " " + childrenExtraPrice + " Yeah!");
+						}
+						else { 
+							var totalDatePrice = scope.buyed[j].prices + 0 + 0;
+							prices.push({adultExtraPrice: 0, childrenExtraPrice: 0, totalDatePrice: totalDatePrice});
+						}
+					}
+					scope.roomDateCharge.push({prices: prices});
+				}
+				$timeout(function() {
+					var child = elm.children();
+					for(var i = 0; i< child.length; i++){
+						var thisElementChild = $(child[i]).children();
+						for(var j = 0; j < thisElementChild.length; j++){
+							var roomChargeChild = $(thisElementChild[j]).children();
+							for(var k = 0; k < roomChargeChild.length; k++) {
+								var deepChild = $(roomChargeChild[k]).children();
+								for(var l = 0; l < deepChild.length; l++) {
+									var deepestChild = $(deepChild[l]).children();
+									for(var m = 0; m < deepestChild.length; m++) {
+										if($(deepestChild[m]).hasClass('roomCharge'))
+										{
+											console.log(deepestChild[m]);
+											jumlah = jumlah + parseInt($(deepestChild[m]).html());
+										}
+									}
+								}
+							}
+						}	
+					}
+					if(scope.extras){
+						for(var i = 0; i < scope.extras.length; i++){
+							var jumlahHarga = 0;
+							var status = "";
+							if(scope.extraCheck[i].value == true) { 
+								for(var j = 0; j < scope.extras[i].status_pricing.length; j++) {
+									if(scope.extras[i].status_pricing[j].name == "room") {
+										status = "room";
+										jumlahHarga = jumlahHarga + (scope.extras[i].price * scope.val.length); 
+									}
+									if(scope.extras[i].status_pricing[j].name == "booking") {
+										status = "booking"
+										jumlahHarga = jumlahHarga + scope.extras[i].price;
+									}
+									if(scope.extras[i].status_pricing[j].name == "night") {
+										if(status == "room"){
+											jumlahHarga = jumlahHarga * scope.buyed.length;
+										}
+										else {
+											jumlahHarga = jumlahHarga + (scope.extras[i].price * scope.buyed.length);
+										}
+										status = "night";
+									}
+								}
+								jumlahExtra = jumlahExtra + jumlahHarga;
+								scope.extraCheck[i].jumlah = jumlahHarga;
+								console.log(scope.extraCheck[i].jumlah);
+							} else {
+								scope.extraCheck[i].jumlah = 0;
+							}
+						}
+					}
+					scope.roomCharge = jumlah;
+					scope.roomTaxes = parseInt(scope.val.length*2000);
+					scope.serviceCharge = parseInt(0.1 * jumlah);
+					scope.extraCharge = jumlahExtra;
+					scope.grandTotal = scope.roomCharge+scope.roomTaxes+scope.serviceCharge+scope.extraCharge;
+					scope.$emit('updateTotalCharge', scope.grandTotal);
+				});
 			}),
 			scope.$watch('val', function(value) {
 				scope.roomDateCharge = [];
@@ -133,9 +216,9 @@ angular.module('myApp.directives', []).
 					var selisih = scope.val.length - scope.adult.length;
 					for(var i = 0; i < selisih ; i++) {
 						console.log("selisihnya= " + (scope.val.length - scope.adult.length) + "index=" + i);
-						scope.adult.push({number: 0});
-						scope.children.push({number: 0});
-						scope.infant.push({number: 0});
+						scope.adult.push(scope.occupancyAmount[1]);
+						scope.children.push(scope.occupancyAmount[0]);
+						scope.infant.push(scope.occupancyAmount[0]);
 						scope.guestName.push("");
 					}
 				}
