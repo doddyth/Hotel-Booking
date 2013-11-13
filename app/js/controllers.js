@@ -384,6 +384,7 @@ angular.module('myApp.controllers', [])
 				if (price !== 'enquire') {
 					$scope.dateBuyed.push({dateString: myDateStr, date: myDate, prices: price});
 					console.log("TEEES");
+					$scope.errorHide = true;
 				}
 				else {
 					console.log('NOT ENOUGH ROOM ON ' + myDate.toString());
