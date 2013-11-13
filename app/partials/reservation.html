@@ -112,7 +112,7 @@
 								ng-class="{active:dateObj.weekday}"
 								class="price-col"
 								ng-click="book(dateStrArray[$index], dateObj.day)">
-								<div class="hover-div" data-content="<div class='info-hover'> Included Occupancy : <b>{{roomItem.includedOccupancy}}</b> people <br> Maximum Occupancy : <b>{{roomItem.maxOccupancy}}</b> people </div>">
+								<div class="hover-div" data-content="<div class='info-hover'> Included Occupancy (Adult) : <b>{{roomItem.includedAdult}}</b> people <br> Included Occupancy (Child) : <b>{{roomItem.includedChildren}}</b> people <br>Maximum Occupancy : <b>{{roomItem.maxOccupancy}}</b> people </div>">
 									<span price-column 
 										room = "{{ roomItem.id }}"
 										day ="{{ dateObj.day | lowercase }}">
@@ -132,7 +132,7 @@
 								ng-click="book(dateStrArray[$index], dateObj.day)"
 								class="price-col"
 								indexnya="$index">
-								<div class="hover-div" data-content="<div class='info-hover'> Included Occupancy : <b>{{roomItem.includedOccupancy}}</b> people <br> Maximum Occupancy : <b>{{roomItem.maxOccupancy}}</b> people </div>">
+								<div class="hover-div" data-content="<div class='info-hover'> Included Occupancy (Adult) : <b>{{roomItem.includedAdult}}</b> people <br> Included Occupancy (Child) : <b>{{roomItem.includedChildren}}</b> people <br>Maximum Occupancy : <b>{{roomItem.maxOccupancy}}</b> people </div>">
 									<span price-column 
 										room = "{{roomItem.id}}"
 										day ="{{ dateObj.day | lowercase }}"
@@ -143,6 +143,9 @@
 						</tr>
 					</tbody>
 				</table>
+			</div>
+			<div class="row" style="color:white; background-color:red; font-weight:bold; padding:10px;" ng-class="{hidden:!bookErrorByEnquire}">
+				Not enough room available on selected dates!
 			</div>
 		</div>
 		

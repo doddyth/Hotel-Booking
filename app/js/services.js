@@ -47,6 +47,22 @@ angular.module('myApp.services', ['ngResource', 'firebase']).
 			}
 		}
 	})
+	.factory('EnquiryService', function myService(angularFireCollection) {
+		var _url = "https://hotelbooking2.firebaseio.com/Hotels";
+		var _ref = new Firebase(_url);
+		return {
+			addEnquiry: function(scope, localScopeVarName, hotelId) {
+				var hotelBookingRef = new Firebase(_url + '/' + hotelId + '/enquiry-data');
+				var collection = angularFireCollection(hotelBookingRef);
+				return collection;
+			}
+			// removeBooking: function(scope, localScopeVarName, hotelId, id) {
+			// 	var hotelBookingRef = new Firebase(_url + '/' + hotelId + '/booking-data/' + id);
+			// 	var collection = angularFireCollection(hotelBookingRef);
+			// 	return collection;
+			// }
+		}
+	})
 	.factory('CrossVariable', function () {
 		var sharedData = {};
 		return {

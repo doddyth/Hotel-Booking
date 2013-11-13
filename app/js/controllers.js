@@ -113,6 +113,7 @@ angular.module('myApp.controllers', [])
 	  };
 	  $scope.today();
 
+
 	  $scope.clear = function () {
 	    $scope.dt = null;
 	  };
@@ -196,9 +197,10 @@ angular.module('myApp.controllers', [])
 		// });
   	}
   }])
-  .controller('HomeCtrl', ['$scope', '$location', 'Hotel', 'Sample', function($scope, $location, Hotel, Sample){ // HOME PAGE CONTROLLER
+  .controller('HomeCtrl', ['$scope', '$location', 'Hotel', 'Sample', 'EnquiryService', function($scope, $location, Hotel, Sample, EnquiryService){ // HOME PAGE CONTROLLER
 	$scope.rating = 4;
 	Hotel.setHotelToScope($scope, 'hotel', 'Demo-Hotel');
+	$scope.enquiryData = EnquiryService.addEnquiry($scope, 'enquiryData', 'Demo-Hotel');
 	
 	$scope.booking = function (roomId, startDate, day) {
 		if (day)
@@ -228,22 +230,23 @@ angular.module('myApp.controllers', [])
 		var enquirySenderMessage = $('#messageInput', enquiryForm).val();
 		var enquirySenderCaptcha = $('#captchaInput', enquiryForm).val();
 
-		var enquiryItem = {
-			name 		: enquirySenderName,
-			phone 		: enquirySenderPhone,
-			email  		: enquirySenderEmail,
-			message 	: enquirySenderMessage,
-			dateToAsk 	: $scope.enquireDate,
-			roomId 		: $scope.enquireRoom
-		};
+		if (enquirySenderCaptcha == ($scope.enquireRandNum1 + $scope.enquireRandNum2))
+		{
+			var enquiryItem = {
+				name 		: enquirySenderName,
+				phone 		: enquirySenderPhone,
+				email  		: enquirySenderEmail,
+				message 	: enquirySenderMessage,
+				dateToAsk 	: $scope.enquireDate,
+				roomId 		: $scope.enquireRoom
+			};
 
-		// if (enquirySenderCaptcha == ($scope.enquireRandNum1 + $scope.enquireRandNum2))
-			// console.log(enquiryItem);
-			// console.log(enquirySenderCaptcha);
-		enquiryForm.modal('toggle');
+			$scope.enquiryData.add(enquiryItem);
+			enquiryForm.modal('toggle');
+		}
 	}
   }])
-  .controller('ReservationCtrl', ['$scope', '$location', '$routeParams','Hotel', 'Sample', 'BookingService', '$timeout', function($scope, $location, $routeParams ,Hotel, Sample, BookingService, $timeout){ // RESERVATION PAGE CONTROLLER
+  .controller('ReservationCtrl', ['$scope', '$location', '$routeParams','Hotel', 'Sample', 'BookingService', '$timeout', 'EnquiryService', function($scope, $location, $routeParams ,Hotel, Sample, BookingService, $timeout, EnquiryService){ // RESERVATION PAGE CONTROLLER
 	$scope.reservationData = [];
 	$scope.errorHide = true;
 	$scope.rating = 4;
@@ -352,6 +355,8 @@ angular.module('myApp.controllers', [])
 		$scope.enquireRandNum2 = enqInfo.enquireRandNum2;
 	});
 	
+	$scope.bookErrorByEnquire = false;
+
 	$scope.updateBookedDate = function() {
 		$scope.dateBooked = [];
 		$scope.dateBuyed = [];
@@ -369,15 +374,28 @@ angular.module('myApp.controllers', [])
 			else{
 				var price = item;
 			}
+
 			if (myDate >= $scope.startDate && myDate < $scope.endDate){
 				$scope.dateBooked.push({date: myDate, status:true});
-				$scope.dateBuyed.push({dateString: myDateStr, date: myDate, prices: price});
+				if (price !== 'enquire') {
+					$scope.dateBuyed.push({dateString: myDateStr, date: myDate, prices: price});
+					$scope.bookErrorByEnquire = false;
+				}
+				else {
+					console.log('NOT ENOUGH ROOM ON ' + myDate.toString());
+					$scope.bookErrorByEnquire = true;
+					$scope.errorHide = false;
+					continue;
+				}
+
 			}
-			else
+			else {
 				$scope.dateBooked.push({date: myDate, status:false});
+			}
   		};
   		// UPDATE PAYMENT LIST
 	}
+
 	
 	$scope.isError = function(user) {
 		console.log($scope.agreeCheck);
@@ -389,6 +407,7 @@ angular.module('myApp.controllers', [])
 	};
 	$scope.reservationData = BookingService.addBooking($scope, 'reservationData', 'Demo-Hotel');
 	$scope.newBooking = {};
+	$scope.enquiryData = EnquiryService.addEnquiry($scope, 'enquiryData', 'Demo-Hotel');
 	
 	$scope.formBook = function() {
 		if(!$scope.receive) {
@@ -436,19 +455,19 @@ angular.module('myApp.controllers', [])
 		var enquirySenderMessage = $('#messageInput', enquiryForm).val();
 		var enquirySenderCaptcha = $('#captchaInput', enquiryForm).val();
 
-		var enquiryItem = {
-			name 		: enquirySenderName,
-			phone 		: enquirySenderPhone,
-			email  		: enquirySenderEmail,
-			message 	: enquirySenderMessage,
-			dateToAsk 	: $scope.enquireDate,
-			roomId 		: $scope.roomId
-		};
+		if (enquirySenderCaptcha == ($scope.enquireRandNum1 + $scope.enquireRandNum2)) {
+			var enquiryItem = {
+				name 		: enquirySenderName,
+				phone 		: enquirySenderPhone,
+				email  		: enquirySenderEmail,
+				message 	: enquirySenderMessage,
+				dateToAsk 	: $scope.enquireDate,
+				roomId 		: $scope.roomId
+			};
 
-		// if (enquirySenderCaptcha == ($scope.enquireRandNum1 + $scope.enquireRandNum2))
-			// console.log(enquiryItem);
-			// console.log(enquirySenderCaptcha);
-		enquiryForm.modal('toggle');
+			$scope.enquiryData.add(enquiryItem);
+			enquiryForm.modal('toggle');
+		}
 	}
 	var notifModal = $('#successModal');
 	notifModal.on('hidden.bs.modal', function () {

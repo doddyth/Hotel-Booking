@@ -45,7 +45,7 @@
 						class="price-col"
 						ng-click="booking(roomItem.id, dateStrArray[$index], dateObj.day)"
 						>
-						<div class="hover-div" data-content="<div class='info-hover'> Included Occupancy : <b>{{roomItem.includedOccupancy}}</b> people <br> Maximum Occupancy : <b>{{roomItem.maxOccupancy}}</b> people </div>">
+						<div class="hover-div" data-content="<div class='info-hover'> Included Occupancy (Adult) : <b>{{roomItem.includedAdult}}</b> people <br> Included Occupancy (Child) : <b>{{roomItem.includedChildren}}</b> people <br>Maximum Occupancy : <b>{{roomItem.maxOccupancy}}</b> people </div>">
 							<span price-column 
 								room = "{{ roomItem.id }}"
 								day ="{{ dateObj.day | lowercase }}">
