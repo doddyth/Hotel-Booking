@@ -243,7 +243,7 @@ angular.module('myApp.controllers', [])
 		enquiryForm.modal('toggle');
 	}
   }])
-  .controller('ReservationCtrl', ['$scope', '$location', '$routeParams','Hotel', 'Sample', 'BookingService', function($scope, $location, $routeParams ,Hotel, Sample, BookingService){ // RESERVATION PAGE CONTROLLER
+  .controller('ReservationCtrl', ['$scope', '$location', '$routeParams','Hotel', 'Sample', 'BookingService', '$timeout', function($scope, $location, $routeParams ,Hotel, Sample, BookingService, $timeout){ // RESERVATION PAGE CONTROLLER
 	$scope.reservationData = [];
 	$scope.errorHide = true;
 	$scope.rating = 4;
@@ -419,8 +419,8 @@ angular.module('myApp.controllers', [])
 			cardCCV: $scope.cardCCV,
 			cardUser: $scope.cardUser
 		}, function(error){
-			if(error) {
-				$('#myModal').modal('show');
+			if(!error) {
+				$('#successModal').modal('show');
 			}
 		});
 		
@@ -450,7 +450,14 @@ angular.module('myApp.controllers', [])
 			// console.log(enquirySenderCaptcha);
 		enquiryForm.modal('toggle');
 	}
-	
+	var notifModal = $('#successModal');
+	notifModal.on('hidden.bs.modal', function () {
+			$location.path('/home');
+			$scope.$apply();
+	});
+	$scope.closeNotifBooking = function() {
+		notifModal.modal('toggle');
+	};
 	$scope.updateBookedDate();
   }])
   .controller('LoginCtrl', ['$scope', '$rootScope', '$http', '$location', function($scope, $rootScope, $http, $location) {
