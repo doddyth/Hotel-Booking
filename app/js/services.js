@@ -31,9 +31,24 @@ angular.module('myApp.services', ['ngResource', 'firebase']).
 			}
 		}
 	)
+	.factory('BookingService', function myService(angularFireCollection) {
+		var _url = "https://hotelbooking2.firebaseio.com/Hotels";
+		var _ref = new Firebase(_url);
+		return {
+			addBooking: function(scope, localScopeVarName, hotelId) {
+				var hotelBookingRef = new Firebase(_url + '/' + hotelId + '/booking-data');
+				var collection = angularFireCollection(hotelBookingRef);
+				return collection;
+			},
+			removeBooking: function(scope, localScopeVarName, hotelId, id) {
+				var hotelBookingRef = new Firebase(_url + '/' + hotelId + '/booking-data/' + id);
+				var collection = angularFireCollection(hotelBookingRef);
+				return collection;
+			}
+		}
+	})
 	.factory('CrossVariable', function () {
 		var sharedData = {};
-
 		return {
 			getProperty: function (propertyName) {
 				console.log(sharedData);

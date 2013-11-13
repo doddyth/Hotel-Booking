@@ -340,7 +340,7 @@
 					<input type="checkbox" ng-model="receive"> </input> Would you like to receive the newsletter?  <br/>
 					</div>
 					
-					<label name="arrTime">Where did you hear about us?</label><br/>
+					<label name="hear">Where did you hear about us?</label><br/>
 					<select class="form-control" ng-model="hear" name="hear" ng-options="hear.name for hear in hears"></select>
 					
 					<div class="payment-header">
@@ -359,10 +359,9 @@
 					<select class="form-control" ng-model="cardType" name="cardType" ng-options="c.name for c in cards"></select>
 					
 					  <label name="cardNumber">Card number *</label><br/>
-					  <input class="form-control" type="number" name="cardNumber" ng-model="cardNumber" required ng-minlength="20" ng-maxlength="20"/>
+					  <input class="form-control" type="text" name="cardNumber" ng-model="cardNumber" required ng-minlength="20" ng-maxlength="20"/>
 					  <div ng-show="form.cardNumber.$dirty && form.cardNumber.$invalid" class="invalid-name">
 						<span ng-show="form.cardNumber.$error.required">Tell us your card number.</span>
-						<span ng-show="form.cardNumber.$error.number">Not valid card number.</span>
 					  </div>
 					  
 					  <label name="cardCCV">Card CCV *</label><br/>

@@ -199,7 +199,7 @@ angular.module('myApp.controllers', [])
 
     };
   }])
-  .controller('ReservationCtrl', ['$scope', '$location', '$routeParams','Hotel', 'Sample', function($scope, $location, $routeParams ,Hotel, Sample){ // RESERVATION PAGE CONTROLLER
+  .controller('ReservationCtrl', ['$scope', '$location', '$routeParams','Hotel', 'Sample', 'BookingService', function($scope, $location, $routeParams ,Hotel, Sample, BookingService){ // RESERVATION PAGE CONTROLLER
 	$scope.reservationData = [];
 	$scope.errorHide = true;
 	$scope.rating = 4;
@@ -324,7 +324,6 @@ angular.module('myApp.controllers', [])
   		// UPDATE PAYMENT LIST
 	}
 	
-	$scope.updateBookedDate();
 	$scope.isError = function(user) {
 		console.log($scope.agreeCheck);
 		if($scope.errorHide == true){
@@ -333,12 +332,21 @@ angular.module('myApp.controllers', [])
 			return true;
 		}
 	};
+	//BookingService.addBooking($scope, 'reservationData', 'Demo-Hotel');
+	$scope.reservationData = BookingService.addBooking($scope, 'reservationData', 'Demo-Hotel');
+	//$scope.reservationData = new Firebase('https://hotelbooking2.firebaseio.com/Hotels/Demo-Hotel/booking-data');
+	$scope.newBooking = {};
+	
 	$scope.formBook = function() {
-		$scope.reservationData = [];
-		$scope.reservationData.push({
+		//var key = guid();
+		if(!$scope.receive) {
+			$scope.receive = false;
+		}
+		
+		$scope.reservationData.add({
 			roomData: $scope.roomData,
-			startDate: $scope.startDate,
-			endDate: $scope.endDate,
+			startDate: $scope.startDate.toString(),
+			endDate: $scope.endDate.toString(),
 			firstName: $scope.firstName,
 			lastName: $scope.lastName,
 			email: $scope.email,
@@ -350,13 +358,25 @@ angular.module('myApp.controllers', [])
 			state: $scope.state,
 			country: $scope.country,
 			postCode: $scope.postcode,
-			arrivalTime: $scope.arrTime
+			arrivalTime: $scope.arrTime.name,
+			loyaltyID: $scope.loyaltyID,
+			comment: $scope.comment,
+			receive: $scope.receive,
+			hear: $scope.hear,
+			cardType: $scope.cardType,
+			cardNumber: $scope.cardNumber,
+			cardCCV: $scope.cardCCV,
+			cardUser: $scope.cardUser
 		});
-		console.log($scope.reservationData[0].roomData.length + " " + $scope.reservationData[0].firstName);
+		
+		//$scope.reservationData.add($scope.newBooking);
+		console.log($scope.reservationData);
 	}
+	
+	$scope.updateBookedDate();
   }])
   .controller('LoginCtrl', ['$scope', '$rootScope', '$http', '$location', function($scope, $rootScope, $http, $location) {
-  
+	
   }])
   .controller('AdminCtrl', ['$scope', '$location', '$routeParams', 'Hotel', 'Sample', function($scope, $location, $routeParams, Hotel, Sample) {
 	

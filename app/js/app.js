@@ -21,5 +21,15 @@ config(function($routeProvider, $locationProvider, $httpProvider) {
   $routeProvider.when('/login', {templateUrl: 'partials/login.html', controller: 'LoginCtrl'});
   $routeProvider.otherwise({redirectTo: '/home'});
   
-}); //End of Config
+});
+function s4() {
+  return Math.floor((1 + Math.random()) * 0x10000)
+             .toString(16)
+             .substring(1);
+}
+
+function guid() {
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+         s4() + '-' + s4() + s4() + s4();
+} //End of Config
 
