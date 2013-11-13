@@ -363,6 +363,8 @@ angular.module('myApp.controllers', [])
 		$scope.dateBooked = [];
 		$scope.dateBuyed = [];
 		$scope.occupancyAmount = [];
+		$scope.bookErrorByEnquire = false;
+		
 		for (var i = 0; i < 14; i++) {
   			if($scope.startDate)
 				var myDate = new Date($scope.startDate);
@@ -381,7 +383,7 @@ angular.module('myApp.controllers', [])
 				$scope.dateBooked.push({date: myDate, status:true});
 				if (price !== 'enquire') {
 					$scope.dateBuyed.push({dateString: myDateStr, date: myDate, prices: price});
-					$scope.bookErrorByEnquire = false;
+					console.log("TEEES");
 				}
 				else {
 					console.log('NOT ENOUGH ROOM ON ' + myDate.toString());
