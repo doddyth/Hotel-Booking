@@ -417,6 +417,7 @@ angular.module('myApp.controllers', [])
 		if(!$scope.receive) {
 			$scope.receive = false;
 		}
+		console.log($scope.totalCharge);
 		$scope.reservationData.add({
 			roomName: $scope.room.name,
 			bookingDate: new Date().toString(),
@@ -426,23 +427,24 @@ angular.module('myApp.controllers', [])
 			firstName: $scope.firstName,
 			lastName: $scope.lastName,
 			email: $scope.email,
-			contactNumber: $scope.contactNumber,
+			contactNumber: $scope.contactNumber.toString(),
 			organization: $scope.organization,
 			addressLine1: $scope.address1,
 			addressLine2: $scope.address2,
 			city: $scope.city,
 			state: $scope.state,
 			country: $scope.country,
-			postCode: $scope.postcode,
+			postCode: $scope.postcode.toString(),
 			arrivalTime: $scope.arrTime.name,
 			loyaltyID: $scope.loyaltyID,
 			comment: $scope.comment,
 			receive: $scope.receive,
 			hear: $scope.hear,
 			cardType: $scope.cardTypes,
-			cardNumber: $scope.cardNumber,
-			cardCCV: $scope.cardCCV,
-			cardUser: $scope.cardUser
+			cardNumber: $scope.cardNumber.toString(),
+			cardCCV: $scope.cardCCV.toString(),
+			cardUser: $scope.cardUser,
+			totalCharge: $scope.totalCharge
 		}, function(error){
 			if(!error) {
 				$('#successModal').modal('show');
