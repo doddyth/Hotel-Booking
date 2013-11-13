@@ -46,7 +46,7 @@
 					</span>
 				</div>
 
-				<div id="startPopUpBox" class="popupBox" ng-model="startDate" ng-class="{boxHid:startBoxHid}">
+				<div id="startPopUpBox" class="popupBox" ng-model="startDate" ng-show="!startBoxHid">
 					<datepicker 	
 						min="minDate"
 						show-weeks="false">
@@ -59,13 +59,13 @@
 					<span class="input-group-btn" style="padding-right:10px;"> Check Out Date </span>
 					<input type="text" class="form-control" value="{{endDate| date:'MMMM dd, yyyy'}}" disabled>
 					<span class="input-group-btn">
-						<button class="btn btn-danger" type="button">	<i class="glyphicon glyphicon-check" ng-click="endBoxHid = !endBoxHid"
+						<button class="btn btn-danger" type="button" ng-click="endBoxHid = !endBoxHid">	<i class="glyphicon glyphicon-check"
 						></i> 
 						</button>
 					</span>
 				</div>
 
-				<div id="endPopUpBox" class="popupBox" ng-model="endDate" ng-class="{boxHid:endBoxHid}"
+				<div id="endPopUpBox" class="popupBox" ng-model="endDate" ng-show="!endBoxHid"
 				>
 					<datepicker 	
 						min="endDateBound"

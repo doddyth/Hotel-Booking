@@ -149,9 +149,11 @@ angular.module('myApp.controllers', [])
 	  		}
 
 			$scope.$emit('updateStartDate', val);
+			$scope.startBoxHid = true;
 		});
 
 	  $scope.$watch('endDate', function(val) {
+	  		$scope.endBoxHid = true;
 			$scope.$emit('updateEndDate', val);
 		});
 
