@@ -231,11 +231,15 @@ margin-top:10px;
 	margin-bottom:10px;
 }
 
-.css-form input.ng-invalid.ng-dirty {
-	background-color: #FA787E;
+
+.input-group-addon.form-addon-ok{
+    background-color: #78FA89;
+	color: #fff;
 }
-.css-form input.ng-valid.ng-dirty {
-	background-color: #78FA89;
+
+.input-group-addon.form-addon-no{
+	background-color: #FA787E;
+	color: #fff;
 }
 
 .invalid-name{

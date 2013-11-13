@@ -418,6 +418,8 @@ angular.module('myApp.controllers', [])
 			$scope.receive = false;
 		}
 		$scope.reservationData.add({
+			roomName: $scope.room.name,
+			bookingDate: new Date().toString(),
 			roomData: $scope.roomData,
 			startDate: $scope.startDate.toString(),
 			endDate: $scope.endDate.toString(),

@@ -270,63 +270,106 @@
 					</div>
 					
 					  <label name="firstname">First name *</label><br/>
-					  <input class="form-control" type="text" name="firstName" ng-model="firstName" required/>
+					  <div class="input-group" style="width:100%; margin-bottom:10px;">
+						  <input class="form-control" type="text" name="firstName" ng-model="firstName" required/>
+						  <span ng-show="form.firstName.$dirty && form.firstName.$valid" class="input-group-addon form-addon-ok"><i class="glyphicon glyphicon-ok"></i></span>
+						  <span ng-show="form.firstName.$dirty && form.firstName.$invalid" class="input-group-addon form-addon-no"><i class="glyphicon glyphicon-remove"></i></span>
+					  </div>
 					  <div ng-show="form.firstName.$dirty && form.firstName.$invalid" class="invalid-name">Invalid:
 						<span ng-show="form.firstName.$error.required">Tell us your first name.</span>
 					  </div>
 					  
 					  <label name="lastname">Last name *</label><br/>
-					  <input class="form-control" type="text" name="lastName" ng-model="lastName" required/>
+					  <div class="input-group" style="width:100%; margin-bottom:10px;">
+						  <input class="form-control" type="text" name="lastName" ng-model="lastName" required/>
+						  <span ng-show="form.lastName.$dirty && form.lastName.$valid" class="input-group-addon form-addon-ok"><i class="glyphicon glyphicon-ok"></i></span>
+						  <span ng-show="form.lastName.$dirty && form.lastName.$invalid" class="input-group-addon form-addon-no"><i class="glyphicon glyphicon-remove"></i></span>
+					  </div>
 					  <div ng-show="form.lastName.$dirty && form.lastName.$invalid" class="invalid-name">Invalid:
 						<span ng-show="form.lastName.$error.required">Tell us your last name.</span>
 					  </div>
 					  
 					  <label name="email">Email *</label><br/>
-					  <input class="form-control" type="email" name="email" ng-model="email" required/>
+					  <div class="input-group" style="width:100%; margin-bottom:10px;">
+						<input class="form-control" type="email" name="email" ng-model="email" required/>
+						<span ng-show="form.email.$dirty && form.email.$valid" class="input-group-addon form-addon-ok"><i class="glyphicon glyphicon-ok"></i></span>
+						<span ng-show="form.email.$dirty && form.email.$invalid" class="input-group-addon form-addon-no"><i class="glyphicon glyphicon-remove"></i></span>
+					  </div>
 					  <div ng-show="form.email.$dirty && form.email.$invalid" class="invalid-name">Invalid:
 						<span ng-show="form.email.$error.required">Tell us your email.</span>
 						<span ng-show="form.email.$error.email">Your email is invalid.</span>
 					  </div>
 					  
 					  <label name="contactNumber">Contact number (mobile prefered) *</label><br/>
-					  <input class="form-control" type="number" name="contactNumber" ng-model="contactNumber" required/>
-					  <div ng-show="form.contactNumber.$dirty && form.contact.$invalid" class="invalid-name">Invalid:
-						<span ng-show="form.contactNumber.$error.required">This is not a correct format.</span>
-						<span ng-show="form.contactNumber.$error.number">Not valid phone number!</span>
+					  <div class="input-group" style="width:100%; margin-bottom:10px;">
+						  <input class="form-control" type="number" name="contactNumber" ng-model="contactNumber" required/>
+						  <span ng-show="form.contactNumber.$dirty && form.contactNumber.$valid" class="input-group-addon form-addon-ok"><i class="glyphicon glyphicon-ok"></i></span>
+						  <span ng-show="form.contactNumber.$dirty && form.contactNumber.$invalid" class="input-group-addon form-addon-no"><i class="glyphicon glyphicon-remove"></i></span>
+					  </div>
+					  <div ng-show="form.contactNumber.$dirty && form.contactNumber.$invalid" class="invalid-name">Invalid:
+						<span ng-show="form.contactNumber.$error.required">Not a valid phone number</span>
+						<span ng-show="form.contactNumber.$error.number">Not a valid phone number</span>
 					  </div>
 
 					  <label name="organization">Organization (if applicable)</label><br/>
-					  <input class="form-control" type="text" name="organization" ng-model="organization"/>
-									  
+					  <div class="input-group" style="width:100%; margin-bottom:10px;">
+						  <input class="form-control" type="text" name="organization" ng-model="organization"/>
+						  <span ng-show="form.organization.$dirty && form.organization.$valid" class="input-group-addon form-addon-ok"><i class="glyphicon glyphicon-ok"></i></span>
+						  <span ng-show="form.organization.$dirty && form.organization.$invalid" class="input-group-addon form-addon-no"><i class="glyphicon glyphicon-remove"></i></span>
+					  </div>			  
+					  
 					  <label name="address1">Address line 1 *</label><br/>
-					  <input class="form-control" type="text" name="address1" ng-model="address1" required/>
+					  <div class="input-group" style="width:100%; margin-bottom:10px;">
+						<input class="form-control" type="text" name="address1" ng-model="address1" required/>
+						<span ng-show="form.address1.$dirty && form.address1.$valid" class="input-group-addon form-addon-ok"><i class="glyphicon glyphicon-ok"></i></span>
+						<span ng-show="form.address1.$dirty && form.address1.$invalid" class="input-group-addon form-addon-no"><i class="glyphicon glyphicon-remove"></i></span>
+					  </div>			  
 					  <div ng-show="form.address1.$dirty && form.address1.$invalid" class="invalid-name">Invalid:
 						<span ng-show="form.address1.$error.required">Tell us your address.</span>
 					  </div>
 					  
 					  <label name="address2">Address line 2</label><br/>
-					  <input class="form-control" type="text" name="address2" ng-model="address2"/>
+					  <div class="input-group" style="width:100%; margin-bottom:10px;">
+						<input class="form-control" type="text" name="address2" ng-model="address2"/>
+						<span ng-show="form.address2.$dirty && form.address2.$valid" class="input-group-addon form-addon-ok"><i class="glyphicon glyphicon-ok"></i></span>
+						<span ng-show="form.address2.$dirty && form.address2.$invalid" class="input-group-addon form-addon-no"><i class="glyphicon glyphicon-remove"></i></span>
+					  </div>
 					  
 					  <label name="city">City *</label><br/>
-					  <input class="form-control" type="text" name="city" ng-model="city" required/>
+					  <div class="input-group" style="width:100%; margin-bottom:10px;">
+						<input class="form-control" type="text" name="city" ng-model="city" required/>
+						<span ng-show="form.city.$dirty && form.city.$valid" class="input-group-addon form-addon-ok"><i class="glyphicon glyphicon-ok"></i></span>
+						<span ng-show="form.city.$dirty && form.city.$invalid" class="input-group-addon form-addon-no"><i class="glyphicon glyphicon-remove"></i></span>
+					  </div>
 					  <div ng-show="form.city.$dirty && form.city.$invalid" class="invalid-name">Invalid:
 						<span ng-show="form.city.$error.required">Tell us your city.</span>
 					  </div>
 					  
 					  <label name="state">State</label><br/>
-					  <input class="form-control" type="text" name="state" ng-model="state"/>
+					  <div class="input-group" style="width:100%; margin-bottom:10px;">
+						<input class="form-control" type="text" name="state" ng-model="state"/>
+						<span ng-show="form.state.$dirty && form.state.$valid" class="input-group-addon form-addon-ok"><i class="glyphicon glyphicon-ok"></i></span>
+						<span ng-show="form.state.$dirty && form.state.$invalid" class="input-group-addon form-addon-no"><i class="glyphicon glyphicon-remove"></i></span>
+					  </div>
 					  
 					  <label name="country">Country *</label><br/>
-					  <input class="form-control" type="text" name="country" ng-model="country" required/>
+					  <div class="input-group" style="width:100%; margin-bottom:10px;">
+						<input class="form-control" type="text" name="country" ng-model="country" required/>
+						<span ng-show="form.country.$dirty && form.country.$valid" class="input-group-addon form-addon-ok"><i class="glyphicon glyphicon-ok"></i></span>
+						<span ng-show="form.country.$dirty && form.country.$invalid" class="input-group-addon form-addon-no"><i class="glyphicon glyphicon-remove"></i></span>
+					  </div>
 					  <div ng-show="form.country.$dirty && form.country.$invalid" class="invalid-name">Invalid:
 						<span ng-show="form.country.$error.required">Tell us your country.</span>
 					  </div>
 					  
 					  <label name="postcode">Post code *</label><br/>
-					  <input class="form-control" type="number" name="postcode" ng-model="postcode" required/>
+					  <div class="input-group" style="width:100%; margin-bottom:10px;">
+						<input class="form-control" type="number" name="postcode" ng-model="postcode" required/>
+						<span ng-show="form.postcode.$dirty && form.postcode.$valid" class="input-group-addon form-addon-ok"><i class="glyphicon glyphicon-ok"></i></span>
+						<span ng-show="form.postcode.$dirty && form.postcode.$invalid" class="input-group-addon form-addon-no"><i class="glyphicon glyphicon-remove"></i></span>
+					  </div>
 					  <div ng-show="form.postcode.$dirty && form.postcode.$invalid" class="invalid-name">Invalid:
-						<span ng-show="form.postcode.$error.required">Tell us your post code.</span>
-						<span ng-show="form.postcode.$error.number">Not valid post number.</span>
+						<span ng-show="form.postcode.$error.required">Not a valid post code.</span>
 					  </div>
 				</div>
 				<div class="col-md-6 content-style">
@@ -338,8 +381,11 @@
 					<select class="form-control" ng-model="arrTime" name="arrTime" ng-options="a.name for a in arrTimes"></select>
 					
 					<label name="loyaltyID">Customer loyalty ID</label><br/>
-					<input class="form-control" type="text" ng-model="loyaltyID" name="loyaltyID"></input>
-					
+					<div class="input-group" style="width:100%; margin-bottom:10px;">
+						<input class="form-control" type="text" ng-model="loyaltyID" name="loyaltyID"></input>
+						<span ng-show="form.loyaltyID.$dirty && form.loyaltyID.$valid" class="input-group-addon form-addon-ok"><i class="glyphicon glyphicon-ok"></i></span>
+						<span ng-show="form.loyaltyID.$dirty && form.loyaltyID.$invalid" class="input-group-addon form-addon-no"><i class="glyphicon glyphicon-remove"></i></span>
+					</div>
 					<label name="comment">Comments</label><br/>
 					<textarea class="form-control" ng-model="comment" name="comment"></textarea>
 					
@@ -364,24 +410,35 @@
 					
 					<label name="cardType">Card type *</label><br/>
 					<select class="form-control" ng-model="cardType" name="cardType" ng-options="c.name for c in cards"></select>
-					
-					  <label name="cardNumber">Card number *</label><br/>
-					  <input class="form-control" type="text" name="cardNumber" ng-model="cardNumber" required ng-minlength="16" ng-maxlength="16"/>
-					  
-					  <div ng-show="form.cardNumber.$dirty && form.cardNumber.$invalid" class="invalid-name">
-						<span ng-show="form.cardNumber.$error.required">Tell us your card number.</span>
-					  </div>
+					<label name="cardNumber">Card number *</label><br/>
+					<div class="input-group" style="width:100%; margin-bottom:10px;">
+					  <input proxy-validity class="form-control" type="number" name="cardNumber" ng-model="cardNumber" required/>
+					  <span ng-show="form.cardNumber.$dirty && form.cardNumber.$valid" class="input-group-addon form-addon-ok"><i class="glyphicon glyphicon-ok"></i></span>
+					  <span ng-show="form.cardNumber.$dirty && form.cardNumber.$invalid" class="input-group-addon form-addon-no"><i class="glyphicon glyphicon-remove"></i></span>
+					</div>
+					<div ng-show="form.cardNumber.$dirty && form.cardNumber.$invalid" class="invalid-name">Invalid: 
+						<span ng-show="form.cardNumber.$error.required">Not a valid card number</span> 
+						</div>
 					  <div style="color:#888; font-size:11px" class="invalid-name">e.g. 1234567890123456</div>
+					  
+					  
 					  <label name="cardCCV">Card CCV *</label><br/>
+					 <div class="input-group" style="width:100%; margin-bottom:10px;">
 					  <input class="form-control" type="number" name="cardCCV" ng-model="cardCCV" required/>
-					  <div ng-show="form.cardCCV.$dirty && form.cardCCV.$invalid" class="invalid-name">Invalid: 
-						<span ng-show="form.cardCCV.$error.required">Tell us your card CCV.</span>
-						<span ng-show="form.cardCCV.$error.number">Not valid card CCV.</span>
+					  <span ng-show="form.cardCCV.$dirty && form.cardCCV.$valid" class="input-group-addon form-addon-ok"><i class="glyphicon glyphicon-ok"></i></span>
+					  <span ng-show="form.cardCCV.$dirty && form.cardCCV.$invalid" class="input-group-addon form-addon-no"><i class="glyphicon glyphicon-remove"></i></span>
+					</div>
+					<div ng-show="form.cardCCV.$dirty && form.cardCCV.$invalid" class="invalid-name">Invalid: 
+						<span ng-show="form.cardCCV.$error.required">Not a valid card CCV</span>
 					  </div>
 					  
 					  <label name="cardUser">Name *</label><br/>
+					<div class="input-group" style="width:100%; margin-bottom:10px;">
 					  <input class="form-control" type="text" name="cardUser" ng-model="cardUser" required/>
-					  <div ng-show="form.cardUser.$dirty && form.cardUser.$invalid" class="invalid-name">Invalid:
+					  <span ng-show="form.cardUser.$dirty && form.cardUser.$valid" class="input-group-addon form-addon-ok"><i class="glyphicon glyphicon-ok"></i></span>
+					  <span ng-show="form.cardUser.$dirty && form.cardUser.$invalid" class="input-group-addon form-addon-no"><i class="glyphicon glyphicon-remove"></i></span>
+					</div>
+					<div ng-show="form.cardUser.$dirty && form.cardUser.$invalid" class="invalid-name">Invalid:
 						<span ng-show="form.cardUser.$error.required">Tell us card user name.</span>
 					  </div>
 					  
