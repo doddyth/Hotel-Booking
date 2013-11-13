@@ -372,3 +372,9 @@ margin-top:10px;
 	min-width: 192px;
 	font-size: 11px;
 }
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

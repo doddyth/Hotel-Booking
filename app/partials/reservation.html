@@ -222,7 +222,7 @@
 						</tr>
 						
 						<tr>
-							<td colspan="7">Total</td>
+							<td colspan="7"><h4>Total</h4></td>
 						</tr>
 						<tr>
 							<td colspan="4"></td>
@@ -366,11 +366,12 @@
 					<select class="form-control" ng-model="cardType" name="cardType" ng-options="c.name for c in cards"></select>
 					
 					  <label name="cardNumber">Card number *</label><br/>
-					  <input class="form-control" type="text" name="cardNumber" ng-model="cardNumber" required ng-minlength="20" ng-maxlength="20"/>
+					  <input class="form-control" type="text" name="cardNumber" ng-model="cardNumber" required ng-minlength="16" ng-maxlength="16"/>
+					  
 					  <div ng-show="form.cardNumber.$dirty && form.cardNumber.$invalid" class="invalid-name">
 						<span ng-show="form.cardNumber.$error.required">Tell us your card number.</span>
 					  </div>
-					  
+					  <div style="color:#888; font-size:11px" class="invalid-name">e.g. 1234567890123456</div>
 					  <label name="cardCCV">Card CCV *</label><br/>
 					  <input class="form-control" type="number" name="cardCCV" ng-model="cardCCV" required/>
 					  <div ng-show="form.cardCCV.$dirty && form.cardCCV.$invalid" class="invalid-name">Invalid: 
