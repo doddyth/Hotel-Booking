@@ -387,17 +387,13 @@ angular.module('myApp.controllers', [])
 			return true;
 		}
 	};
-	//BookingService.addBooking($scope, 'reservationData', 'Demo-Hotel');
 	$scope.reservationData = BookingService.addBooking($scope, 'reservationData', 'Demo-Hotel');
-	//$scope.reservationData = new Firebase('https://hotelbooking2.firebaseio.com/Hotels/Demo-Hotel/booking-data');
 	$scope.newBooking = {};
 	
 	$scope.formBook = function() {
-		//var key = guid();
 		if(!$scope.receive) {
 			$scope.receive = false;
 		}
-		
 		$scope.reservationData.add({
 			roomData: $scope.roomData,
 			startDate: $scope.startDate.toString(),
@@ -418,10 +414,14 @@ angular.module('myApp.controllers', [])
 			comment: $scope.comment,
 			receive: $scope.receive,
 			hear: $scope.hear,
-			cardType: $scope.cardType,
+			cardType: $scope.cardTypes,
 			cardNumber: $scope.cardNumber,
 			cardCCV: $scope.cardCCV,
 			cardUser: $scope.cardUser
+		}, function(error){
+			if(error) {
+				$('#myModal').modal('show');
+			}
 		});
 		
 		//$scope.reservationData.add($scope.newBooking);
