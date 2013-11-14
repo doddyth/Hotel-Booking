@@ -411,8 +411,8 @@
 					<label name="cardType">Card type *</label><br/>
 					<select class="form-control" ng-model="cardType" name="cardType" ng-options="c.name for c in cards"></select>
 					<label name="cardNumber">Card number *</label><br/>
-					<div class="input-group" ng-pattern="[0-9]" style="width:100%; margin-bottom:10px;">
-					  <input id="cardNumber" class="form-control" type="number" name="cardNumber" ng-model="cardNumber" required/>
+					<div class="input-group" style="width:100%; margin-bottom:10px;">
+					  <input id="cardNumber" ng-pattern="[0-9]" class="form-control" type="number" name="cardNumber" ng-model="cardNumber" required/>
 					  <span ng-show="form.cardNumber.$dirty && form.cardNumber.$valid" class="input-group-addon form-addon-ok"><i class="glyphicon glyphicon-ok"></i></span>
 					  <span ng-show="form.cardNumber.$dirty && form.cardNumber.$invalid" class="input-group-addon form-addon-no"><i class="glyphicon glyphicon-remove"></i></span>
 					</div>
