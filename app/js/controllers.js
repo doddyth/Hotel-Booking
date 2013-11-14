@@ -201,6 +201,7 @@ angular.module('myApp.controllers', [])
   }])
   .controller('HomeCtrl', ['$scope', '$location', 'Hotel', 'Sample', 'EnquiryService', function($scope, $location, Hotel, Sample, EnquiryService){ // HOME PAGE CONTROLLER
 	$scope.rating = 4;
+	$scope.hotelImagesList = [];
 	Hotel.setHotelToScope($scope, 'hotel', 'Demo-Hotel');
 	$scope.enquiryData = EnquiryService.addEnquiry($scope, 'enquiryData', 'Demo-Hotel');
 	
@@ -221,7 +222,6 @@ angular.module('myApp.controllers', [])
 			else
 				$location.path('/reservation/' + roomId);
 		}
-
     };
 
     $scope.sendEnquiryForm = function () {
@@ -247,6 +247,26 @@ angular.module('myApp.controllers', [])
 			enquiryForm.modal('toggle');
 		}
 	}
+
+	$scope.$on('imgModalIndexUpdated', function(e, val) {
+		console.log('indexImg ' + val);
+		$scope.activeImgModalIndex = val;
+		for (var i = 0; i < $scope.hotelImagesList.length; i++) {
+			$scope.hotelImagesList[i].active = false;
+		};
+		$scope.hotelImagesList[val].active = true;
+	});
+
+	$scope.$on('hotelImagesInit', function(e, val) {
+		$scope.hotelImagesList = [];
+		
+		for (var i = 0; i < val.length; i++) {
+			$scope.hotelImagesList.push({
+				uri : val[i].uri,
+				active : false
+			});
+		}; 
+	});
   }])
   .controller('ReservationCtrl', ['$scope', '$location', '$routeParams','Hotel', 'Sample', 'BookingService', '$timeout', 'EnquiryService', function($scope, $location, $routeParams ,Hotel, Sample, BookingService, $timeout, EnquiryService){ // RESERVATION PAGE CONTROLLER
 	$scope.reservationData = [];

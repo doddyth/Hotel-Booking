@@ -529,7 +529,7 @@ angular.module('myApp.directives', []).
 		restrict: 'A',
 		template: '<div id="imageCarouselSlider">' +
 					'<div class="carousel-img-item" ng-repeat="image in val">' +
-						'<img class="img-thumbnail" src="{{image.uri}}" alt="{{image.uri}}"></img>' +
+						'<img class="img-thumbnail" src="{{image.uri}}" alt="{{image.uri}}" ng-click="showOnImgModal($index)"></img>' +
 				  	'</div>' +
 				  '</div>' +
 				  '<div class="clearfix"/>',
@@ -538,13 +538,24 @@ angular.module('myApp.directives', []).
 		},
 		link:function(scope, element){
 
+			scope.showOnImgModal = function(index) {
+				console.log(index);
+
+				scope.$emit('imgModalIndexUpdated', index);
+
+				$('#imgModal').modal({ keyboard:true });
+			}
+
 			scope.$watch('val', function(newValue, oldValue) {
 				if (newValue) {
-					console.log("VAL " + scope.val)
+					// console.log("VAL " + scope.val)
+					scope.$emit('hotelImagesInit', scope.val);
 					init();
+
+
 				}
-				else
-					console.log("OLDVAL " + scope.val)
+				// else
+					// console.log("OLDVAL " + scope.val)
 
 			}, true);
 
@@ -560,6 +571,8 @@ angular.module('myApp.directives', []).
 	                    mouseEnd: 100
 	                }]
 	            });
+
+	            scope.$emit('imgModalIndexUpdated', 0);
 			};
 		}
 	}	

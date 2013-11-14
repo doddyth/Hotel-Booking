@@ -108,8 +108,8 @@
 									{{feature.name}}
 								</li>
 							</ul>
-							<button type="button" class="btn btn-default btn-sm booking-btn" ng-click="booking(acc.id)">
-								<i class="glyphicon glyphicon-star"></i> Book
+							<button type="button" class="btn btn-primary btn-sm booking-btn" ng-click="booking(acc.id)">
+								<i class="glyphicon glyphicon-tag"></i> Book
 							</button>
 						</div>
 					</div>
@@ -161,6 +161,27 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" ng-click="sendEnquiryForm()">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="imgModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="border:none !important;">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <div class="modal-body">
+          <carousel interval="myInterval">
+		    <slide ng-repeat="image in hotelImagesList" active="image.active">
+		      <img ng-src="{{image.uri}}" style="margin:auto;">
+		      <!-- <div class="carousel-caption">
+		        <h4>Slide {{$index}}</h4>
+		        <p>{{slide.text}}</p>
+		      </div> -->
+		    </slide>
+		  </carousel>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
