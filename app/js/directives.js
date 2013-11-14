@@ -473,9 +473,8 @@ angular.module('myApp.directives', []).
 				}
 			};
 			scope.$watch('ratingValue', function(oldVal, newVal) {
-				if(newVal) {
-					updateStars();
-				}
+				console.log(scope.ratingValue);
+				updateStars();
 			});		
 		}
 	}
