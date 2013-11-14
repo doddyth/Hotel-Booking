@@ -364,6 +364,7 @@ angular.module('myApp.controllers', [])
 		$scope.dateBuyed = [];
 		$scope.occupancyAmount = [];
 		$scope.bookErrorByEnquire = false;
+		$scope.errorHide = true;
 		
 		for (var i = 0; i < 14; i++) {
   			if($scope.startDate)
@@ -384,7 +385,6 @@ angular.module('myApp.controllers', [])
 				if (price !== 'enquire') {
 					$scope.dateBuyed.push({dateString: myDateStr, date: myDate, prices: price});
 					console.log("TEEES");
-					$scope.errorHide = true;
 				}
 				else {
 					console.log('NOT ENOUGH ROOM ON ' + myDate.toString());

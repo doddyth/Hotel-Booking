@@ -527,39 +527,40 @@ angular.module('myApp.directives', []).
   .directive('imageCarousel', function ($timeout) {
 	return{
 		restrict: 'A',
-		template: '<ul id="foo">' +
-					'<li class="nbs-flexisel-item" ng-repeat="image in hotel.images">' +
-						'<img height="140px" width="140px" src="{{image.uri}}" alt="{{image.uri}}"></img>' +
-					'</li>' +
-				  '</ul>' +
+		template: '<div id="imageCarouselSlider">' +
+					'<div class="carousel-img-item" ng-repeat="image in val">' +
+						'<img class="img-thumbnail" src="{{image.uri}}" alt="{{image.uri}}"></img>' +
+				  	'</div>' +
+				  '</div>' +
 				  '<div class="clearfix"/>',
-		scope: false,
+		scope: {
+			val : '='
+		},
 		link:function(scope, element){
+
+			scope.$watch('val', function(newValue, oldValue) {
+				if (newValue) {
+					console.log("VAL " + scope.val)
+					init();
+				}
+				else
+					console.log("OLDVAL " + scope.val)
+
+			}, true);
+
 			var init = function(){
-				$('#foo').flexisel({
-				visibleItems:5,
-					animationSpeed: 500,
-					autoPlay: false,
-					autoPlaySpeed: 3000,            
-					pauseOnHover: true,
-					enableResponsiveBreakpoints: true,
-					responsiveBreakpoints: { 
-						portrait: { 
-							changePoint:480,
-							visibleItems: 1
-						}, 
-						landscape: { 
-							changePoint:640,
-							visibleItems: 2
-						},
-						tablet: { 
-							changePoint:768,
-							visibleItems: 3
-						}
-					}
-				});
+				$("#imageCarouselSlider").FlowSlider({
+					marginStart:0,
+					marginEnd:0,
+					position: 0.0,
+	                controllers: ["HoverCenter"],
+	                controllerOptions: [{
+	                    center: 100,
+	                    mouseStart: 300,
+	                    mouseEnd: 100
+	                }]
+	            });
 			};
-			$timeout(init, 0);
 		}
 	}	
   });

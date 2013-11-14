@@ -382,3 +382,16 @@ input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
+.www_FlowSlider_com-branding {
+	/*display: none !important;*/
+	margin-top: -100px !important;
+}
+
+.carousel-img-item {
+	margin: 0 5px;
+}
+
+.carousel-img-item > img {
+	height: 150px;
+}
