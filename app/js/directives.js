@@ -38,18 +38,14 @@ angular.module('myApp.directives', []).
 				var jumlah = 0;
 				scope.roomDateCharge = [];
 				scope.roomData = [];
+				var errorJumlah = 0;
 				for(var i = 0; i<scope.val.length; i++) {
 					scope.roomData.push({roomNumber: i+1, adultCount: scope.adult[i].number, childrenCount: scope.children[i].number, infantCount: scope.infant[i].number, guestName: scope.guestName[i]});
 					console.log(scope.roomData[i].adultCount + " " + scope.roomData[i].childrenCount);
 					var jumlahOrang = scope.adult[i].number + scope.children[i].number;
+					
 					if(jumlahOrang > scope.maximum){
-						scope.errorMessage = "This room allows a maximum of " + scope.maximum + " people per room.";
-						scope.errorHide = false;
-						scope.$emit('updateErrorRoom', scope.errorHide);
-					}else{
-						scope.errorHide = true;
-						scope.$emit('updateRoomData', scope.roomData);
-						scope.$emit('updateErrorRoom', scope.errorHide);
+						errorJumlah++;
 					}
 					var prices = [];
 					for(var j = 0; j < scope.buyed.length; j++) { 
@@ -69,6 +65,17 @@ angular.module('myApp.directives', []).
 					}
 					scope.roomDateCharge.push({prices: prices});
 				}
+				if(errorJumlah > 0){
+					scope.errorMessage = "This room allows a maximum of " + scope.maximum + " people per room.";
+					scope.errorHide = false;
+					scope.$emit('updateErrorRoom', scope.errorHide);
+				}
+				else { 
+					scope.errorHide = true;
+					scope.$emit('updateRoomData', scope.roomData);
+					scope.$emit('updateErrorRoom', scope.errorHide);
+				}
+				
 				$timeout(function() {
 					var child = elm.children();
 					for(var i = 0; i< child.length; i++){

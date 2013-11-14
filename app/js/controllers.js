@@ -384,7 +384,7 @@ angular.module('myApp.controllers', [])
 		$scope.dateBuyed = [];
 		$scope.occupancyAmount = [];
 		$scope.bookErrorByEnquire = false;
-		$scope.errorHide = true;
+		$scope.errorHide2 = true;
 		
 		for (var i = 0; i < 14; i++) {
   			if($scope.startDate)
@@ -409,7 +409,7 @@ angular.module('myApp.controllers', [])
 				else {
 					console.log('NOT ENOUGH ROOM ON ' + myDate.toString());
 					$scope.bookErrorByEnquire = true;
-					$scope.errorHide = false;
+					$scope.errorHide2 = false;
 					continue;
 				}
 
@@ -423,7 +423,7 @@ angular.module('myApp.controllers', [])
 
 	
 	$scope.isError = function(user) {
-		if($scope.errorHide == true){
+		if($scope.errorHide == true && $scope.errorHide2 == true){
 			return false;
 		}else{
 			return true;
