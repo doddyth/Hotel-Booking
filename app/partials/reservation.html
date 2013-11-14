@@ -22,7 +22,10 @@
 			<div class="step-desc">	Select the number of rooms and stay dates - use grid below to check availability </div>
 			<div style="clear:both"></div>
 		</div>
-
+		
+		<div class="row" style="color:white; background-color:red; font-weight:bold; padding:10px; margin-bottom:10px;" ng-class="{hidden:!bookErrorByEnquire}">
+			<i class="glyphicon glyphicon-remove"></i> Not enough room available on selected dates!
+		</div>
 		<div id="startDatePicker" 
 			 ng-controller="DatePickerCtrl"
 			 class="row"
@@ -144,9 +147,6 @@
 					</tbody>
 				</table>
 			</div>
-			<div class="row" style="color:white; background-color:red; font-weight:bold; padding:10px;" ng-class="{hidden:!bookErrorByEnquire}">
-				Not enough room available on selected dates!
-			</div>
 		</div>
 		
 		<form class="css-form" name="form" ng-submit="formBook()">
@@ -160,7 +160,7 @@
 		
 		<div class="step-content">
 			<div class="row" room-charge val="amount" buyed="dateBuyed" maximum="room.maxOccupancy" included-adult="room.includedAdult" included-children="room.includedChildren" adult-price="room.extraAdultPrice" children-price="room.extraChildrenPrice" extras="roomExtras">
-			<div class="step2error" ng-hide="errorHide"><img src="/app/img/error.png" width="40px" height="40px"></img> {{errorMessage}}</div>
+			<div class="errorBox" ng-hide="errorHide"><i class="glyphicon glyphicon-remove" ></i> {{errorMessage}}</div>
 			<table class="table price-table roomChargeTable">
 				<thead class="dateTableHead">
 					<tr>
@@ -302,7 +302,7 @@
 					  
 					  <label name="contactNumber">Contact number (mobile prefered) *</label><br/>
 					  <div class="input-group" style="width:100%; margin-bottom:10px;">
-						  <input class="form-control" type="number" name="contactNumber" ng-model="contactNumber" required/>
+						  <input class="form-control" ng-pattern="[0-9]" type="number" name="contactNumber" ng-model="contactNumber" required/>
 						  <span ng-show="form.contactNumber.$dirty && form.contactNumber.$valid" class="input-group-addon form-addon-ok"><i class="glyphicon glyphicon-ok"></i></span>
 						  <span ng-show="form.contactNumber.$dirty && form.contactNumber.$invalid" class="input-group-addon form-addon-no"><i class="glyphicon glyphicon-remove"></i></span>
 					  </div>
@@ -364,7 +364,7 @@
 					  
 					  <label name="postcode">Post code *</label><br/>
 					  <div class="input-group" style="width:100%; margin-bottom:10px;">
-						<input class="form-control" type="number" name="postcode" ng-model="postcode" required/>
+						<input class="form-control" ng-pattern="[0-9]" type="number" name="postcode" ng-model="postcode" required/>
 						<span ng-show="form.postcode.$dirty && form.postcode.$valid" class="input-group-addon form-addon-ok"><i class="glyphicon glyphicon-ok"></i></span>
 						<span ng-show="form.postcode.$dirty && form.postcode.$invalid" class="input-group-addon form-addon-no"><i class="glyphicon glyphicon-remove"></i></span>
 					  </div>
@@ -412,7 +412,7 @@
 					<select class="form-control" ng-model="cardType" name="cardType" ng-options="c.name for c in cards"></select>
 					<label name="cardNumber">Card number *</label><br/>
 					<div class="input-group" style="width:100%; margin-bottom:10px;">
-					  <input proxy-validity class="form-control" type="number" name="cardNumber" ng-model="cardNumber" required/>
+					  <input ng-pattern="[0-9]" class="form-control" type="number" name="cardNumber" ng-model="cardNumber" required/>
 					  <span ng-show="form.cardNumber.$dirty && form.cardNumber.$valid" class="input-group-addon form-addon-ok"><i class="glyphicon glyphicon-ok"></i></span>
 					  <span ng-show="form.cardNumber.$dirty && form.cardNumber.$invalid" class="input-group-addon form-addon-no"><i class="glyphicon glyphicon-remove"></i></span>
 					</div>
@@ -424,7 +424,7 @@
 					  
 					  <label name="cardCCV">Card CCV *</label><br/>
 					 <div class="input-group" style="width:100%; margin-bottom:10px;">
-					  <input class="form-control" type="number" name="cardCCV" ng-model="cardCCV" required/>
+					  <input ng-pattern="[0-9]" class="form-control" type="number" name="cardCCV" ng-model="cardCCV" required/>
 					  <span ng-show="form.cardCCV.$dirty && form.cardCCV.$valid" class="input-group-addon form-addon-ok"><i class="glyphicon glyphicon-ok"></i></span>
 					  <span ng-show="form.cardCCV.$dirty && form.cardCCV.$invalid" class="input-group-addon form-addon-no"><i class="glyphicon glyphicon-remove"></i></span>
 					</div>
